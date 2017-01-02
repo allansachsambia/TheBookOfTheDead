@@ -1,4 +1,4 @@
-# The Book of The Dead
+# The Book of the Dead
 
 v.0.0.1-beta
 
