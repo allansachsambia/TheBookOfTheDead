@@ -13,7 +13,7 @@
     "clean": "rimraf dist/bundle.js",
     "start:dev": "webpack-dev-server",
     "start:prod": "NODE_ENV=production node index.js",
-    "build": "NODE_ENV=production webpack -p --config webpack.prod.config.js"
+    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
@@ -25,13 +25,19 @@
     "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
     "postcss-loader": "^1.2.1",
     "react-addons-test-utils": "^0.14.7",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-error-notification": "^0.1.6",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack-hot-middleware": "^2.10.0",
+    "webpack-notifier": "^1.5.0"
   },
   "dependencies": {
     "axios": "^0.8.0",
@@ -51,6 +57,12 @@
     "history": "^1.13.1",
     "lodash": "4.16.1",
     "node-sass": "^3.4.2",
+    "postcss": "^5.2.8",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-import": "^9.0.0",
+    "postcss-reporter": "^3.0.0",
+    "postcss-url": "^5.1.2",
     "precss": "^1.4.0",
     "react": "^15.0.1",
     "react-codemirror": "^0.2.6",
@@ -60,6 +72,7 @@
     "redux": "^3.0.4",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.7.1",
     "url-loader": "^0.5.7"
   }
 }

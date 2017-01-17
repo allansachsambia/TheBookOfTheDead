@@ -1,13 +1,13 @@
 import { jamjar } from '../jamjar';
 import { scale } from '../globals';
-import { maps } from '../maps/maps'
+import { maps } from '../maps/maps';
 import { sublevel01Bg, sublevel01Fg } from './sublevels/sublevel01';
 import { sublevel02Bg, sublevel02Fg } from './sublevels/sublevel02';
 
 class Render {
 
   constructor(level, status) {
-    let game = jamjar.el(`div`, `game level${level.status.sublevelNumber}`);
+    let game = jamjar.el('div', `game level${level.status.sublevelNumber}`);
     this.wrap = document.body.appendChild(game);
     this.level = level;
     this.status = status;
@@ -26,7 +26,7 @@ class Render {
   clearAnimatedLayers() {
     let animatedLayers = [this.actorLayer, this.swordLayer, this.statusLayer];
     animatedLayers.forEach((animatedLayer) => {
-      if (animatedLayer) { this.wrap.removeChild(animatedLayer) }
+      if (animatedLayer) { this.wrap.removeChild(animatedLayer); }
     });
   }
 
@@ -53,10 +53,7 @@ class Render {
     let playerIndex = this.level.actors.findIndex(function(actor) {
       return actor.type === 'player';
     });
-
-
     jamjar.move(this.level.actors, playerIndex, this.level.actors.length - 1);
-
   }
 
   drawActors() {
@@ -89,13 +86,22 @@ class Render {
       style.left   = `${actor.pos.x  * scale}px`;
       style.top    = `${actor.pos.y  * scale}px`;
       if (actor.direction === 'left') { el.className += ' x-flip' }
+
       if (actions) {
         actions.forEach((action) => {
           if (actor.action[action]) {
-            style.backgroundImage = `url('${actor.images[action]}')`;
+            if (actor.type === 'player') {
+              style.backgroundPosition = `${actor.spritePos.y}px ${actor.spritePos.x}px`;
+            } else if (actor.type === 'zombie') {
+              style.backgroundPosition = `${actor.spritePos.y}px ${actor.spritePos.x}px`;
+            } else {
+              style.backgroundImage = `url('${actor.images[action]}')`;
+            }
           }
+
         });
       }
+
       if (damageFilters && actor.damaged) {
         damageFilters.forEach((damageFilter) => {
           style.WebkitFilter = damageFilter;

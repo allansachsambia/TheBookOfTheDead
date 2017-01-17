@@ -1,3 +1,8 @@
+/* Fonts
+   ====================================================================== */
+
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
 /* Helpers
    ====================================================================== */
 
@@ -11,11 +16,6 @@
   filter: FlipH;
   -ms-filter: "FlipH";
 }
-
-/* Fonts
-   ====================================================================== */
-
-@import url('https://fonts.googleapis.com/css?family=Abel');
 
 /* Body
    ====================================================================== */
@@ -109,7 +109,6 @@ body {
 /* Background & Foreground Layers
    ====================================================================== */
 
-// Level 01
 .wallpaper { background-image: url('../images/level-01/dark-sky.png'); }
 .mansion { background-color: #1d1d1d; }
 .tree-small { background-image: url('../images/level-01/tree-small.png'); }
@@ -155,6 +154,10 @@ body {
    ====================================================================== */
 
 .actor { position: absolute }
+.player {
+  background-image: url('../images/player/player-sprites.png');
+}
+.zombie { background-image: url('../images/zombie/zombie-sprites.png') }
 .coin { background-image: url('../images/items/coin.png') }
 .ladder { background-image: url('../images/items/ladder.png') }
 .pizza { background-image: url('../images/items/pizza.png') }
@@ -163,8 +166,17 @@ body {
 /* Swords Layer
    ====================================================================== */
 
-.sword.right { background-image: url('../images/player/sword-right.png'); }
-.sword.left { background-image: url('../images/player/sword-left.png'); }
+.sword {
+  background-image: url('../images/items/sword.png');
+}
+.sword.left {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
 
 /* Status Layer
    ====================================================================== */

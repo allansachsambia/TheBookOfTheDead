@@ -5,9 +5,7 @@ import Door from './actors/items/door';
 import Pizza from './actors/items/pizza';
 import Ladder from './actors/items/ladder';
 import Spider from './actors/enemies/spider';
-import Ghost from './actors/enemies/ghost';
 import Zombie from './actors/enemies/zombie';
-import Skeleton from './actors/enemies/skeleton';
 
 import { jamjar } from './jamjar';
 
@@ -31,9 +29,7 @@ export let actorChars = {
   'p': Pizza,
   '*': Spider,
   '#': Spider,
-  '$': Ghost,
-  '%': Zombie,
-  'S': Skeleton
+  '%': Zombie
 };
 
 export let obstacleChars = {

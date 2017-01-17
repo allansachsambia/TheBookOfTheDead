@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb",
+  "globals": {
+    "window": true,
+    "document": true,
+    "$": true
+  },
+  "rules": {
+    "no-unused-vars": 0,
+    "no-unresolved": 0,
+    "react/forbid-prop-types": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+  }
+}

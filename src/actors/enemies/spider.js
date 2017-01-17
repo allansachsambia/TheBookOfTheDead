@@ -16,11 +16,11 @@ class Spider {
       left: this.pos.x,
       right: this.pos.x + this.size.x,
       top: this.pos.y,
-      bottom: this.pos.y + this.size.y
+      bottom: this.pos.y + this.size.y,
     };
   }
   act(step, sublevel) {
-    let newPos = this.pos.plus(this.speed.times(step));
+    const newPos = this.pos.plus(this.speed.times(step));
     if (!sublevel.obstacleAt(newPos, this.size)) {
       this.pos = newPos;
     } else if (this.repeatPos) {

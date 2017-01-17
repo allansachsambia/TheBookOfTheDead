@@ -5,15 +5,15 @@ import { jamjar } from './jamjar';
  * Intro Screen
  */
 
-export let displayIntroScreen = () => {
-  let body = document.body;
-  let introScreenWrap = jamjar.el('div', 'intro-screen-wrap');
-  let introScreen = jamjar.el('div', 'intro-screen');
-  let pressEnter = jamjar.el('div', 'press-enter');
+export const displayIntroScreen = () => {
+  const body = document.body;
+  const introScreenWrap = jamjar.el('div', 'intro-screen-wrap');
+  const introScreen = jamjar.el('div', 'intro-screen');
+  const pressEnter = jamjar.el('div', 'press-enter');
   body.appendChild(introScreenWrap).appendChild(introScreen);
   body.appendChild(introScreenWrap).appendChild(pressEnter);
-  setInterval(function(){
-    switch(pressEnter.style.opacity) {
+  setInterval(() => {
+    switch (pressEnter.style.opacity) {
       case '':
         pressEnter.style.opacity = '0';
         break;
@@ -22,6 +22,8 @@ export let displayIntroScreen = () => {
         break;
       case '1':
         pressEnter.style.opacity = '0';
+        break;
+      default:
     }
   }, 600);
   jamjar.play('intro-music', 'loop');

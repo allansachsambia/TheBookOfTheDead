@@ -22,8 +22,8 @@ class Player {
     this.timers = {
       running: 0,
       climbing: 0,
-      crawling: 0
-    }
+      crawling: 0,
+    };
     this.action = {
       standing: null,
       running: null,
@@ -31,26 +31,50 @@ class Player {
       squatting: null,
       crawling: null,
       climbing: null,
-    }
+    };
     this.climbSpeed = 0.4;
     this.underLadder = false;
     this.audioLoaded = false;
-    this.images = {
-      standing:  'images/player/standing-01.png',
-      running:   'images/player/running-01.png',
-      squatting: 'images/player/squatting-01.png',
-      crawling:  'images/player/crawling-01.png',
-      climbing:  'images/player/climbing-01.png'
-    }
+    this.spritePos = { x: 0, y: 0 };
+    this.spritePositions = {
+      standing: [
+        { x: 0, y: 0 },
+      ],
+      squatting: [
+        { x: -175, y: -300 },
+      ],
+      running: [
+        { x: 0, y: 0 },
+        { x: 0, y: -75 },
+        { x: 0, y: -150 },
+        { x: 0, y: -225 },
+        { x: 0, y: -300 },
+        { x: 0, y: -375 },
+      ],
+      climbing: [
+        { x: -133, y: 0 },
+        { x: -133, y: -75 },
+        { x: -133, y: -150 },
+        { x: -133, y: -225 },
+      ],
+      crawling: [
+        { x: -270, y: 0 },
+        { x: -340, y: 0 },
+        { x: -408, y: 0 },
+        { x: -480, y: 0 },
+        { x: -545, y: 0 },
+      ],
+    };
+    this.spriteId = "player-01";
     this.coords = {
       left: this.pos.x,
       right: this.pos.x + this.size.x,
       top: this.pos.y,
-      bottom: this.pos.y + this.size.y
+      bottom: this.pos.y + this.size.y,
     };
   }
 
-  act(step, sublevel){
+  act(step, sublevel) {
     this.moveX(step, sublevel);
     this.moveY(step, sublevel);
     this.moveSwords(step, sublevel);
@@ -58,24 +82,62 @@ class Player {
       left: this.pos.x,
       right: this.pos.x + this.size.x,
       top: this.pos.y,
-      bottom: this.pos.y + this.size.y
+      bottom: this.pos.y + this.size.y,
     };
   }
 
-  imageSwap(images) {
+  imageSwap({ bounds, type }) {
     let counter = 0;
     let addZero = false;
-    images.bounds.forEach((image) => {
+    bounds.forEach((image) => {
       counter += 1;
       if (counter.toString().length === 1) { addZero = true; }
-      if ((this.timers[images.type] >= image.lowerBound)
-          && (this.timers[images.type] <= image.upperBound)) {
-        if (addZero) {
-          this.images[images.type] =
-            'images/player/' + images.type + '-0' + counter + '.png';
-        } else if (!addZero) {
-          this.images[images.type] =
-            'images/player/' + images.type + '-' + counter + '.png';
+      if ((this.timers[type] >= image.lowerBound) &&
+         (this.timers[type] <= image.upperBound)) {
+        // -------------------------------------------------------
+
+        // Temp shim for running
+        if (type === 'running') {
+          if (counter === 1) {
+            this.spritePos = this.spritePositions.running[0];
+          }
+          if (counter === 2) {
+            this.spritePos = this.spritePositions.running[1];
+          }
+          if (counter === 3) {
+            this.spritePos = this.spritePositions.running[2];
+          }
+          if (counter === 4) {
+            this.spritePos = this.spritePositions.running[3];
+          }
+          if (counter === 5) {
+            this.spritePos = this.spritePositions.running[4];
+          }
+          if (counter === 6) {
+            this.spritePos = this.spritePositions.running[5];
+          }
+        }
+
+        // Temp shim for climbing
+        if (type === 'climbing') {
+          if (counter === 1) { this.spritePos = this.spritePositions.climbing[0]; }
+          if (counter === 2) { this.spritePos = this.spritePositions.climbing[1]; }
+          if (counter === 3) { this.spritePos = this.spritePositions.climbing[2]; }
+          if (counter === 4) { this.spritePos = this.spritePositions.climbing[3]; }
+        }
+
+        // Temp shim for squatting
+        if (type === 'squatting') {
+          if (counter === 1) { this.spritePos = this.spritePositions.squatting[0]; }
+        }
+
+        // Temp shim for crawling
+        if (type === 'crawling') {
+          if (counter === 1) { this.spritePos = this.spritePositions.crawling[0]; }
+          if (counter === 2) { this.spritePos = this.spritePositions.crawling[1]; }
+          if (counter === 3) { this.spritePos = this.spritePositions.crawling[2]; }
+          if (counter === 4) { this.spritePos = this.spritePositions.crawling[3]; }
+          if (counter === 5) { this.spritePos = this.spritePositions.crawling[4]; }
         }
       }
     }, this);
@@ -107,32 +169,32 @@ class Player {
   }
 
   handleObstacle(step, sublevel) {
-    let newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
-    let obstacle = sublevel.obstacleAt(newPos, this.size, 'x');
+    const newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
+    const obstacle = sublevel.obstacleAt(newPos, this.size, 'x');
     if (obstacle) {
-      sublevel.playerTouched(obstacle)
+      sublevel.playerTouched(obstacle);
       this.hillEffects(step, sublevel, obstacle);
       if (obstacle.type === 'ladder' || obstacle.type === 'door') {
-        this.pos = newPos
+        this.pos = newPos;
       }
     } else { this.pos = newPos; }
   }
 
   handleActor(sublevel) {
-    let actorAt = sublevel.actorAt(this);
+    const actorAt = sublevel.actorAt(this);
     if (actorAt) { sublevel.playerTouched(actorAt); }
   }
 
   stand() {
-    let moving = (this.speed.x !== 0);
-    let notMoving = (this.speed.x === 0);
+    const moving = (this.speed.x !== 0);
+    const notMoving = (this.speed.x === 0);
     if (notMoving) {
       this.action.running = false;
       this.action.standing = true;
     }
     if (notMoving) {
       this.timers.running = 0;
-      this.images.standing = 'images/player/standing-01.png';
+      this.spritePos = this.spritePositions.standing[0];
     }
   }
 
@@ -140,8 +202,8 @@ class Player {
     let moving = (this.speed.x !== 0);
     let notMoving = (this.speed.x === 0);
     if (moving) {
-      this.action.running = true
-      this.action.standing = false
+      this.action.running = true;
+      this.action.standing = false;
     }
     moving = (this.speed.x !== 0);
     notMoving = (this.speed.x === 0);
@@ -153,12 +215,13 @@ class Player {
       this.imageSwap({
         type: 'running',
         bounds: [
-          {lowerBound: 0, upperBound: 3},
-          {lowerBound: 4, upperBound: 7},
-          {lowerBound: 8, upperBound: 11},
-          {lowerBound: 12, upperBound: 15},
-          {lowerBound: 16, upperBound: 19}
-        ]
+          { lowerBound: 0, upperBound: 3 },
+          { lowerBound: 4, upperBound: 7 },
+          { lowerBound: 8, upperBound: 11 },
+          { lowerBound: 12, upperBound: 15 },
+          { lowerBound: 16, upperBound: 19 },
+          { lowerBound: 20, upperBound: 23 },
+        ],
       });
     }
   }
@@ -176,12 +239,12 @@ class Player {
           this.imageSwap({
             type: 'crawling',
             bounds: [
-              {lowerBound: 0, upperBound: 7},
-              {lowerBound: 8, upperBound: 15},
-              {lowerBound: 16, upperBound: 23},
-              {lowerBound: 24, upperBound: 35},
-              {lowerBound: 32, upperBound: 39}
-            ]
+              { lowerBound: 0, upperBound: 7 },
+              { lowerBound: 8, upperBound: 15 },
+              { lowerBound: 16, upperBound: 23 },
+              { lowerBound: 24, upperBound: 35 },
+              { lowerBound: 32, upperBound: 39 },
+            ],
           });
         }
       }
@@ -197,7 +260,7 @@ class Player {
   }
 
   hillEffects(step, sublevel, obstacle) {
-    let firstLevel = sublevel.sublevelNumber === 0;
+    const firstLevel = sublevel.sublevelNumber === 0;
     if (firstLevel) {
       if (obstacle.pos) {
         if (obstacle.pos.x === 59 && obstacle.pos.y === 55 && this.direction === 'left') {
@@ -212,9 +275,9 @@ class Player {
 
   moveY(step, sublevel) {
     this.speed.y += step * settings.gravity;
-    let motion = new Vector(0, this.speed.y * step);
-    let newPos = this.pos.plus(motion);
-    let obstacle = sublevel.obstacleAt(newPos, this.size, 'y');
+    const motion = new Vector(0, this.speed.y * step);
+    const newPos = this.pos.plus(motion);
+    const obstacle = sublevel.obstacleAt(newPos, this.size, 'y');
     this.gravity(sublevel, obstacle, newPos);
     this.jump(step, sublevel, obstacle, motion);
     this.squat();
@@ -223,8 +286,8 @@ class Player {
   }
 
   gravity(sublevel, obstacle, newPos) {
-    let actorAt = sublevel.actorAt(this);
-    let oldPos = this.pos;
+    const actorAt = sublevel.actorAt(this);
+    const oldPos = this.pos;
     if (!obstacle) { this.pos = newPos; }
     if (actorAt && actorAt.type === 'ladder') {
       this.handleLadderGravity(actorAt, oldPos);
@@ -235,7 +298,7 @@ class Player {
   }
 
   jump(step, sublevel, obstacle, motion) {
-    let actorAt = sublevel.actorAt(this);
+    const actorAt = sublevel.actorAt(this);
     if (obstacle) {
       if (keys.up && this.speed.y > 0) {
         this.speed.y = -settings.jumpSpeed;
@@ -258,26 +321,30 @@ class Player {
           this.pos.y = this.pos.y + 1.5;
           this.action.squatting = true;
         }
+        if (!this.action.crawling) {
+          this.spritePos = this.spritePositions.squatting[0];
+        }
       } else {
         if (this.action.squatting) {
           this.size = new Vector(2.5, 4.5);
           this.pos.y = this.pos.y - 1.5;
           this.action.squatting = false;
+          this.spritePos = this.spritePositions.standing[0];
         }
       }
     }
   }
 
   handleLadderGravity(ladder, oldPos) {
-    let preventGravity = () => { this.pos = oldPos; }
-    let inLadder = this.coords.top > ladder.coords.top - 4.5;
-    let inLadderTop = this.coords.bottom < ladder.coords.top + 5;
-    if (inLadder && this.action.climbing || inLadderTop) { preventGravity(); }
+    const preventGravity = () => { this.pos = oldPos; };
+    const inLadder = this.coords.top > ladder.coords.top - 4.5;
+    const inLadderTop = this.coords.bottom < ladder.coords.top + 5;
+    if ((inLadder && this.action.climbing) || (inLadderTop)) { preventGravity(); }
   }
 
   centerPlayerOnLadder(ladder) {
-    let left = (this.pos.x < ladder.coords.left - 0.33);
-    let right = (this.pos.x > ladder.coords.left - 0.33);
+    const left = (this.pos.x < ladder.coords.left - 0.33);
+    const right = (this.pos.x > ladder.coords.left - 0.33);
     if (left || right) {
       if (keys.up || keys.down) {
         this.pos.x = ladder.coords.left - 0.3;
@@ -287,10 +354,10 @@ class Player {
 
   setupClimb(ladder) {
     if (!this.action.climbing) {
-      let pressingUpArrow = this.keys && this.keys.up;
-      let inLadderBottom = this.coords.bottom > ladder.coords.bottom - 6;
-      let inLadderTop = this.coords.top < ladder.coords.top + 6;
-      if (pressingUpArrow || !(inLadderBottom) ) {
+      const pressingUpArrow = this.keys && this.keys.up;
+      const inLadderBottom = this.coords.bottom > ladder.coords.bottom - 6;
+      const inLadderTop = this.coords.top < ladder.coords.top + 6;
+      if (pressingUpArrow || !(inLadderBottom)) {
         this.action.climbing = true;
       }
     }
@@ -300,7 +367,7 @@ class Player {
   }
 
   moveUpAndDownLadder(ladder) {
-    let topOfLadder = (this.coords.top < ladder.coords.top);
+    const topOfLadder = (this.coords.top < ladder.coords.top);
     if ((keys.up) && (!topOfLadder)) {
       this.pos = this.pos.plus(new Vector(0, -this.climbSpeed));
     }
@@ -354,7 +421,7 @@ class Player {
   }
 
   ungluePlayer(ladder) {
-    let atBottomOfLadder = this.coords.bottom > (ladder.coords.bottom - 5);
+    const atBottomOfLadder = this.coords.bottom > (ladder.coords.bottom - 5);
     if (atBottomOfLadder) {
       if (this.coords.bottom > ladder.coords.bottom + 0.9) {
         this.pos.y = ladder.coords.bottom - this.size.y + 0.5;
@@ -363,10 +430,10 @@ class Player {
   }
 
   climbLadder(step, sublevel, obstacle, newPos) {
-    let actorAt = sublevel.actorAt(this);
+    const actorAt = sublevel.actorAt(this);
     if (actorAt && actorAt.type === 'ladder') {
-      let ladder = actorAt;
-      let playerIsOnLadder = (
+      const ladder = actorAt;
+      const playerIsOnLadder = (
         (this.coords.top) < (ladder.coords.bottom - this.size.y)
       );
       if (playerIsOnLadder) { this.handleLadderUse(ladder); }
@@ -417,7 +484,7 @@ class Player {
       }
     }
     if (!keys.spacebar) { this.swordLoaded = true; }
-    sublevel.player.swords.forEach(swordCheck => {
+    sublevel.player.swords.forEach((swordCheck) => {
       const obstacle = sublevel.obstacleAt(swordCheck.pos, swordCheck.size);
       if (obstacle) {
         if (obstacle.type === 'wall') { this.removeSword(sublevel, swordCheck); }
@@ -426,12 +493,12 @@ class Player {
       const xPlayer = sublevel.player.pos.x;
       const movedFarAway = (
         (xSword > xPlayer + 200) || (xSword < xPlayer - 200)
-      )
+      );
       if (movedFarAway) { this.removeSword(sublevel, swordCheck); }
     });
-    this.swords.forEach(sword => {
+    this.swords.forEach((sword) => {
       sword.act(step, sublevel, keys);
-    })
+    });
   }
 }
 export default Player
