@@ -2,16 +2,17 @@ import _ from 'lodash';
 
 export let jamjar = {
 
-  // Creates elements with a className if specified.
-  el(name, className) {
-    let element = document.createElement(name);
-    if (className) {element.className = className }
+  // Creates elements.
+  el(name, className, id) {
+    const element = document.createElement(name);
+    if (className) { element.className = className; }
+    if (id) { element.id = id; }
     return element;
   },
 
   // Reorders an array.
   move(arr, remove, add) {
-    let cut = arr.splice(remove, 1);
+    const cut = arr.splice(remove, 1);
     arr.splice(add, 0, cut[0]);
     return arr;
   },
@@ -23,17 +24,17 @@ export let jamjar = {
 
   // Loads audio and sets it to loop if specified.
   play(name, loop) {
-    let el = document.querySelector(`.${name}`);
+    const el = document.querySelector(`.${name}`);
     el.autoplay = true;
-    el.loop = (loop) ? true : false;
+    el.loop = loop;
     el.load();
     return el;
   },
 
   // Pauses audio
   pause(name) {
-    let el = document.querySelector(`.${name}`);
+    const el = document.querySelector(`.${name}`);
     el.pause();
-  }
+  },
 
-}
+};

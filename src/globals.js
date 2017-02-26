@@ -9,35 +9,35 @@ import Zombie from './actors/enemies/zombie';
 
 import { jamjar } from './jamjar';
 
-export let settings = {
+export const settings = {
   maxStep: 0.05,
   wobbleSpeed: 10,
   wobbleDist: 0.05,
   speed: 20,
   gravity: 100,
-  jumpSpeed: 45
+  jumpSpeed: 45,
 };
 
-export let scale = 30;
+export const scale = 30;
 
-export let actorChars = {
+export const actorChars = {
   '@': Player,
-  'o': Coin,
-  'F': Flag,
-  'L': Ladder,
+  o: Coin,
+  F: Flag,
+  L: Ladder,
   '^': Door,
-  'p': Pizza,
+  p: Pizza,
   '*': Spider,
   '#': Spider,
-  '%': Zombie
+  '%': Zombie,
 };
 
-export let obstacleChars = {
-  'x': 'wall',
+export const obstacleChars = {
+  x: 'wall',
   '~': 'water',
-  'i': 'web',
+  i: 'web',
   '&': 'pseudo-wall',
   '!': 'lava',
   '/': 'grass',
-  'w': 'wood'
-}
+  w: 'wood',
+};

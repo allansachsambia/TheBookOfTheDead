@@ -5,16 +5,16 @@ import { maps } from './maps/maps';
 import { displayWinScreen, displayLoseScreen } from './screens';
 import { backgroundMusic, killBackgroundMusic } from './audio';
 
-let status = new Status();
+const status = new Status();
 
-let resetStatus = () => {
-  status.sublevelNumber = status.sublevelNumber + 1;
+const resetStatus = () => {
+  status.sublevelNumber += 1;
   status.condition = null;
   status.time = 10000;
   status.lifeMeter = 10;
-}
+};
 
-let totalStatusReset = () => {
+const totalStatusReset = () => {
   status.lifeMeter = 10;
   status.name = 'Wanda'.toUpperCase();
   status.score = 0;
@@ -22,28 +22,26 @@ let totalStatusReset = () => {
   status.levelNumber = 0;
   status.time = 10000;
   status.condition = null;
-}
+};
 
-export let animate = (sublevelNumber = 0) => {
-  let sublevel = new Sublevel(maps[sublevelNumber], sublevelNumber, status);
-
-  /*
-      This plays the background music by
-
-  */
+export const animate = (sublevelNumber = 0) => {
+  const sublevel = new Sublevel(maps[sublevelNumber], sublevelNumber, status);
   backgroundMusic(sublevelNumber);
-  let render = new Render(sublevel, status);
+  const render = new Render(sublevel, status);
   let prevTimeStamp = null;
-  let forever = (timeStamp) => {
+  const forever = (timeStamp) => {
     let stop = false;
     if (prevTimeStamp) {
       let delta;
-      if (document.hasFocus()) { delta = Math.min(timeStamp - prevTimeStamp, 100); }
-      else { delta = 16; }
-      window.onfocus = () => { delta = 16 };
-      window.onload = () => { delta = 16 };
-      window.onblur = () => { delta = 16 };
-      let step = delta / 1000;
+      if (document.hasFocus()) {
+        delta = Math.min(timeStamp - prevTimeStamp, 100);
+      } else {
+        delta = 16;
+      }
+      window.onfocus = () => { delta = 16; };
+      window.onload = () => { delta = 16; };
+      window.onblur = () => { delta = 16; };
+      const step = delta / 1000;
       sublevel.animate(step);
       render.drawAnimatedLayers();
       if (sublevel.isFinished()) {
@@ -66,7 +64,7 @@ export let animate = (sublevelNumber = 0) => {
       }
     }
     prevTimeStamp = timeStamp;
-    if (!stop) { requestAnimationFrame(forever); }
-  }
-  requestAnimationFrame(forever);
-}
+    if (!stop) { window.requestAnimationFrame(forever); }
+  };
+  window.requestAnimationFrame(forever);
+};
