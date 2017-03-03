@@ -1,30 +1,30 @@
 class Unstick {
-  constructor(x,y) {
+  constructor(x, y) {
     this.stuckCheck = {
       check01: null,
       check02: null,
       check03: null,
       check04: null,
       check05: null,
-      check06: null
-    }
+      check06: null,
+    };
     this.stuck = null;
     this.stuckDirection = null;
   }
 
-  x(actor, xAxisObstacle, actorsLeftPos){
+  static x(actor, xAxisObstacle, actorsLeftPos) {
     function fillSixPositions() {
-      if (actor.unstick.stuckCheck.check01 === null){
+      if (actor.unstick.stuckCheck.check01 === null) {
         actor.unstick.stuckCheck.check01 = actor.pos.x;
-      } else if (actor.unstick.stuckCheck.check02 === null){
+      } else if (actor.unstick.stuckCheck.check02 === null) {
           actor.unstick.stuckCheck.check02 = actor.pos.x;
-      } else if (actor.unstick.stuckCheck.check03 === null){
+      } else if (actor.unstick.stuckCheck.check03 === null) {
         actor.unstick.stuckCheck.check03 = actor.pos.x;
-      } else if (actor.unstick.stuckCheck.check04 === null){
+      } else if (actor.unstick.stuckCheck.check04 === null) {
         actor.unstick.stuckCheck.check04 = actor.pos.x;
-      } else if (actor.unstick.stuckCheck.check05 === null){
+      } else if (actor.unstick.stuckCheck.check05 === null) {
         actor.unstick.stuckCheck.check05 = actor.pos.x;
-      } else if (actor.unstick.stuckCheck.check06 === null){
+      } else if (actor.unstick.stuckCheck.check06 === null) {
         actor.unstick.stuckCheck.check06 = actor.pos.x;
       }
     }

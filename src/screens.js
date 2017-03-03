@@ -1,14 +1,15 @@
 import { animate } from './animate';
-import { jamjar } from './jamjar';
+import audio from './audio';
+import helpers from './helpers';
 
 /*
  * Intro Screen
  */
 
 export const displayIntroScreen = () => {
-  const introScreenWrap = jamjar.el('div', 'intro-screen-wrap');
-  const introScreen = jamjar.el('div', 'intro-screen');
-  const pressEnter = jamjar.el('div', 'press-enter');
+  const introScreenWrap = helpers.el('div', 'intro-screen-wrap');
+  const introScreen = helpers.el('div', 'intro-screen');
+  const pressEnter = helpers.el('div', 'press-enter');
   document.body.appendChild(introScreenWrap).appendChild(introScreen);
   document.body.appendChild(introScreenWrap).appendChild(pressEnter);
   setInterval(() => {
@@ -20,13 +21,13 @@ export const displayIntroScreen = () => {
         pressEnter.style.opacity = '0';
     }
   }, 600);
-  jamjar.play('intro-music', 'loop');
+  audio.playIntroMusic();
 };
 
 export const clearIntroScreen = () => {
   const introScreenWrap = document.querySelector('.intro-screen-wrap');
   document.body.removeChild(introScreenWrap);
-  jamjar.pause('intro-music');
+  audio.pauseIntroMusic();
 };
 
 export const waitToStart = () => {
@@ -65,11 +66,11 @@ export const restartOnLose = () => {
 
 export const displayLoseScreen = () => {
   const body = document.body;
-  const loseScreenWrap = jamjar.el('div', 'lose-screen-wrap');
-  const loseScreen = jamjar.el('div', 'lose-screen');
+  const loseScreenWrap = helpers.el('div', 'lose-screen-wrap');
+  const loseScreen = helpers.el('div', 'lose-screen');
   body.appendChild(loseScreenWrap);
   loseScreenWrap.appendChild(loseScreen);
-  jamjar.play('lost');
+  helpers.play('lost');
   restartOnLose();
 };
 
@@ -97,9 +98,9 @@ export const restartOnWin = () => {
 
 export const displayWinScreen = () => {
   const body = document.body;
-  const winScreenWrap = jamjar.el('div', 'win-screen-wrap');
-  const winScreen = jamjar.el('div', 'win-screen');
-  const pressEnter = jamjar.el('div', 'press-enter');
+  const winScreenWrap = helpers.el('div', 'win-screen-wrap');
+  const winScreen = helpers.el('div', 'win-screen');
+  const pressEnter = helpers.el('div', 'press-enter');
   body.appendChild(winScreenWrap).appendChild(winScreen);
   body.appendChild(winScreenWrap).appendChild(pressEnter);
   restartOnWin();

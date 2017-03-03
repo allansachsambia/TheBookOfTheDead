@@ -1,14 +1,14 @@
 import Sublevel from './sublevel';
 import Status from './status';
-import Render from './render/render';
-import { maps } from './maps/maps';
+import Render from './render';
+import maps from './maps';
 import { displayWinScreen, displayLoseScreen } from './screens';
-import { backgroundMusic, killBackgroundMusic } from './audio';
+import audio from './audio';
 
 const status = new Status();
 
 const resetStatus = () => {
-  status.sublevelNumber += 1;
+  status.mapNumber += 1;
   status.condition = null;
   status.time = 10000;
   status.lifeMeter = 10;
@@ -18,15 +18,15 @@ const totalStatusReset = () => {
   status.lifeMeter = 10;
   status.name = 'Wanda'.toUpperCase();
   status.score = 0;
-  status.sublevelNumber = 0;
+  status.mapNumber = 0;
   status.levelNumber = 0;
   status.time = 10000;
   status.condition = null;
 };
 
-export const animate = (sublevelNumber = 0) => {
-  const sublevel = new Sublevel(maps[sublevelNumber], sublevelNumber, status);
-  backgroundMusic(sublevelNumber);
+export const animate = (mapNumber = 0) => {
+  const sublevel = new Sublevel(maps[mapNumber], mapNumber, status);
+  audio.playMusic(mapNumber);
   const render = new Render(sublevel, status);
   let prevTimeStamp = null;
   const forever = (timeStamp) => {
@@ -47,14 +47,14 @@ export const animate = (sublevelNumber = 0) => {
       if (sublevel.isFinished()) {
         render.clearGame();
         if (sublevel.status.condition === 'lost') {
-          killBackgroundMusic(sublevelNumber);
+          audio.pauseMusic(mapNumber);
           totalStatusReset();
           displayLoseScreen();
-        } else if (sublevelNumber < maps.length - 1) {
+        } else if (mapNumber < maps.length - 1) {
           resetStatus();
-          animate(sublevelNumber + 1);
+          animate(mapNumber + 1);
         } else if (sublevel.status.condition === 'won') {
-          killBackgroundMusic(sublevelNumber);
+          audio.pauseMusic(mapNumber);
           totalStatusReset();
           displayWinScreen();
         }

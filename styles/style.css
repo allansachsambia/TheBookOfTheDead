@@ -1,0 +1,341 @@
+/* Fonts
+   ====================================================================== */
+
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
+/* Helpers
+   ====================================================================== */
+
+/*.debug * { border: 1px solid #333 }*/
+
+.x-flip {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+/* Body
+   ====================================================================== */
+
+body {
+  background: black;
+  margin: 0
+}
+
+/* Intro Screen
+   ====================================================================== */
+
+.intro-screen-wrap {
+  width: 100%;
+  height: 700px;
+  position: absolute;
+  top: 50%;
+  margin-top: -350px;
+}
+
+.intro-screen {
+  width: 1000px;
+  height: 662px;
+  left: 50%;
+  background-image: url("./../assets/screens/intro-screen.png");
+  margin-left: -500px;
+  position: absolute;
+}
+
+.intro-screen-wrap > .press-enter {
+  width: 1000px;
+  height: 38px;
+  left: 50%;
+  top: 662px;
+  background-image: url("./../assets/screens/press-enter.png");
+  margin-left: -500px;
+  position: absolute;
+}
+
+/* Win Screen
+   ====================================================================== */
+
+.win-screen-wrap {
+  width: 100%;
+  height: 700px;
+  position: absolute;
+  top: 50%;
+  margin-top: -350px;
+}
+
+.win-screen {
+  width: 883px;
+  height: 662px;
+  left: 50%;
+  background-image: url("./../assets/screens/win-screen.png");
+  margin-left: -441px;
+  position: absolute;
+}
+
+/* Lose Screen
+   ====================================================================== */
+
+.lose-screen-wrap{
+  width: 100%;
+  height: 700px;
+  position: absolute;
+  top: 50%;
+  margin-top: -350px;
+}
+
+.lose-screen {
+  width: 1000px;
+  height: 700px;
+  left: 50%;
+  background-image: url('./../assets/screens/lose-screen.png');
+  margin-left: -441px;
+  position: absolute;
+}
+
+
+/* Game
+   ====================================================================== */
+
+.game {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* Background & Foreground Layers
+   ====================================================================== */
+
+.wallpaper { background-image: url('./../assets/level-01/dark-sky.png'); }
+.mansion { background-color: #1d1d1d; }
+.tree-small { background-image: url('./../assets/level-01/tree-small.png'); }
+.tree { background-image: url('./../assets/level-01/tree.png'); }
+.tree-large { background-image: url('./../assets/level-01/tree-large.png'); }
+.tombstone { background-image: url('./../assets/level-01/tombstone.png'); }
+.tombstone-cross { background-image: url('./../assets/level-01/tombstone-cross.png'); }
+.soil { background-color: black; }
+.cliff { background-image: url('./../assets/level-01/cliff.png'); }
+.black-grass { background-image: url('./../assets/level-01/black-grass.png'); }
+.house { background-image: url('./../assets/level-01/house.png'); }
+.house-window { background-image: url('./../assets/level-01/house-window.png'); }
+.mansion-window { background-image: url('./../assets/level-01/mansion-window.png'); }
+.mansion-door-open { background-image: url('./../assets/level-01/mansion-door-open.png'); }
+.spider-web { background-image: url('./../assets/level-01/spider-web.png'); }
+.spider-thread { background-color: dimgrey; }
+.water-top { background-image: url('./../assets/level-01/water-top.png'); }
+.fence-01 { background-image: url('./../assets/level-01/fence-01.png'); }
+.fence-02 { background-image: url('./../assets/level-01/fence-02.png'); }
+.wallpaper-accent { background-image: url('./../assets/level-01/wallpaper-accent.png'); }
+.inner-mansion-window { background-image: url('./../assets/level-01/inner-mansion-window.png'); }
+.phoney-ladder { background-image: url('./../assets/items/ladder.png'); }
+.phoney-wall { background-color: #2d2d2d; }
+
+/* Obstacles Layer
+   ====================================================================== */
+
+.background td {
+  padding: 0;
+  margin: 0;
+  width: 20px;
+}
+
+.lava  { background: red  }
+.water  { background-color: black }
+.web { background-image: url('./../assets/level-01/spider-web.png') }
+.level0 .wall  { background-color: black }
+.level1 .wall, .wood  { background-color: #2d2d2d }
+.grass  { background-color: black }
+.pseudo-wall  { background-color: black }
+
+/* Actors Layer: Player
+   ====================================================================== */
+
+.actor { position: absolute }
+.player { background-image: url('./../assets/player/player-sprites.svg'); }
+.player-standing-01 { background-position: 0px 0px; }
+.player-squatting-01 { background-position: -300px -175px; }
+.player-running-01 { background-position: 0px 0px; }
+.player-running-02 { background-position: -75px 0px; }
+.player-running-03 { background-position: -150px 0px; }
+.player-running-04 { background-position: -225px 0px; }
+.player-running-05 { background-position: -300px 0px; }
+.player-running-06 { background-position: -375px 0px; }
+.player-climbing-01 { background-position: 0px -133px; }
+.player-climbing-02 { background-position: -75px -133px; }
+.player-climbing-03 { background-position: -150px -133px; }
+.player-climbing-04 { background-position: -225px -133px; }
+.player-crawling-01 { background-position: 0px -280px; }
+.player-crawling-02 { background-position: 0px -370px; }
+.player-crawling-03 { background-position: 0px -460px; }
+.player-crawling-04 { background-position: 0px -550px; }
+.player-crawling-05 { background-position: 0px -550px; }
+
+/* Actors Layer: Enemies
+   ====================================================================== */
+
+.zombie { background-image: url('./../assets/zombie/zombie-sprites.png'); }
+.ladder { background-image: url('./../assets/items/ladder.png'); }
+.spider  { background-image: url('./../assets/enemies/spider/spider.png'); }
+
+/* Actors Layer: Items
+   ====================================================================== */
+
+.pizza { background-image: url('./../assets/items/pizza.png'); }
+
+/* Swords Layer
+   ====================================================================== */
+
+.sword {
+  background-image: url('./../assets/items/sword.png');
+}
+.sword.left {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+/* Status Layer
+   ====================================================================== */
+
+.status-bar {
+  width: 20px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  margin: 20px;
+}
+
+.status-life-meter {
+  width: 20px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  margin: 20px;
+}
+
+.status-life-meter-partition:first-of-type {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.status-life-meter-partition:last-of-type {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.status-life-meter-partition {
+  display: block;
+  height: 20px;
+  background: white;
+  margin: 2px;
+  opacity: 0.8;
+  border: 2px solid pink;
+}
+
+.status-life-meter-partition-empty {
+  display: block;
+  height: 20px;
+  background: white;
+  margin: 2px;
+  opacity: 0.2;
+  border: 2px solid pink;
+}
+
+.status-life-meter-partition-empty:first-of-type {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.status-life-meter-partition-empty:last-of-type {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.status-score {
+  width: 20px;
+  position: fixed;
+  top: 0px;
+  left: 50px;
+  margin: 10px;
+  color: white;
+  font-family: 'Abel', sans-serif;
+  font-size: 40px;
+}
+
+.status-score-title {
+  display: block;
+  float:left;
+  height: 40px;
+  margin: 2px;
+  opacity: 0.8;
+}
+
+.status-score-score {
+  display: block;
+  float:left;
+  height: 40px;
+  margin: 2px;
+  opacity: 0.8;
+}
+
+.status-level {
+  width: 200px;
+  position: fixed;
+  top: 0px;
+  left: 50%;
+  margin: 10px;
+  margin-left: -100px;
+  color: white;
+  font-family: 'Abel', sans-serif;
+  font-size: 40px;
+}
+
+.status-level-title {
+  display: block;
+  text-align: center;
+  height: 40px;
+  margin: 2px;
+  opacity: 0.8;
+}
+
+.status-level-level {
+  display: block;
+  text-align: center;
+  height: 40px;
+  margin: 2px;
+  opacity: 0.8;
+}
+
+.status-timer {
+  width: 200px;
+  position: fixed;
+  top: 0px;
+  right: 0%;
+  margin: 10px;
+  margin-left: -100px;
+  color: white;
+  font-family: 'Abel', sans-serif;
+  font-size: 40px;
+}
+
+.status-timer-title {
+  display: block;
+  text-align: center;
+  height: 40px;
+  margin: 2px;
+  opacity: 0.8;
+}
+
+.status-timer-timer {
+  display: block;
+  text-align: center;
+  height: 40px;
+  margin: 2px;
+  opacity: 0.8;
+}

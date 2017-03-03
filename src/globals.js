@@ -1,13 +1,12 @@
-import Player from './actors/player/player';
-import Coin from './actors/items/coin';
-import Flag from './actors/items/flag';
-import Door from './actors/items/door';
-import Pizza from './actors/items/pizza';
-import Ladder from './actors/items/ladder';
-import Spider from './actors/enemies/spider';
-import Zombie from './actors/enemies/zombie';
+import Player from './actors/player';
+import Flag from './actors/flag';
+import Door from './actors/door';
+import Pizza from './actors/pizza';
+import Ladder from './actors/ladder';
+import Spider from './actors/spider';
+import Zombie from './actors/zombie';
 
-import { jamjar } from './jamjar';
+import helpers from './helpers';
 
 export const settings = {
   maxStep: 0.05,
@@ -22,7 +21,6 @@ export const scale = 30;
 
 export const actorChars = {
   '@': Player,
-  o: Coin,
   F: Flag,
   L: Ladder,
   '^': Door,

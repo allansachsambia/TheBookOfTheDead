@@ -1,5 +1,5 @@
 class Vector {
-  constructor(x,y) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
   }
@@ -7,4 +7,4 @@ class Vector {
   times(factor) { return new Vector(this.x * factor, this.y * factor); }
 }
 
-export default Vector
+export default Vector;

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/actors/player.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/render.js~Render.html">Render</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/status.js~Status.html">Status</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/sublevel.js~Sublevel.html">Sublevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/unstick.js~Unstick.html">Unstick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/vector.js~Vector.html">Vector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-animate">animate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearIntroScreen">clearIntroScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearLoseScreen">clearLoseScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearWinScreen">clearWinScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-displayIntroScreen">displayIntroScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-displayLoseScreen">displayLoseScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-displayWinScreen">displayWinScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-restartOnLose">restartOnLose</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-restartOnWin">restartOnWin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitToStart">waitToStart</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-audio">audio</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-actorChars">actorChars</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-obstacleChars">obstacleChars</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-scale">scale</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-settings">settings</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">actors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/door.js~Door.html">Door</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/flag.js~Flag.html">Flag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/ladder.js~Ladder.html">Ladder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/pizza.js~Pizza.html">Pizza</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/player.js~Player.html">Player</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/spider.js~Spider.html">Spider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/sword.js~Sword.html">Sword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/zombie.js~Zombie.html">Zombie</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">decorations</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsBackground01">decorationsBackground01</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsForeround01">decorationsForeround01</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsBackground02">decorationsBackground02</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsForeground02">decorationsForeground02</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">maps</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-map01">map01</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-map02">map02</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/actors/player.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Vector from &apos;../vector&apos;;
+import Sword from &apos;./sword&apos;;
+import keys from &apos;../keys&apos;;
+import audio from &apos;../audio&apos;;
+import { settings, scale, actorChars, obstacleChars } from &apos;../globals&apos;;
+import helpers from &apos;../helpers&apos;;
+
+/**
+ * The main player in the game.
+ */
+class Player {
+  constructor(pos) {
+    this.lifeMeter = 10;
+    this.pos = pos.plus(new Vector(0, -0.5));
+    this.direction = &apos;right&apos;;
+    this.damaged = false;
+    this.damageFilter = null;
+    this.damageTimer = 0;
+    this.touchingFloor = false;
+    this.swords = [];
+    this.swordLoaded = true;
+    this.size = new Vector(2.5, 4.5);
+    this.speed = new Vector(0, 0);
+    this.type = &apos;player&apos;;
+    this.direction = &apos;right&apos;;
+    this.timers = {
+      running: 0,
+      climbing: 0,
+      crawling: 0,
+    };
+    this.action = {
+      standing: null,
+      running: null,
+      jumping: null,
+      squatting: null,
+      crawling: null,
+      climbing: null,
+    };
+    this.climbSpeed = 0.4;
+    this.underLadder = false;
+    this.audioLoaded = false;
+    this.spritePos = { x: 0, y: 0 };
+    this.spritePositions = {
+      standing: [
+        { x: 0, y: 0 },
+      ],
+      squatting: [
+        { x: -175, y: -300 },
+      ],
+      running: [
+        { x: 0, y: 0 },
+        { x: 0, y: -75 },
+        { x: 0, y: -150 },
+        { x: 0, y: -225 },
+        { x: 0, y: -300 },
+        { x: 0, y: -375 },
+      ],
+      climbing: [
+        { x: -133, y: 0 },
+        { x: -133, y: -75 },
+        { x: -133, y: -150 },
+        { x: -133, y: -225 },
+      ],
+      crawling: [
+        { x: -270, y: 0 },
+        { x: -340, y: 0 },
+        { x: -408, y: 0 },
+        { x: -480, y: 0 },
+        { x: -545, y: 0 },
+      ],
+    };
+    this.spriteId = &apos;player-01&apos;;
+    this.coords = {
+      left: this.pos.x,
+      right: this.pos.x + this.size.x,
+      top: this.pos.y,
+      bottom: this.pos.y + this.size.y,
+    };
+  }
+
+  act(step, sublevel) {
+    this.moveX(step, sublevel);
+    this.moveY(step, sublevel);
+    this.moveSwords(step, sublevel);
+    this.coords = {
+      left: this.pos.x,
+      right: this.pos.x + this.size.x,
+      top: this.pos.y,
+      bottom: this.pos.y + this.size.y,
+    };
+  }
+
+  imageSwap({ bounds, type }) {
+    let counter = 0;
+    let addZero = false;
+    bounds.forEach((image) =&gt; {
+      counter += 1;
+      if (counter.toString().length === 1) { addZero = true; }
+      if ((this.timers[type] &gt;= image.lowerBound) &amp;&amp;
+         (this.timers[type] &lt;= image.upperBound)) {
+        if (type === &apos;running&apos;) {
+          if (counter === 1) {
+            this.spritePos = this.spritePositions.running[0];
+          }
+          if (counter === 2) {
+            this.spritePos = this.spritePositions.running[1];
+          }
+          if (counter === 3) {
+            this.spritePos = this.spritePositions.running[2];
+          }
+          if (counter === 4) {
+            this.spritePos = this.spritePositions.running[3];
+          }
+          if (counter === 5) {
+            this.spritePos = this.spritePositions.running[4];
+          }
+          if (counter === 6) {
+            this.spritePos = this.spritePositions.running[5];
+          }
+        }
+
+        if (type === &apos;climbing&apos;) {
+          if (counter === 1) { this.spritePos = this.spritePositions.climbing[0]; }
+          if (counter === 2) { this.spritePos = this.spritePositions.climbing[1]; }
+          if (counter === 3) { this.spritePos = this.spritePositions.climbing[2]; }
+          if (counter === 4) { this.spritePos = this.spritePositions.climbing[3]; }
+        }
+
+        if (type === &apos;squatting&apos;) {
+          if (counter === 1) { this.spritePos = this.spritePositions.squatting[0]; }
+        }
+
+        if (type === &apos;crawling&apos;) {
+          if (counter === 1) { this.spritePos = this.spritePositions.crawling[0]; }
+          if (counter === 2) { this.spritePos = this.spritePositions.crawling[1]; }
+          if (counter === 3) { this.spritePos = this.spritePositions.crawling[2]; }
+          if (counter === 4) { this.spritePos = this.spritePositions.crawling[3]; }
+          if (counter === 5) { this.spritePos = this.spritePositions.crawling[4]; }
+        }
+      }
+    }, this);
+  }
+
+  moveX(step, sublevel) {
+    this.resetSpeed(step);
+    this.setDirection();
+    this.stand();
+    this.run();
+    this.crawl();
+    this.handleObstacle(step, sublevel);
+    this.handleActor(sublevel);
+  }
+
+  resetSpeed(step) {
+    this.speed.x = 0;
+  }
+
+  setDirection() {
+    if (keys.left) {
+      this.speed.x -= settings.speed;
+      this.direction = &apos;left&apos;;
+    }
+    if (keys.right) {
+      this.speed.x += settings.speed;
+      this.direction = &apos;right&apos;;
+    }
+  }
+
+  handleObstacle(step, sublevel) {
+    const newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
+    const obstacle = sublevel.obstacleAt(newPos, this.size, &apos;x&apos;);
+    if (obstacle) {
+      sublevel.playerTouched(obstacle);
+      this.hillEffects(step, sublevel, obstacle);
+      if (obstacle.type === &apos;ladder&apos; || obstacle.type === &apos;door&apos;) {
+        this.pos = newPos;
+      }
+    } else { this.pos = newPos; }
+  }
+
+  handleActor(sublevel) {
+    const actorAt = sublevel.actorAt(this);
+    if (actorAt) { sublevel.playerTouched(actorAt); }
+  }
+
+  stand() {
+    const moving = (this.speed.x !== 0);
+    const notMoving = (this.speed.x === 0);
+    if (notMoving) {
+      this.action.running = false;
+      this.action.standing = true;
+    }
+    if (notMoving) {
+      this.timers.running = 0;
+      this.spritePos = this.spritePositions.standing[0];
+    }
+  }
+
+  run() {
+    let moving = (this.speed.x !== 0);
+    let notMoving = (this.speed.x === 0);
+    if (moving) {
+      this.action.running = true;
+      this.action.standing = false;
+    }
+    moving = (this.speed.x !== 0);
+    notMoving = (this.speed.x === 0);
+    if (moving) {
+      this.timers.running += 1;
+      this.timers.running === 20
+        ? this.timers.running = 0
+        : this.timers.running = this.timers.running;
+      this.imageSwap({
+        type: &apos;running&apos;,
+        bounds: [
+          { lowerBound: 0, upperBound: 3 },
+          { lowerBound: 4, upperBound: 7 },
+          { lowerBound: 8, upperBound: 11 },
+          { lowerBound: 12, upperBound: 15 },
+          { lowerBound: 16, upperBound: 19 },
+          { lowerBound: 20, upperBound: 23 },
+        ],
+      });
+    }
+  }
+
+  crawl() {
+    if (!this.action.climbing) {
+      if (this.action.squatting &amp;&amp; keys.down &amp;&amp; (keys.left || keys.right) &amp;&amp; (this.speed.y === 0)) {
+        this.size = new Vector(4.5, 3);
+        this.action.crawling = true;
+        if (keys.right || keys.left) {
+          this.timers.crawling += 1;
+          this.timers.crawling === 40
+            ? this.timers.crawling = 0
+            : this.timers.crawling = this.timers.crawling;
+          this.imageSwap({
+            type: &apos;crawling&apos;,
+            bounds: [
+              { lowerBound: 0, upperBound: 7 },
+              { lowerBound: 8, upperBound: 15 },
+              { lowerBound: 16, upperBound: 23 },
+              { lowerBound: 24, upperBound: 35 },
+              { lowerBound: 32, upperBound: 39 },
+            ],
+          });
+        }
+      }
+      if (this.action.squatting &amp;&amp; !(keys.left || keys.right)) {
+        this.action.crawling = false;
+        this.size = new Vector(2.5, 3);
+      }
+      if (!(keys.down) &amp;&amp; (this.action.crawling === true)) {
+        this.action.crawling = false;
+        this.size = new Vector(2.5, 4.5);
+      }
+    }
+  }
+
+  hillEffects(step, sublevel, obstacle) {
+    const firstLevel = sublevel.sublevelNumber === 0;
+    if (firstLevel) {
+      if (obstacle.pos) {
+        if (obstacle.pos.x === 59 &amp;&amp; obstacle.pos.y === 55 &amp;&amp; this.direction === &apos;left&apos;) {
+          this.pos = this.pos.plus(new Vector(-1, -1));
+        }
+        if (obstacle.pos.x === 141 &amp;&amp; obstacle.pos.y === 55 &amp;&amp; this.direction === &apos;right&apos;) {
+          this.pos = this.pos.plus(new Vector(1, -1));
+        }
+      }
+    }
+  }
+
+  moveY(step, sublevel) {
+    this.speed.y += step * settings.gravity;
+    const motion = new Vector(0, this.speed.y * step);
+    const newPos = this.pos.plus(motion);
+    const obstacle = sublevel.obstacleAt(newPos, this.size, &apos;y&apos;);
+    this.gravity(sublevel, obstacle, newPos);
+    this.jump(step, sublevel, obstacle, motion);
+    this.squat();
+    this.climbLadder(step, sublevel, obstacle, newPos);
+    audio.handleWalkingOnSounds(obstacle);
+  }
+
+  gravity(sublevel, obstacle, newPos) {
+    const actorAt = sublevel.actorAt(this);
+    const oldPos = this.pos;
+    if (!obstacle) { this.pos = newPos; }
+    if (actorAt &amp;&amp; actorAt.type === &apos;ladder&apos;) {
+      this.handleLadderGravity(actorAt, oldPos);
+    }
+    if (obstacle) {
+      if ((this.speed.y &gt; 0) &amp;&amp; (!keys.up)) { this.speed.y = 0; }
+    }
+  }
+
+  jump(step, sublevel, obstacle, motion) {
+    const actorAt = sublevel.actorAt(this);
+    if (obstacle) {
+      if (keys.up &amp;&amp; this.speed.y &gt; 0) {
+        this.speed.y = -settings.jumpSpeed;
+      }
+    }
+    if (actorAt &amp;&amp; actorAt.type === &apos;ladder&apos;) {
+      if (this.pos.y &lt; actorAt.pos.y - 2.5) {
+        if (keys.up &amp;&amp; this.speed.y &gt; 0) {
+          this.speed.y = -settings.jumpSpeed;
+        }
+      }
+    }
+  }
+
+  squat() {
+    if (!this.action.climbing) {
+      if (keys.down) {
+        if (!this.action.squatting) {
+          this.size = new Vector(2.5, 3);
+          this.pos.y = this.pos.y + 1.5;
+          this.action.squatting = true;
+        }
+        if (!this.action.crawling) {
+          this.spritePos = this.spritePositions.squatting[0];
+        }
+      } else {
+        if (this.action.squatting) {
+          this.size = new Vector(2.5, 4.5);
+          this.pos.y = this.pos.y - 1.5;
+          this.action.squatting = false;
+          this.spritePos = this.spritePositions.standing[0];
+        }
+      }
+    }
+  }
+
+  handleLadderGravity(ladder, oldPos) {
+    const preventGravity = () =&gt; { this.pos = oldPos; };
+    const inLadder = this.coords.top &gt; ladder.coords.top - 4.5;
+    const inLadderTop = this.coords.bottom &lt; ladder.coords.top + 5;
+    if ((inLadder &amp;&amp; this.action.climbing) || (inLadderTop)) { preventGravity(); }
+  }
+
+  centerPlayerOnLadder(ladder) {
+    const left = (this.pos.x &lt; ladder.coords.left - 0.33);
+    const right = (this.pos.x &gt; ladder.coords.left - 0.33);
+    if (left || right) {
+      if (keys.up || keys.down) {
+        this.pos.x = ladder.coords.left - 0.3;
+      }
+    }
+  }
+
+  setupClimb(ladder) {
+    if (!this.action.climbing) {
+      const pressingUpArrow = this.keys &amp;&amp; this.keys.up;
+      const inLadderBottom = this.coords.bottom &gt; ladder.coords.bottom - 6;
+      const inLadderTop = this.coords.top &lt; ladder.coords.top + 6;
+      if (pressingUpArrow || !(inLadderBottom)) {
+        this.action.climbing = true;
+      }
+    }
+    if ((this.pos.y &gt; ladder.coords.bottom - 6) &amp;&amp; (keys.down)) {
+      this.action.climbing = false;
+    }
+  }
+
+  moveUpAndDownLadder(ladder) {
+    const topOfLadder = (this.coords.top &lt; ladder.coords.top);
+    if ((keys.up) &amp;&amp; (!topOfLadder)) {
+      this.pos = this.pos.plus(new Vector(0, -this.climbSpeed));
+    }
+    if (keys.down) {
+      this.pos = this.pos.plus(new Vector(0, this.climbSpeed));
+    }
+  }
+
+  climbingImages() {
+    if (this.action.climbing) {
+      if (keys.up || keys.down) {
+        this.timers.climbing += 1;
+        this.timers.climbing === 20
+          ? this.timers.climbing = 0
+          : this.timers.climbing = this.timers.climbing;
+        this.imageSwap({
+          type: &apos;climbing&apos;,
+          bounds: [
+            { lowerBound: 0, upperBound: 4 },
+            { lowerBound: 5, upperBound: 9 },
+            { lowerBound: 10, upperBound: 14 },
+            { lowerBound: 15, upperBound: 19 },
+          ],
+        });
+      }
+    }
+  }
+
+  handleLadderAscent() {
+    if (keys.up) {
+      this.action.climbing = true;
+      this.pos = this.pos.plus(new Vector(0, -0.5));
+      this.size = new Vector(2.5, 4.5);
+      this.action.squatting = false;
+    }
+    this.speed.y = 0;
+  }
+
+  handleLadderUse(ladder) {
+    if (keys.up || keys.down) {
+      this.setupClimb(ladder);
+      this.moveUpAndDownLadder(ladder);
+    }
+  }
+
+  killSquatIfClimbing() {
+    if (this.action.climbing) {
+      this.action.squatting = false;
+      this.size = new Vector(2.5, 4.5);
+    }
+  }
+
+  ungluePlayer(ladder) {
+    const atBottomOfLadder = this.coords.bottom &gt; (ladder.coords.bottom - 5);
+    if (atBottomOfLadder) {
+      if (this.coords.bottom &gt; ladder.coords.bottom + 0.9) {
+        this.pos.y = ladder.coords.bottom - this.size.y + 0.5;
+      }
+    }
+  }
+
+  climbLadder(step, sublevel, obstacle, newPos) {
+    const actorAt = sublevel.actorAt(this);
+    if (actorAt &amp;&amp; actorAt.type === &apos;ladder&apos;) {
+      const ladder = actorAt;
+      const playerIsOnLadder = (
+        (this.coords.top) &lt; (ladder.coords.bottom - this.size.y)
+      );
+      if (playerIsOnLadder) { this.handleLadderUse(ladder); }
+      if (!playerIsOnLadder) { this.handleLadderAscent(); }
+      this.centerPlayerOnLadder(ladder);
+      this.killSquatIfClimbing(ladder);
+      this.ungluePlayer(ladder);
+    }
+    this.action.climbing = (!actorAt) ? false : this.action.climbing;
+    this.climbingImages();
+  }
+
+  static removeSword(sublevel, swordToBeRemoved) {
+    sublevel.player.swords = sublevel.player.swords.filter(sword =&gt; sword !== swordToBeRemoved);
+  }
+
+  moveSwords(step, sublevel) {
+    if (keys.spacebar) {
+      if (this.swordLoaded) {
+        audio.play(&apos;sword&apos;);
+        this.swords.push(new Sword(sublevel.player.pos));
+        this.swordLoaded = false;
+      }
+    }
+    if (!keys.spacebar) { this.swordLoaded = true; }
+    sublevel.player.swords.forEach((swordCheck) =&gt; {
+      const obstacle = sublevel.obstacleAt(swordCheck.pos, swordCheck.size);
+      if (obstacle) {
+        if (obstacle.type === &apos;wall&apos;) { this.removeSword(sublevel, swordCheck); }
+      }
+      const xSword = swordCheck.pos.x;
+      const xPlayer = sublevel.player.pos.x;
+      const movedFarAway = (
+        (xSword &gt; xPlayer + 200) || (xSword &lt; xPlayer - 200)
+      );
+      if (movedFarAway) { this.removeSword(sublevel, swordCheck); }
+    });
+    this.swords.forEach((sword) =&gt; {
+      sword.act(step, sublevel, keys);
+    });
+  }
+}
+export default Player
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

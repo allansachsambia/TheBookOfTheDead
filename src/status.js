@@ -7,11 +7,11 @@ class Status {
     this.lifeMeter = 10;
     this.name = 'Wanda'.toUpperCase();
     this.score = 0;
-    this.sublevelNumber = 0;
+    this.mapNumber = 0;
     this.levelNumber = 0;
     this.time = 10000;
     this.condition = null;
   }
 }
 
-export default Status
+export default Status;

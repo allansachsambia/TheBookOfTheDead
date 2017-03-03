@@ -10,6 +10,6 @@
       "except": ["value"]
     }],
     "max-empty-lines": 2,
-    "unit-whitelist": ["rem", "%", "vh", "s", "deg"]
+    "unit-whitelist": ["rem", "%", "vh", "s", "deg", "px"]
   }
 }

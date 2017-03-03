@@ -1,46 +1,47 @@
 import Vector from './vector';
 import { settings, actorChars, obstacleChars } from './globals';
-import { jamjar } from './jamjar';
+import helpers from './helpers';
+import audio from './audio';
 import keys from './keys';
 
 class Sublevel {
 
-  constructor(map, sublevelNumber, status) {
-    this.sublevelNumber = sublevelNumber;
+  constructor(map, mapNumber, status) {
+    this.mapNumber = mapNumber;
     this.map = map;
     this.width = map[0].length;
     this.height = map.length;
     this.typeMap = [];
     this.actors = [];
-    for (let y = 0; y < this.height; y++) {
-      let line = map[y];
-      let gridLine = [];
-      for (let x = 0; x < this.width; x++) {
-        let character = line[x];
-        let Actor = actorChars[character];
+    for (let y = 0; y < this.height; y += 1) {
+      const line = map[y];
+      const gridLine = [];
+      for (let x = 0; x < this.width; x += 1) {
+        const character = line[x];
+        const Actor = actorChars[character];
         let type = null;
         if (Actor) {
           this.actors.push(new Actor(new Vector(x, y), character));
         }
         Object.keys(obstacleChars).forEach((key) => {
-          if (character === key) { type = obstacleChars[key] }
+          if (character === key) { type = obstacleChars[key]; }
         });
         gridLine.push(type);
       }
       this.typeMap.push(gridLine);
     }
-    this.player = this.actors.filter((actor) => {
-      return actor.type === 'player';
-    })[0];
+    this.player = this.actors.filter(actor => actor.type === 'player')[0];
     this.status = status;
-    this.status.sublevelNumber = sublevelNumber
-    this.status.levelNumber = 1
+    this.status.mapNumber = mapNumber;
+    this.status.levelNumber = 1;
   }
 
   animate(step) {
     this.statusTimer();
     this.actors.forEach((actor) => {
-      actor.act(step, this);
+      if (actor.act) {
+        actor.act(step, this);
+      }
     }, this);
   }
 
@@ -56,7 +57,7 @@ class Sublevel {
   }
 
   obstacleAt(pos, size, axis) {
-    let actor = {
+    const actor = {
       x: {
         left: Math.floor(pos.x),
         right: Math.ceil(pos.x + size.x),
@@ -69,38 +70,39 @@ class Sublevel {
         left: Math.floor(pos.x) < 0,
         right: Math.ceil(pos.x + size.x) > this.width,
         top: Math.floor(pos.y) < 0,
-        bottom: Math.ceil(pos.y + size.y) > this.height
+        bottom: Math.ceil(pos.y + size.y) > this.height,
       },
-    }
+    };
     if (actor.offScreen.left || actor.offScreen.top || actor.offScreen.right) {
-      return 'wall'
+      return 'wall';
     } else if (actor.offScreen.bottom) {
-      return 'fallen'
+      return 'fallen';
     }
-    for (let y = actor.y.top; y < actor.y.bottom; y++) {
-      let xDirection, yDirection;
-      for (let x = actor.x.left; x < actor.x.right; x++) {
+    for (let y = actor.y.top; y < actor.y.bottom; y += 1) {
+      let xDirection;
+      let yDirection;
+      for (let x = actor.x.left; x < actor.x.right; x += 1) {
         if (this.typeMap[y]) {
-          let type = this.typeMap[y][x];
+          const type = this.typeMap[y][x];
           if (type) {
             if (axis) {
               if (axis === 'x') {
-                let xDirection = actor.x.left < x ? 'right' : 'left';
-                let yDirection = null;
+                xDirection = actor.x.left < x ? 'right' : 'left';
+                yDirection = null;
               }
               if (axis === 'y') {
-                let xDirection = null;
-                let yDirection = actor.y.top < y ? 'bottom' : 'top';
+                xDirection = null;
+                yDirection = actor.y.top < y ? 'bottom' : 'top';
               }
             }
             return {
-              type: type,
-              pos: { x: x, y: y },
+              type,
+              pos: { x, y },
               direction: {
                 x: xDirection,
-                y: yDirection
-              }
-            }
+                y: yDirection,
+              },
+            };
           }
         }
       }
@@ -108,8 +110,8 @@ class Sublevel {
   }
 
   actorAt(actor) {
-    for (let i = 0; i < this.actors.length; i++) {
-      let otherActor = this.actors[i];
+    for (let i = 0; i < this.actors.length; i += 1) {
+      const otherActor = this.actors[i];
       if (otherActor !== actor &&
         actor.pos.x + actor.size.x > otherActor.pos.x &&
         actor.pos.x < otherActor.pos.x + otherActor.size.x &&
@@ -120,11 +122,11 @@ class Sublevel {
   }
 
   playerHit(obstacle) {
-  let player = this.player;
+    const player = this.player;
     if (!player.damaged) {
-      jamjar.play('hurt');
+      audio.play('hurt');
       player.lifeMeter -= 1;
-      player.damaged = true
+      player.damaged = true;
       setTimeout(() => {
         player.damaged = false;
         player.damageTimer = 0;
@@ -133,32 +135,32 @@ class Sublevel {
   }
 
   damageEffects(obstacle) {
-    let self = this;
+    const self = this;
     self.player.damageTimer += 1;
     if (self.player.damageTimer === 10) { self.player.damageTimer = 1; }
     if (self.player.damageTimer > 0 && self.player.damageTimer < 9) {
       self.player.damageFilter = 'lowOpacity';
-    } else if (self.player.damageTimer > 8 && self.player.damageTimer < 10)  {
+    } else if (self.player.damageTimer > 8 && self.player.damageTimer < 10) {
       self.player.damageFilter = 'highOpacity';
     }
   }
 
   playerTouchedEnemy(obstacle) {
-    let self = this;
-    let playerStillAlive = (this.player.lifeMeter > 0);
+    const self = this;
+    const playerStillAlive = (this.player.lifeMeter > 0);
     if (obstacle.type === 'ghost') {
-      let enemyIsVisible = !(obstacle.opacity === '0.0');
+      const enemyIsVisible = !(obstacle.opacity === '0.0');
       if ((playerStillAlive) && (enemyIsVisible)) {
-       self.playerHit();
-       self.damageEffects();
+        self.playerHit();
+        self.damageEffects();
       }
       if (!(playerStillAlive) && !(enemyIsVisible)) {
         self.status.condition = 'lost';
       }
     }
     if (playerStillAlive) {
-     self.playerHit();
-     self.damageEffects();
+      self.playerHit();
+      self.damageEffects();
     }
     if (!playerStillAlive) {
       self.status.condition = 'lost';
@@ -167,43 +169,30 @@ class Sublevel {
 
   playerTouchedItem(obstacle) {
     let self;
-    let type = obstacle.type;
+    const type = obstacle.type;
     switch (type) {
-      case 'coin':
-        jamjar.play('coin');
-        this.actors = this.actors.filter((other) => {
-          return other !== obstacle;
-        });
-        self.status.score += 500;
-        break;
-      case 'flag':
-        jamjar.play('flag');
-        this.actors = this.actors.filter((other) => {
-          return other !== obstacle;
-        });
-        let flagCollected = !this.actors.some((actor) => {
-          return actor.type === 'flag';
-        });
+      case 'flag': {
+        audio.play('flag');
+        this.actors = this.actors.filter(other => other !== obstacle);
+        const flagCollected = !this.actors.some(actor => actor.type === 'flag');
         if (flagCollected) { this.status.condition = 'won'; }
         break;
-      case 'door':
+      }
+      case 'door': {
         if (keys.up) {
-          this.actors = this.actors.filter((other) => {
-            return other !== obstacle;
-          });
-          let openedDoor = !this.actors.some((actor) => {
-            return actor.type === 'door';
-          });
+          this.actors = this.actors.filter(other => other !== obstacle);
+          const openedDoor = !this.actors.some(actor => actor.type === 'door');
           if (openedDoor) { this.status.condition = 'won'; }
         }
         break;
-      case 'pizza':
-        jamjar.play('pizza');
-        this.actors = this.actors.filter((other) => {
-          return other !== obstacle;
-        });
+      }
+      case 'pizza': {
+        audio.play('pizza');
+        this.actors = this.actors.filter(other => other !== obstacle);
         if (this.player.lifeMeter < 10) { this.player.lifeMeter += 1; }
         break;
+      }
+      default:
     }
   }
 
@@ -211,28 +200,27 @@ class Sublevel {
     switch (obstacle.actorType) {
       case 'enemy':
         this.playerTouchedEnemy(obstacle);
+        break;
       case 'item':
         this.playerTouchedItem(obstacle);
+        break;
+      default:
     }
   }
 
   swordTouchedActor(obstacle, actor) {
-    let hit = (increment, deathRattle) => {
-      jamjar.play('kill-shot');
+    const hit = (increment, deathRattle) => {
+      audio.play('kill-shot');
       if (obstacle.lifeMeter > 0) {
         obstacle.lifeMeter -= 1;
-        obstacle.damaged = true
+        obstacle.damaged = true;
         setTimeout(() => { obstacle.damaged = false; }, 100);
       } else {
-        this.actors = this.actors.filter((other) => {
-          return other !== obstacle;
-        });
+        this.actors = this.actors.filter(other => other !== obstacle);
       }
-      this.player.swords = this.player.swords.filter((sword) => {
-        return sword !== actor;
-      });
+      this.player.swords = this.player.swords.filter(sword => sword !== actor);
       this.status.score += increment;
-    }
+    };
     switch (obstacle.type) {
       case ('zombie'):
         hit(400);
@@ -242,6 +230,8 @@ class Sublevel {
         break;
       case ('ghost'):
         hit(100, 'ghost-death');
+        break;
+      default:
     }
   }
 }

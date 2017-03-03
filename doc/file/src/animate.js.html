@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/animate.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/render.js~Render.html">Render</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/status.js~Status.html">Status</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/sublevel.js~Sublevel.html">Sublevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/unstick.js~Unstick.html">Unstick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/vector.js~Vector.html">Vector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-animate">animate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearIntroScreen">clearIntroScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearLoseScreen">clearLoseScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearWinScreen">clearWinScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-displayIntroScreen">displayIntroScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-displayLoseScreen">displayLoseScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-displayWinScreen">displayWinScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-restartOnLose">restartOnLose</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-restartOnWin">restartOnWin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitToStart">waitToStart</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-audio">audio</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-actorChars">actorChars</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-obstacleChars">obstacleChars</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-scale">scale</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-settings">settings</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">actors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/door.js~Door.html">Door</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/flag.js~Flag.html">Flag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/ladder.js~Ladder.html">Ladder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/pizza.js~Pizza.html">Pizza</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/player.js~Player.html">Player</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/spider.js~Spider.html">Spider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/sword.js~Sword.html">Sword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/actors/zombie.js~Zombie.html">Zombie</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">decorations</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsBackground01">decorationsBackground01</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsForeround01">decorationsForeround01</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsBackground02">decorationsBackground02</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decorationsForeground02">decorationsForeground02</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">maps</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-map01">map01</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-map02">map02</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/animate.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Sublevel from &apos;./sublevel&apos;;
+import Status from &apos;./status&apos;;
+import Render from &apos;./render&apos;;
+import maps from &apos;./maps&apos;;
+import { displayWinScreen, displayLoseScreen } from &apos;./screens&apos;;
+import audio from &apos;./audio&apos;;
+
+const status = new Status();
+
+const resetStatus = () =&gt; {
+  status.sublevelNumber += 1;
+  status.condition = null;
+  status.time = 10000;
+  status.lifeMeter = 10;
+};
+
+const totalStatusReset = () =&gt; {
+  status.lifeMeter = 10;
+  status.name = &apos;Wanda&apos;.toUpperCase();
+  status.score = 0;
+  status.sublevelNumber = 0;
+  status.levelNumber = 0;
+  status.time = 10000;
+  status.condition = null;
+};
+
+export const animate = (sublevelNumber = 0) =&gt; {
+  const sublevel = new Sublevel(maps[sublevelNumber], sublevelNumber, status);
+  audio.playMusic(sublevelNumber);
+  const render = new Render(sublevel, status);
+  let prevTimeStamp = null;
+  const forever = (timeStamp) =&gt; {
+    let stop = false;
+    if (prevTimeStamp) {
+      let delta;
+      if (document.hasFocus()) {
+        delta = Math.min(timeStamp - prevTimeStamp, 100);
+      } else {
+        delta = 16;
+      }
+      window.onfocus = () =&gt; { delta = 16; };
+      window.onload = () =&gt; { delta = 16; };
+      window.onblur = () =&gt; { delta = 16; };
+      const step = delta / 1000;
+      sublevel.animate(step);
+      render.drawAnimatedLayers();
+      if (sublevel.isFinished()) {
+        render.clearGame();
+        if (sublevel.status.condition === &apos;lost&apos;) {
+          audio.pauseMusic(sublevelNumber);
+          totalStatusReset();
+          displayLoseScreen();
+        } else if (sublevelNumber &lt; maps.length - 1) {
+          resetStatus();
+          animate(sublevelNumber + 1);
+        } else if (sublevel.status.condition === &apos;won&apos;) {
+          audio.pauseMusic(sublevelNumber);
+          totalStatusReset();
+          displayWinScreen();
+        }
+        stop = true;
+      } else {
+        stop = false;
+      }
+    }
+    prevTimeStamp = timeStamp;
+    if (!stop) { window.requestAnimationFrame(forever); }
+  };
+  window.requestAnimationFrame(forever);
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
