@@ -208,6 +208,33 @@ class Sublevel {
     }
   }
 
+  daggerTouchedActor(obstacle, actor) {
+    const hit = (increment, deathRattle) => {
+      audio.play('kill-shot');
+      if (obstacle.lifeMeter > 0) {
+        obstacle.lifeMeter -= 1;
+        obstacle.damaged = true;
+        setTimeout(() => { obstacle.damaged = false; }, 100);
+      } else {
+        this.actors = this.actors.filter(other => other !== obstacle);
+      }
+      this.player.daggers = this.player.daggers.filter(dagger => dagger !== actor);
+      this.status.score += increment;
+    };
+    switch (obstacle.type) {
+      case ('zombie'):
+        hit(400);
+        break;
+      case ('skeleton'):
+        hit(100);
+        break;
+      case ('ghost'):
+        hit(100, 'ghost-death');
+        break;
+      default:
+    }
+  }
+
   swordTouchedActor(obstacle, actor) {
     const hit = (increment, deathRattle) => {
       audio.play('kill-shot');

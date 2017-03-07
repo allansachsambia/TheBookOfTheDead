@@ -12,7 +12,7 @@ const audio = {
     effects: {
       lost: ['lost'],
       touch: ['hurt', 'flag', 'pizza', 'kill-shot'],
-      items: ['sword'],
+      items: ['dagger', 'sword'],
       walkingOn: ['grass', 'water', 'wood'],
     },
   },

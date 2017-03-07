@@ -15,6 +15,7 @@ export const settings = {
   speed: 20,
   gravity: 100,
   jumpSpeed: 45,
+  climbSpeed: 0.4,
 };
 
 export const scale = 30;

@@ -12,6 +12,7 @@ class Render {
     this.level = level;
     this.status = status;
     this.actorLayer = null;
+    this.daggerLayer = null;
     this.swordLayer = null;
     this.statusLayer = null;
     this.drawPosteriorStaticLayers();
@@ -24,7 +25,7 @@ class Render {
   }
 
   clearAnimatedLayers() {
-    const animatedLayers = [this.actorLayer, this.swordLayer, this.statusLayer];
+    const animatedLayers = [this.actorLayer, this.daggerLayer, this.swordLayer, this.statusLayer];
     animatedLayers.forEach((animatedLayer) => {
       if (animatedLayer) { this.wrap.removeChild(animatedLayer); }
     });
@@ -42,6 +43,7 @@ class Render {
   drawAnimatedLayers() {
     this.clearAnimatedLayers();
     const foreground = document.getElementsByClassName('foreground')[0];
+    this.daggerLayer = this.wrap.insertBefore(this.drawDagger(), foreground);
     this.swordLayer = this.wrap.insertBefore(this.drawSword(), foreground);
     this.actorLayer = this.wrap.insertBefore(this.drawActors(), foreground);
     this.statusLayer = this.wrap.appendChild(this.drawStatus());
@@ -62,10 +64,10 @@ class Render {
       let actions;
       let damageFilters;
       switch (actor.type) {
-        case 'player':
-          actions = ['standing', 'running', 'squatting', 'crawling', 'climbing'];
-          damageFilters = ['invert(100%)', 'saturate(100)'];
-          break;
+        // case 'player':
+        //   actions = ['standing', 'running', 'squatting', 'crawling', 'climbing'];
+        //   damageFilters = ['invert(100%)', 'saturate(100)'];
+        //   break;
         case 'zombie':
           actions = ['walking'];
           break;
@@ -87,14 +89,7 @@ class Render {
       if (actions) {
         actions.forEach((action) => {
           if (actor.action[action]) {
-            if (actor.type === 'player') {
-              if (actor.direction === 'left') {
-                console.log(actor.cssClass);
-                el.className = `actor player ${actor.cssClass} x-flip`;
-              } else {
-                el.className = `actor player ${actor.cssClass}`;
-              }
-            } else if (actor.type === 'zombie') {
+            if (actor.type === 'zombie') {
               style.backgroundPosition = `${actor.spritePos.y}px ${actor.spritePos.x}px`;
             } else {
               style.backgroundImage = `url('${actor.images[action]}')`;
@@ -102,6 +97,14 @@ class Render {
           }
         });
       }
+      if (actor.type === 'player') {
+        if (actor.direction === 'left') {
+          el.className = `actor player player-${actor.actionType}-${actor.spriteNumber} x-flip`;
+        } else {
+          el.className = `actor player player-${actor.actionType}-${actor.spriteNumber}`;
+        }
+      }
+
       if (damageFilters && actor.damaged) {
         damageFilters.forEach((damageFilter) => {
           style.WebkitFilter = damageFilter;
@@ -177,6 +180,23 @@ class Render {
       });
     });
     return table;
+  }
+
+  drawDagger() {
+    const self = this;
+    const wrap = helpers.el('div', 'dagger');
+    this.level.player.daggers.forEach((dagger) => {
+      const daggerEl = wrap.appendChild(helpers.el('div', 'dagger'));
+      const style = daggerEl.style;
+      if (dagger.direction === 'right') { daggerEl.className += ' right'; }
+      if (dagger.direction === 'left') { daggerEl.className += ' left'; }
+      style.width = `${dagger.size.x * scale}px`;
+      style.height = `${dagger.size.y * scale}px`;
+      style.left = `${dagger.pos.x * scale}px`;
+      style.top = `${dagger.pos.y * scale}px`;
+      style.position = 'absolute';
+    });
+    return wrap;
   }
 
   drawSword() {

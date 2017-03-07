@@ -155,23 +155,33 @@ body {
 
 .actor { position: absolute }
 .player { background-image: url('./../assets/player/player-sprites.svg'); }
-.player-standing-01 { background-position: 0px 0px; }
-.player-squatting-01 { background-position: -300px -175px; }
-.player-running-01 { background-position: 0px 0px; }
-.player-running-02 { background-position: -75px 0px; }
-.player-running-03 { background-position: -150px 0px; }
-.player-running-04 { background-position: -225px 0px; }
-.player-running-05 { background-position: -300px 0px; }
-.player-running-06 { background-position: -375px 0px; }
-.player-climbing-01 { background-position: 0px -133px; }
-.player-climbing-02 { background-position: -75px -133px; }
-.player-climbing-03 { background-position: -150px -133px; }
-.player-climbing-04 { background-position: -225px -133px; }
-.player-crawling-01 { background-position: 0px -280px; }
-.player-crawling-02 { background-position: 0px -370px; }
-.player-crawling-03 { background-position: 0px -460px; }
-.player-crawling-04 { background-position: 0px -550px; }
-.player-crawling-05 { background-position: 0px -550px; }
+.player-standing-001 { background-position: 0px 0px; }
+.player-squatting-001 { background-position: -300px -175px; }
+.player-running-001 { background-position: 0px 0px; }
+.player-running-002 { background-position: -75px 0px; }
+.player-running-003 { background-position: -150px 0px; }
+.player-running-004 { background-position: -225px 0px; }
+.player-running-005 { background-position: -300px 0px; }
+.player-running-006 { background-position: -375px 0px; }
+.player-crawling-001 { background-position: 0px -280px; }
+.player-crawling-002 { background-position: 0px -370px; }
+.player-crawling-003 { background-position: 0px -460px; }
+.player-crawling-004 { background-position: 0px -550px; }
+.player-crawling-005 { background-position: 0px -550px; }
+.player-jumping-001 { background-position: 0px 0px; }
+.player-jumping-002 { background-position: -75px 0px; }
+.player-jumping-003 { background-position: -150px 0px; }
+.player-jumping-004 { background-position: -225px 0px; }
+.player-jumping-005 { background-position: -300px 0px; }
+.player-jumping-006 { background-position: -375px 0px; }
+.player-climbing-001 { background-position: 0px -133px; }
+.player-climbing-002 { background-position: 0px -133px; }
+.player-climbing-003 { background-position: -75px -133px; }
+.player-climbing-004 { background-position: -75px -133px; }
+.player-climbing-005 { background-position: -150px -133px; }
+.player-climbing-006 { background-position: -150px -133px; }
+.player-climbing-007 { background-position: -225px -133px; }
+.player-climbing-008 { background-position: -225px -133px; }
 
 /* Actors Layer: Enemies
    ====================================================================== */
@@ -185,11 +195,26 @@ body {
 
 .pizza { background-image: url('./../assets/items/pizza.png'); }
 
+/* Daggers Layer
+   ====================================================================== */
+
+.dagger {
+  background-image: url('./../assets/items/dagger.png');
+}
+.dagger.left {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
 /* Swords Layer
    ====================================================================== */
 
 .sword {
-  background-image: url('./../assets/items/sword.png');
+  border: 2px solid red;
 }
 .sword.left {
   -moz-transform: scaleX(-1);
@@ -199,6 +224,7 @@ body {
   filter: FlipH;
   -ms-filter: "FlipH";
 }
+
 
 /* Status Layer
    ====================================================================== */
