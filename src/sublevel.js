@@ -56,7 +56,7 @@ class Sublevel {
     return this.status.condition !== null;
   }
 
-  obstacleAt(pos, size, axis) {
+  obstacleAt(pos, size, axis, actorType) {
     const actor = {
       x: {
         left: Math.floor(pos.x),
@@ -81,28 +81,57 @@ class Sublevel {
     for (let y = actor.y.top; y < actor.y.bottom; y += 1) {
       let xDirection;
       let yDirection;
-      for (let x = actor.x.left; x < actor.x.right; x += 1) {
-        if (this.typeMap[y]) {
-          const type = this.typeMap[y][x];
-          if (type) {
-            if (axis) {
-              if (axis === 'x') {
-                xDirection = actor.x.left < x ? 'right' : 'left';
-                yDirection = null;
+
+      if (actorType === 'player') {
+        for (let x = (actor.x.left + 3); x < (actor.x.right - 3); x += 1) {
+          if (this.typeMap[y]) {
+            const type = this.typeMap[y][x];
+            if (type) {
+              if (axis) {
+                if (axis === 'x') {
+                  xDirection = actor.x.left < x ? 'right' : 'left';
+                  yDirection = null;
+                }
+                if (axis === 'y') {
+                  xDirection = null;
+                  yDirection = actor.y.top < y ? 'bottom' : 'top';
+                }
               }
-              if (axis === 'y') {
-                xDirection = null;
-                yDirection = actor.y.top < y ? 'bottom' : 'top';
-              }
+              return {
+                type,
+                pos: { x, y },
+                direction: {
+                  x: xDirection,
+                  y: yDirection,
+                },
+              };
             }
-            return {
-              type,
-              pos: { x, y },
-              direction: {
-                x: xDirection,
-                y: yDirection,
-              },
-            };
+          }
+        }
+      } else {
+        for (let x = actor.x.left; x < actor.x.right; x += 1) {
+          if (this.typeMap[y]) {
+            const type = this.typeMap[y][x];
+            if (type) {
+              if (axis) {
+                if (axis === 'x') {
+                  xDirection = actor.x.left < x ? 'right' : 'left';
+                  yDirection = null;
+                }
+                if (axis === 'y') {
+                  xDirection = null;
+                  yDirection = actor.y.top < y ? 'bottom' : 'top';
+                }
+              }
+              return {
+                type,
+                pos: { x, y },
+                direction: {
+                  x: xDirection,
+                  y: yDirection,
+                },
+              };
+            }
           }
         }
       }
@@ -110,14 +139,27 @@ class Sublevel {
   }
 
   actorAt(actor) {
-    for (let i = 0; i < this.actors.length; i += 1) {
-      const otherActor = this.actors[i];
-      if (otherActor !== actor &&
-        actor.pos.x + actor.size.x > otherActor.pos.x &&
-        actor.pos.x < otherActor.pos.x + otherActor.size.x &&
-        actor.pos.y + actor.size.y > otherActor.pos.y &&
-        actor.pos.y < otherActor.pos.y + otherActor.size.y
-      ) { return otherActor; }
+    if (actor.type === 'player') {
+      for (let i = 0; i < this.actors.length; i += 1) {
+        const otherActor = this.actors[i];
+        if (otherActor !== actor &&
+          actor.pos.x + (actor.size.x - 3) > otherActor.pos.x &&
+          actor.pos.x < otherActor.pos.x + (otherActor.size.x - 3) &&
+          actor.pos.y + actor.size.y > otherActor.pos.y &&
+          actor.pos.y < otherActor.pos.y + otherActor.size.y
+        ) { return otherActor; }
+      }
+    }
+    if (actor.type !== 'player') {
+      for (let i = 0; i < this.actors.length; i += 1) {
+        const otherActor = this.actors[i];
+        if (otherActor !== actor &&
+          actor.pos.x + actor.size.x > otherActor.pos.x &&
+          actor.pos.x < otherActor.pos.x + otherActor.size.x &&
+          actor.pos.y + actor.size.y > otherActor.pos.y &&
+          actor.pos.y < otherActor.pos.y + otherActor.size.y
+        ) { return otherActor; }
+      }
     }
   }
 

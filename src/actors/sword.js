@@ -8,7 +8,7 @@ import keys from '../keys';
 class Sword {
   constructor(pos) {
     this.pos = pos;
-    this.size = new Vector(4, 1);
+    this.size = new Vector(2.5, 1);
     this.type = 'sword';
     this.direction = null;
     this.speed = new Vector(0.7, 0);
@@ -22,12 +22,12 @@ class Sword {
   }
 
   act(step, sublevel) {
-    this.pos = this.pos.plus(new Vector(-0.9, 0));
+    this.pos = this.pos.plus(new Vector(-0.9, 2));
     if (sublevel.player.direction === 'right') {
-      this.pos.x = this.pos.x + 3;
+      this.pos.x = this.pos.x + 6;
     }
     if (sublevel.player.direction === 'left') {
-      this.pos.x = this.pos.x - 3;
+      this.pos.x = this.pos.x;
     }
 
     const otherActor = sublevel.actorAt(this);

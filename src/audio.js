@@ -63,7 +63,7 @@ const audio = {
    * Specifically plays the intro music.
    */
   playIntroMusic() {
-    // this.play('intro-music', 'loop');
+    this.play('intro-music', 'loop');
   },
 
   /**
@@ -79,7 +79,7 @@ const audio = {
   playMusic(mapNumber) {
     switch (mapNumber) {
       case 0: /* First level */
-        // this.play('level01', 'loop');
+        this.play('level01', 'loop');
         break;
       default:
     }
@@ -91,49 +91,17 @@ const audio = {
   pauseMusic(mapNumber) {
     switch (mapNumber) {
       case 0: /* First level */
-        // this.pause('level01', 'loop');
+        this.pause('level01', 'loop');
         break;
       case 1: /* First level */
-        // this.pause('level01', 'loop');
+        this.pause('level01', 'loop');
         break;
       default:
     }
   },
 
-  /**
-   * A store that keeps track of the current walking sound effect so that if
-   * the player walks over another obstacle with a walking effect the app can
-   * pause the sound effect of the previous obstacle they are no longer
-   * walking on.
-   */
   walkingSoundsStore: [],
 
-  /**
-   * A function that checks if the player is walking on an obstacle and pressing
-   * the right or left arrow keys.  It then checks if what the player is walking
-   * on should summon a walking sound effect.  It does this by referencing the
-   * whitelist of walking sound effects in this.sounds.effects.walkingOn.  Then,
-   * it checks if there is anything present in the walkingSoundsStore at all,
-   * which means the player is currently walking through obstacles with sound
-   * effects or moving from one obstacle with sound effects to another.  Then
-   * it checks if the current obstacle type the user is walking on is currently
-   * not in the store.  If it isn't, this means you are transitioning from one
-   * obstacle type with a walking sound directly to the next and, as such, the
-   * element with the previous walking sound is instructed to turn of and the
-   * walkingSoundsStore is reset to an empty array via the
-   * resetAndPauseWalkingSound helper function.  Then the code checks to see if
-   * the walkingSoundsStore is empty via it's length and if it is this means it
-   * has either just been wiped out and the previous obstacles sound has been
-   * dealt with or it's the first instance of the player touching an obstacle
-   * with a sound.  Either way, it fires the pushAndPlayWalkingSound helper
-   * function that pushes the sound to the walkingSoundsStore, then grabs the
-   * audio element in question and checks that it is not playing (by checking if
-   * it is paused) and if it is not already playing it sets a volume and time
-   * to play the audio.  And finally, if the user leases the left or right key
-   * or there is no obstacle that requires sound it fires the
-   * resetAndPauseWalkingSound helper function which wipes out the
-   * walkingSoundsStore and pauses the current sound that is playing.
-   */
   handleWalkingOnSounds(obstacle) {
     const pushAndPlayWalkingSound = ({ type }) => {
       this.walkingSoundsStore.push(type);

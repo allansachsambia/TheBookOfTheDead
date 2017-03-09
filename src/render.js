@@ -98,11 +98,12 @@ class Render {
         });
       }
       if (actor.type === 'player') {
-        if (actor.direction === 'left') {
-          el.className = `actor player player-${actor.actionType}-${actor.spriteNumber} x-flip`;
-        } else {
+        if (!actor.actionSubtype) {
           el.className = `actor player player-${actor.actionType}-${actor.spriteNumber}`;
+        } else if (actor.actionSubtype) {
+          el.className = `actor player player-${actor.actionType}-${actor.actionSubtype}-${actor.spriteNumber}`;
         }
+        if (actor.direction === 'left') { el.classList.add('x-flip'); }
       }
 
       if (damageFilters && actor.damaged) {
