@@ -6,6 +6,7 @@ import Unstick from '../unstick';
  */
 class Zombie {
   constructor(pos, type) {
+    this.variants = 2;
     this.pos = pos;
     this.images = { walking: 'images/enemies/zombie/walking-01.svg' };
     this.direction = 'right';

@@ -67,8 +67,8 @@ class Sublevel {
         bottom: Math.ceil(pos.y + size.y),
       },
       offScreen: {
-        left: Math.floor(pos.x) < 0,
-        right: Math.ceil(pos.x + size.x) > this.width,
+        left: Math.floor(pos.x + 3) < 0,
+        right: Math.ceil((pos.x + size.x) - 3) > this.width,
         top: Math.floor(pos.y) < 0,
         bottom: Math.ceil(pos.y + size.y) > this.height,
       },

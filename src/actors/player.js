@@ -54,6 +54,7 @@ class Player {
     this.moveSwords(step, sublevel);
     this.setSize();
     this.setActionSubtype();
+    // this.walkingSounds(step, sublevel);
 
   }
 
@@ -160,6 +161,7 @@ class Player {
         this.pos = oldPos;
       }
     }
+    audio.handleWalkingOnSounds(sublevel.obstacleAt(this.newPos, this.size, 'y'));
   }
 
   handleXObstacles(step, sublevel) {
@@ -184,6 +186,10 @@ class Player {
 
   /* ==== BEHAVIORS =========================================================
      ======================================================================== */
+
+  walkingSounds(step, sublevel) {
+    audio.handleWalkingOnSounds(sublevel.obstacleAt(this.pos, this.size, 'y'));
+  }
 
   stand() {
     if (this.actionType === 'standing') {
