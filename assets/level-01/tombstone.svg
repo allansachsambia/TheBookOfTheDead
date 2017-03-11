@@ -1,0 +1,11 @@
+<svg width="84" height="120" viewBox="0 0 84 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(0.886895,0,0,0.966919,4.7155,3.74358)">
+        <path d="M0.651,113.163C2.179,56.98 -5.296,27.576 22.221,10.242C35.252,2.033 52.186,0.989 65.614,10.451C88.954,26.896 82.481,60.788 83.605,112.687L0.651,113.163Z" style="fill:rgb(54,54,54);stroke:rgb(42,42,42);stroke-width:6.47px;"/>
+    </g>
+    <g transform="matrix(0.867839,0,0,1,5.48688,0)">
+        <rect x="25.186" y="43.85" width="33.798" height="10.642" style="fill:rgb(36,39,42);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.08453,0)">
+        <rect x="37.163" y="35.47" width="11.582" height="34.205" style="fill:rgb(36,39,42);"/>
+    </g>
+</svg>

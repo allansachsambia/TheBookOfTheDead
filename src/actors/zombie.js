@@ -7,12 +7,12 @@ import Unstick from '../unstick';
 class Zombie {
   constructor(pos, type) {
     this.pos = pos;
-    this.images = { walking: 'images/enemies/zombie/walking-01.png' };
+    this.images = { walking: 'images/enemies/zombie/walking-01.svg' };
     this.direction = 'right';
     this.zombieCounter = 0;
     this.size = new Vector(2.5, 4.5);
     this.unstick = new Unstick;
-    this.lifeMeter = 5;
+    this.lifeMeter = 0;
     this.type = 'zombie';
     this.actorType = 'enemy';
     this.action = { walking: true };

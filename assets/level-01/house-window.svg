@@ -1,0 +1,18 @@
+<svg width="105" height="195" viewBox="0 0 105 195" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(0.971752,0,0,1.03951,0.206341,-10.8172)">
+        <rect x="-0.212" y="10.406" width="108.051" height="187.589" style="fill:rgb(29,29,29);"/>
+    </g>
+    <g transform="matrix(0.832444,0,0,0.959955,7.1754,-3.03841)">
+        <rect x="-0.212" y="10.406" width="108.051" height="187.589"/>
+    </g>
+    <rect x="15.219" y="15.275" width="33.828" height="71.985" style="fill:rgb(51,50,50);stroke:black;stroke-width:1.5px;"/>
+    <g transform="matrix(1,0,0,1,40.4296,0)">
+        <rect x="15.219" y="15.275" width="33.828" height="71.985" style="fill:rgb(51,50,50);stroke:black;stroke-width:1.5px;"/>
+    </g>
+    <g transform="matrix(1,0,0,1.21372,0,74.0821)">
+        <rect x="15.219" y="15.275" width="33.828" height="71.985" style="fill:rgb(37,37,37);stroke:black;stroke-width:1.35px;"/>
+    </g>
+    <g transform="matrix(1,0,0,1.21372,40.4296,74.0821)">
+        <rect x="15.219" y="15.275" width="33.828" height="71.985" style="fill:rgb(37,37,37);stroke:black;stroke-width:1.35px;"/>
+    </g>
+</svg>

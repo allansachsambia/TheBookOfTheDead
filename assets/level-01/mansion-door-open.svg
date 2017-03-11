@@ -1,0 +1,15 @@
+<svg width="161" height="300" viewBox="0 0 161 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="Layer1">
+        <rect x="-1.148" y="-0.921" width="163.687" height="301.984" style="fill:rgb(40,40,40);"/>
+        <g transform="matrix(0.757054,0,0,0.946478,19.8061,16.1134)">
+            <rect x="-1.148" y="-0.921" width="163.687" height="301.984"/>
+        </g>
+        <g transform="matrix(0.0686516,0,0,0.946478,19.016,16.1134)">
+            <rect x="-1.148" y="-0.921" width="163.687" height="301.984" style="fill:rgb(35,35,35);"/>
+        </g>
+        <rect x="30.251" y="133.473" width="4.908" height="16.72" style="fill:rgb(128,128,128);"/>
+        <g transform="matrix(1,0,0,1,-17.2725,0)">
+            <rect x="30.251" y="133.473" width="4.908" height="16.72" style="fill:rgb(128,128,128);"/>
+        </g>
+    </g>
+</svg>

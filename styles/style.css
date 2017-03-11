@@ -1,10 +1,10 @@
-/* Fonts
-   ====================================================================== */
+/* Fonts ====================================================================
+   ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
-/* Helpers
-   ====================================================================== */
+/* Helpers ==================================================================
+   ========================================================================== */
 
 /*.debug * { border: 1px solid #333 }*/
 
@@ -17,16 +17,16 @@
   -ms-filter: "FlipH";
 }
 
-/* Body
-   ====================================================================== */
+/* Body =====================================================================
+   ========================================================================== */
 
 body {
   background: black;
   margin: 0
 }
 
-/* Intro Screen
-   ====================================================================== */
+/* Intro Screen =============================================================
+   ========================================================================== */
 
 .intro-screen-wrap {
   width: 100%;
@@ -55,8 +55,8 @@ body {
   position: absolute;
 }
 
-/* Win Screen
-   ====================================================================== */
+/* Win Screen ===============================================================
+   ========================================================================== */
 
 .win-screen-wrap {
   width: 100%;
@@ -75,8 +75,8 @@ body {
   position: absolute;
 }
 
-/* Lose Screen
-   ====================================================================== */
+/* Lose Screen ==============================================================
+   ========================================================================== */
 
 .lose-screen-wrap{
   width: 100%;
@@ -96,8 +96,8 @@ body {
 }
 
 
-/* Game
-   ====================================================================== */
+/* Game =====================================================================
+   ========================================================================== */
 
 .game {
   overflow: hidden;
@@ -106,35 +106,37 @@ body {
   position: absolute;
 }
 
-/* Background & Foreground Layers
-   ====================================================================== */
+/* Background & Foreground Layers ===========================================
+   ========================================================================== */
 
-.wallpaper { background-image: url('./../assets/level-01/dark-sky.png'); }
+.wallpaper { background: #111; }
 .mansion { background-color: #1d1d1d; }
+
 .tree-small { background-image: url('./../assets/level-01/tree-small.png'); }
 .tree { background-image: url('./../assets/level-01/tree.png'); }
 .tree-large { background-image: url('./../assets/level-01/tree-large.png'); }
-.tombstone { background-image: url('./../assets/level-01/tombstone.png'); }
-.tombstone-cross { background-image: url('./../assets/level-01/tombstone-cross.png'); }
+
+.tombstone { background-image: url('./../assets/level-01/tombstone.svg'); }
+.tombstone-cross { background-image: url('./../assets/level-01/tombstone-cross.svg'); }
 .soil { background-color: black; }
-.cliff { background-image: url('./../assets/level-01/cliff.png'); }
-.black-grass { background-image: url('./../assets/level-01/black-grass.png'); }
-.house { background-image: url('./../assets/level-01/house.png'); }
-.house-window { background-image: url('./../assets/level-01/house-window.png'); }
-.mansion-window { background-image: url('./../assets/level-01/mansion-window.png'); }
-.mansion-door-open { background-image: url('./../assets/level-01/mansion-door-open.png'); }
-.spider-web { background-image: url('./../assets/level-01/spider-web.png'); }
+.cliff { background-image: url('./../assets/level-01/cliff.svg'); }
+.black-grass { background-image: url('./../assets/level-01/black-grass.svg'); }
+.house { background-image: url('./../assets/level-01/house.svg'); }
+.house-window { background-image: url('./../assets/level-01/house-window.svg'); }
+.mansion-window { background-image: url('./../assets/level-01/mansion-window.svg'); }
+.mansion-door-open { background-image: url('./../assets/level-01/mansion-door-open.svg'); }
+.spider-web { background-image: url('./../assets/level-01/spider-web.svg'); }
 .spider-thread { background-color: dimgrey; }
-.water-top { background-image: url('./../assets/level-01/water-top.png'); }
-.fence-01 { background-image: url('./../assets/level-01/fence-01.png'); }
-.fence-02 { background-image: url('./../assets/level-01/fence-02.png'); }
-.wallpaper-accent { background-image: url('./../assets/level-01/wallpaper-accent.png'); }
-.inner-mansion-window { background-image: url('./../assets/level-01/inner-mansion-window.png'); }
-.phoney-ladder { background-image: url('./../assets/items/ladder.png'); }
+.water-top { background-image: url('./../assets/level-01/water-top.svg'); }
+.fence-01 { background-image: url('./../assets/level-01/fence-01.svg'); }
+.fence-02 { background-image: url('./../assets/level-01/fence-02.svg'); }
+.wallpaper-accent { background-image: url('./../assets/level-01/wallpaper-accent.svg'); }
+.inner-mansion-window { background-image: url('./../assets/level-01/inner-mansion-window.svg'); }
+.phoney-ladder { background-image: url('./../assets/items/ladder.svg'); }
 .phoney-wall { background-color: #2d2d2d; }
 
-/* Obstacles Layer
-   ====================================================================== */
+/* Obstacles Layer ==========================================================
+   ========================================================================== */
 
 .background td {
   padding: 0;
@@ -144,14 +146,14 @@ body {
 
 .lava  { background: red  }
 .water  { background-color: black }
-.web { background-image: url('./../assets/level-01/spider-web.png') }
+.web { background-image: url('./../assets/level-01/spider-web.svg') }
 .level0 .wall  { background-color: black }
 .level1 .wall, .wood  { background-color: #2d2d2d }
 .grass  { background-color: black }
 .pseudo-wall  { background-color: black }
 
-/* Actors Layer: Player
-   ====================================================================== */
+/* Actors Layer: Player =====================================================
+   ========================================================================== */
 
 /* Universal */
 .actor { position: absolute }
@@ -218,23 +220,23 @@ body {
 .player-climbing-007 { background-position: -480px -450px; }
 .player-climbing-008 { background-position: -480px -450px; }
 
-/* Actors Layer: Enemies
-   ====================================================================== */
+/* Actors Layer: Enemies ====================================================
+   ========================================================================== */
 
-.zombie { background-image: url('./../assets/zombie/zombie-sprites.png'); }
-.ladder { background-image: url('./../assets/items/ladder.png'); }
-.spider  { background-image: url('./../assets/enemies/spider/spider.png'); }
+.zombie { background-image: url('./../assets/zombie/zombie-sprites.svg'); }
+.spider  { background-image: url('./../assets/spider/spider.png'); }
 
-/* Actors Layer: Items
-   ====================================================================== */
+/* Actors Layer: Items ======================================================
+   ========================================================================== */
 
-.pizza { background-image: url('./../assets/items/pizza.png'); }
+.pizza { background-image: url('./../assets/items/pizza.svg'); }
+.ladder { background-image: url('./../assets/items/ladder.svg'); }
 
-/* Daggers Layer
-   ====================================================================== */
+/* Daggers Layer ============================================================
+   ========================================================================== */
 
 .dagger {
-  background-image: url('./../assets/items/dagger.png');
+  background-image: url('./../assets/items/dagger.svg');
 }
 .dagger.left {
   -moz-transform: scaleX(-1);
@@ -245,8 +247,8 @@ body {
   -ms-filter: "FlipH";
 }
 
-/* Swords Layer
-   ====================================================================== */
+/* Swords Layer =============================================================
+   ========================================================================== */
 
 .sword.left {
   -moz-transform: scaleX(-1);
@@ -262,8 +264,8 @@ body {
 }*/
 
 
-/* Status Layer
-   ====================================================================== */
+/* Status Layer =============================================================
+   ========================================================================== */
 
 .status-bar {
   width: 20px;

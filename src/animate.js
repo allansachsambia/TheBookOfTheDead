@@ -26,7 +26,7 @@ const totalStatusReset = () => {
 
 export const animate = (mapNumber = 0) => {
   const sublevel = new Sublevel(maps[mapNumber], mapNumber, status);
-  audio.playMusic(mapNumber);
+  // audio.playMusic(mapNumber);
   const render = new Render(sublevel, status);
   let prevTimeStamp = null;
   const forever = (timeStamp) => {

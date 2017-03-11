@@ -86,17 +86,20 @@ class Render {
       style.left = `${actor.pos.x * scale}px`;
       style.top = `${actor.pos.y * scale}px`;
       if (actor.direction === 'left') { el.className += ' x-flip'; }
+
       if (actions) {
         actions.forEach((action) => {
           if (actor.action[action]) {
             if (actor.type === 'zombie') {
               style.backgroundPosition = `${actor.spritePos.y}px ${actor.spritePos.x}px`;
             } else {
+              console.log(actor.images);
               style.backgroundImage = `url('${actor.images[action]}')`;
             }
           }
         });
       }
+
       if (actor.type === 'player') {
         if (!actor.actionSubtype) {
           el.className = `actor player player-${actor.actionType}-${actor.spriteNumber}`;
@@ -251,28 +254,19 @@ class Render {
   }
 
   scrollPlayerIntoView() {
-    const width = this.wrap.clientWidth;
-    const height = this.wrap.clientHeight;
-    const xMargin = width / 3;
-    const yMargin = height / 3;
-    const left = this.wrap.scrollLeft;
-    const top = this.wrap.scrollTop;
-    const right = left + width;
-    const bottom = top + height;
     const player = this.level.player;
     const center = player.pos.plus(player.size.times(0.5)).times(scale);
-    if (center.x < left + xMargin) {
-      this.wrap.scrollLeft = center.x - xMargin;
-    } else if (center.x > right - xMargin) {
-      this.wrap.scrollLeft = center.x + (xMargin - width);
+    if (center.x < this.wrap.scrollLeft + (this.wrap.clientWidth / 5)) {
+      this.wrap.scrollLeft = center.x - (this.wrap.clientWidth / 5);
+    } else if (center.x > (this.wrap.scrollLeft + this.wrap.clientWidth) - (this.wrap.clientWidth / 5)) {
+      this.wrap.scrollLeft = center.x + ((this.wrap.clientWidth / 5) - this.wrap.clientWidth);
     }
-    if (center.y < top + yMargin) {
-      this.wrap.scrollTop = center.y - yMargin;
-    } else if (center.y > bottom - yMargin) {
-      this.wrap.scrollTop = center.y + (yMargin - height);
+    if (center.y < this.wrap.scrollTop + (this.wrap.clientHeight / 1.25)) {
+      this.wrap.scrollTop = center.y - (this.wrap.clientHeight / 1.25);
+    } else if (center.y > (this.wrap.scrollTop + this.wrap.clientHeight) - (this.wrap.clientHeight / 5)) {
+      this.wrap.scrollTop = center.y + ((this.wrap.clientHeight / 5) - this.wrap.clientHeight);
     }
   }
-
 }
 
 export default Render;
