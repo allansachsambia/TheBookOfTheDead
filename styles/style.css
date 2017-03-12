@@ -40,7 +40,7 @@ body {
   width: 1000px;
   height: 662px;
   left: 50%;
-  background-image: url("./../assets/screens/intro-screen.png");
+  background-image: url("./../assets/screens/intro-screen.svg");
   margin-left: -500px;
   position: absolute;
 }

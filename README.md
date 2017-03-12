@@ -4,7 +4,7 @@ v.0.0.1-beta
 
 ![Images](https://raw.githubusercontent.com/allansachsambia/TheBookOfTheDead/master/readme-splash.png)
 
-A demo for a side scroller video game written in JavaScript.  This project is an experiment to see if some semblance of a playable video game can be built in JavaScript without the use of canvas.
+The Book of the Dead is a demo for a side scroller video game written in JavaScript.  This project is an experiment to see if a semi-playable video game can be built in JavaScript using animated html elements instead of canvas.
 
 ## Limitations
 

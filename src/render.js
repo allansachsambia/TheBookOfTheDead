@@ -100,6 +100,7 @@ class Render {
         });
       }
 
+      // CRAZEEE
       if (actor.type === 'player') {
         if (!actor.actionSubtype) {
           el.className = `actor player player-${actor.actionType}-${actor.spriteNumber}`;
