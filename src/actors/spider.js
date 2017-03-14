@@ -5,10 +5,12 @@ import Vector from '../vector';
  */
 class Spider {
   constructor(pos, type) {
+    this.type = 'spider';
+    this.actorCategory = 'enemy';
     this.pos = pos;
     this.size = new Vector(1.5, 1.3);
-    this.type = 'spider';
-    this.actorType = 'enemy';
+    this.innerSize = new Vector(1.5, 1.3);
+    this.buffer = new Vector(0, 0);
     if (type === '#') {
       this.speed = new Vector(0, 5);
     } else if (type === '*') {

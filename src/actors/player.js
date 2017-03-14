@@ -9,17 +9,26 @@ import audio from '../audio';
 class Player {
 
   constructor(pos) {
-    this.size = new Vector(0, 0);
+    this.type = 'player';
+    this.actorCategory = 'ally';
+    this.size = new Vector(0, 0); // evaluates to (8, 5)
+    this.innerSize = new Vector(1, 3);
+    this.buffer = new Vector(3, 0);
     this.motion = new Vector(0, 0);
     this.obstacle = new Vector(0, 0);
     this.lifeMeter = 10;
     this.pos = pos.plus(new Vector(0, -0.5));
-    this.coords = { left: null, right: null, top: null, bottom: null };
+    this.newPos = null;
+    this.coords = {
+      left: this.pos.x,
+      right: this.pos.x + this.size.x,
+      top: this.pos.y,
+      bottom: this.pos.y + this.size.y,
+    };
     this.direction = 'right';
     this.damaged = false;
     this.damageTimer = 0;
     this.speed = new Vector(0, 0);
-    this.type = 'player';
     this.actionType = null;
     this.actionSubtype = null;
     this.spriteNumber = null;
@@ -75,14 +84,6 @@ class Player {
 
   setSize() { this.size = new Vector(8, 5); }
 
-  setActionSubtype() {
-    if (this.swordDrawn) {
-      this.actionSubtype = 'sword';
-    } else {
-      this.actionSubtype = null;
-    }
-  }
-
   /* ==== SETTINGS AND CONDITIONS ===========================================
      ======================================================================== */
 
@@ -114,6 +115,14 @@ class Player {
           this.actionType = 'climbing';
         }
       }
+    }
+  }
+
+  setActionSubtype() {
+    if (this.swordDrawn) {
+      this.actionSubtype = 'sword';
+    } else {
+      this.actionSubtype = null;
     }
   }
 

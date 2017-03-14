@@ -61,60 +61,31 @@ class Render {
     this.level.actors.forEach((actor) => {
       const el = wrap.appendChild(helpers.el('div', `actor ${actor.type}`));
       const style = el.style;
-      let actions;
-      let damageFilters;
-      switch (actor.type) {
-        // case 'player':
-        //   actions = ['standing', 'running', 'squatting', 'crawling', 'climbing'];
-        //   damageFilters = ['invert(100%)', 'saturate(100)'];
-        //   break;
-        case 'zombie':
-          actions = ['walking'];
-          break;
-        case 'skeleton':
-          actions = ['walking'];
-          break;
-        case 'ghost':
-          actions = ['gliding'];
-          style.opacity = actor.opacity;
-          damageFilters = ['invert(100%)', 'saturate(100)', 'hue(100)'];
-          break;
-        default:
-      }
       style.width = `${actor.size.x * scale}px`;
       style.height = `${actor.size.y * scale}px`;
       style.left = `${actor.pos.x * scale}px`;
       style.top = `${actor.pos.y * scale}px`;
       if (actor.direction === 'left') { el.className += ' x-flip'; }
-
-      if (actions) {
-        actions.forEach((action) => {
-          if (actor.action[action]) {
-            if (actor.type === 'zombie') {
-              style.backgroundPosition = `${actor.spritePos.y}px ${actor.spritePos.x}px`;
-            } else {
-              console.log(actor.images);
-              style.backgroundImage = `url('${actor.images[action]}')`;
-            }
-          }
-        });
-      }
-
-      // CRAZEEE
       if (actor.type === 'player') {
         if (!actor.actionSubtype) {
-          el.className = `actor player player-${actor.actionType}-${actor.spriteNumber}`;
+          el.className = `actor ${actor.type} ${actor.type}-${actor.actionType}-${actor.spriteNumber}`;
         } else if (actor.actionSubtype) {
-          el.className = `actor player player-${actor.actionType}-${actor.actionSubtype}-${actor.spriteNumber}`;
+          el.className = `actor ${actor.type} ${actor.type}-${actor.actionType}-${actor.actionSubtype}-${actor.spriteNumber}`;
         }
         if (actor.direction === 'left') { el.classList.add('x-flip'); }
       }
 
-      if (damageFilters && actor.damaged) {
-        damageFilters.forEach((damageFilter) => {
-          style.WebkitFilter = damageFilter;
-        });
+      if (actor.type === 'zombie') {
+        el.className = `actor ${actor.type} ${actor.type}-${helpers.pad(actor.variant, 3)}-${actor.actionType}-${actor.spriteNumber}`;
+        if (actor.direction === 'left') { el.classList.add('x-flip'); }
       }
+
+      //   damageFilters = ['invert(100%)', 'saturate(100)'];
+      // if (damageFilters && actor.damaged) {
+      //   damageFilters.forEach((damageFilter) => {
+      //     style.WebkitFilter = damageFilter;
+      //   });
+      // }
     });
     return wrap;
   }
@@ -257,10 +228,10 @@ class Render {
   scrollPlayerIntoView() {
     const player = this.level.player;
     const center = player.pos.plus(player.size.times(0.5)).times(scale);
-    if (center.x < this.wrap.scrollLeft + (this.wrap.clientWidth / 5)) {
-      this.wrap.scrollLeft = center.x - (this.wrap.clientWidth / 5);
-    } else if (center.x > (this.wrap.scrollLeft + this.wrap.clientWidth) - (this.wrap.clientWidth / 5)) {
-      this.wrap.scrollLeft = center.x + ((this.wrap.clientWidth / 5) - this.wrap.clientWidth);
+    if (center.x < this.wrap.scrollLeft + (this.wrap.clientWidth / 3)) {
+      this.wrap.scrollLeft = center.x - (this.wrap.clientWidth / 3);
+    } else if (center.x > (this.wrap.scrollLeft + this.wrap.clientWidth) - (this.wrap.clientWidth / 3)) {
+      this.wrap.scrollLeft = center.x + ((this.wrap.clientWidth / 3) - this.wrap.clientWidth);
     }
     if (center.y < this.wrap.scrollTop + (this.wrap.clientHeight / 1.25)) {
       this.wrap.scrollTop = center.y - (this.wrap.clientHeight / 1.25);

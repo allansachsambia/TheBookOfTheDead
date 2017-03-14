@@ -1,14 +1,10 @@
 # The Book of the Dead
 
-v.0.0.1-beta
+v.0.0.2-beta
 
-![Images](https://raw.githubusercontent.com/allansachsambia/TheBookOfTheDead/master/readme-splash.png)
+![Images](https://raw.githubusercontent.com/allansachsambia/TheBookOfTheDead/master/readme-splash.svg)
 
-The Book of the Dead is a demo for a side scroller video game written in JavaScript.  This project is an experiment to see if a semi-playable video game can be built in JavaScript using animated html elements instead of canvas.
-
-## Limitations
-
-Does not work on any mobile devices and plays very slowly on Safari.  Works best on Chrome.
+The Book of the Dead is a demo for a side scroller video game written in JavaScript.  This project is an experiment to see if a video game can be programmed in JavaScript using animated html elements instead of canvas.  At present this project is unavailable on touch screen devices and works best on Chrome and Firefox.
 
 ## Controls
 

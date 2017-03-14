@@ -7,11 +7,13 @@ import { settings } from '../globals';
 class Pizza {
 
   constructor(pos) {
+    this.type = 'pizza';
+    this.actorCategory = 'item';
     this.pos = pos.plus(new Vector(0.1, 0.1));
     this.size = new Vector(1, 1);
+    this.innerSize = new Vector(1, 1);
+    this.buffer = new Vector(0, 0);
     this.wobble = 2 * Math.PI * Math.random();
-    this.type = 'pizza';
-    this.actorType = 'item';
     this.coords = {
       left: this.pos.x,
       right: this.pos.x + this.size.x,

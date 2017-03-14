@@ -7,9 +7,12 @@ import keys from '../keys';
  */
 class Dagger {
   constructor(pos) {
+    this.type = 'dagger';
+    this.type = 'item';
     this.pos = pos;
     this.size = new Vector(3, 1);
-    this.type = 'dagger';
+    this.innerSize = new Vector(3, 1);
+    this.size = new Vector(0, 0);
     this.direction = null;
     this.speed = new Vector(0.7, 0);
     this.throwDirection = null;

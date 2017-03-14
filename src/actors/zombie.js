@@ -1,75 +1,129 @@
 import Vector from '../vector';
 import Unstick from '../unstick';
+import helpers from '../helpers';
 
 /**
  * A zombie enemy.
  */
 class Zombie {
   constructor(pos, type) {
-    this.variants = 2;
-    this.pos = pos;
-    this.images = { walking: 'images/enemies/zombie/walking-01.svg' };
-    this.direction = 'right';
-    this.zombieCounter = 0;
-    this.size = new Vector(2.5, 4.5);
-    this.unstick = new Unstick;
-    this.lifeMeter = 0;
     this.type = 'zombie';
-    this.actorType = 'enemy';
-    this.action = { walking: true };
-    this.speed = new Vector(3, 0);
-    this.timers = { walking: 0 };
+    this.actorCategory = 'enemy';
+    this.size = new Vector(8, 5);
+    this.innerSize = new Vector(1, 3);
+    this.buffer = new Vector(3, 0);
+    this.motion = new Vector(0, 0);
+    this.obstacle = new Vector(0, 0);
+    this.lifeMeter = 0;
+    this.pos = pos.plus(new Vector(0, -0.5));
+    this.newPos = null;
     this.coords = {
       left: this.pos.x,
       right: this.pos.x + this.size.x,
       top: this.pos.y,
       bottom: this.pos.y + this.size.y,
     };
-    this.spritePos = { x: 0, y: 0 };
-    this.spritePositions = {
-      walking: [
-        { x: 0, y: 0 },
-        { x: 0, y: -75 },
-        { x: 0, y: -150 },
-        { x: 0, y: -225 },
-        { x: 0, y: -300 },
-      ],
+    this.direction = 'right';
+    this.damaged = false;
+    this.damageTimer = 0;
+    this.speed = new Vector(3, 0);
+    this.actionType = null;
+    this.spriteNumber = null;
+    this.spriteUpperBound = null;
+    this.timer = Math.floor(Math.random() * 3) + 1;
+    // Zombie specific
+    this.variants = 2;
+    this.variant = null;
+    this.unstick = new Unstick();
+  }
+
+  /* ==== ACT ===============================================================
+     ======================================================================== */
+
+  act(step, sublevel) {
+    this.setVariant();
+    this.setAction();
+    this.resetCoords();
+    this.setTimer();
+    this.handleGravity(step);
+    this.handleYObstacles(step, sublevel);
+    this.handleXObstacles(step, sublevel);
+    this.walk(step, sublevel);
+    this.setSize();
+  }
+
+  /* ==== HELPERS ==============================================================
+     ======================================================================== */
+
+  imageSwap(type, upperBound) {
+    const typeNotSet = this.actionType !== type;
+    const lastSprite = this.spriteNumber >= helpers.pad(upperBound, 3);
+    if (this.timer === 0) {
+      if (typeNotSet || lastSprite) {
+        this.spriteNumber = helpers.pad(1, 3);
+      } else {
+        this.spriteNumber = helpers.pad(parseInt(this.spriteNumber, 10) + 1, 3);
+      }
+    }
+  }
+
+  setSize() { this.size = new Vector(8, 5); }
+
+  /* ==== SETTINGS AND CONDITIONS ===========================================
+     ======================================================================== */
+
+ setVariant() {
+   if (!this.variant) {
+     this.variant = Math.floor(Math.random() * this.variants) + 1;
+   }
+ }
+
+  setAction(sublevel) {
+    if (!this.actionType) { this.actionType = 'walking'; }
+  }
+
+  resetCoords() {
+    this.coords = {
+      left: this.pos.x,
+      right: this.pos.x + this.size.x,
+      top: this.pos.y,
+      bottom: this.pos.y + this.size.y,
     };
   }
 
-  act(step, sublevel) {
-    this.moveX(step, sublevel);
-    this.moveY(step, sublevel);
+  setTimer() {
+    this.timer = (this.timer < 3) ? this.timer += 1 : this.timer = 0;
   }
 
-  imageSwap({ bounds, type }) {
-    let counter = 0;
-    let addZero = false;
-    bounds.forEach((image) => {
-      counter += 1;
-      if (counter.toString().length === 1) {
-        addZero = true;
-      }
-      if ((this.timers[type] >= image.lowerBound) &&
-      (this.timers[type] <= image.upperBound)) {
-        // -------------------------------------------------------
-        // Temp shim for running
-        if (type === 'walking') {
-          if (counter === 1) { this.spritePos = this.spritePositions.walking[0]; }
-          if (counter === 2) { this.spritePos = this.spritePositions.walking[1]; }
-          if (counter === 3) { this.spritePos = this.spritePositions.walking[2]; }
-          if (counter === 4) { this.spritePos = this.spritePositions.walking[3]; }
-          if (counter === 5) { this.spritePos = this.spritePositions.walking[4]; }
-        }
-      }
-    }, this);
+  handleGravity(step) {
+    this.motion = new Vector(0, this.speed.y * step);
   }
 
-  moveX(step, sublevel) {
-    const self = this;
-    const newPos = this.pos;
-    newPos.x = this.pos.x + this.speed.times(step).x;
-    const xAxisObstacle = sublevel.obstacleAt(newPos, this.size, 'x');
+  handleYObstacles(step, sublevel) {
+    const newPos = this.pos.plus(this.motion);
+    const obstacle = sublevel.obstacleAt(newPos, this.size, 'y');
+    if (!obstacle) { this.pos = newPos; }
+  }
+
+  handleXObstacles(step, sublevel) {
+    this.newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
+    this.obstacle.x = sublevel.obstacleAt(this.newPos, this.size, 'x');
+
+    if (this.obstacle.x) {
+      this.speed = this.speed.times(-1);
+      this.direction === 'right' ? this.direction = 'left' : this.direction = 'right';
+      // this.unstick.x(this, this.obstacle.x, actorsLeftPos);
+    }
+    this.pos = this.newPos;
+  }
+
+  /* ==== BEHAVIORS =========================================================
+     ======================================================================== */
+
+  walk(step, sublevel) {
+    this.spriteUpperBound = 10;
+    this.speed.y = 20;
+    this.imageSwap('walking', this.spriteUpperBound);
     const actorsLeftPos = Math.floor(this.pos.x);
     const actorsRightPos = Math.ceil(this.pos.x + this.size.x);
     const actorsTopPos = Math.floor(this.pos.y);
@@ -77,20 +131,6 @@ class Zombie {
     const leftSublevelEnd = actorsLeftPos < 0;
     const rightSublevelEnd = actorsRightPos > sublevel.width;
     const topSublevelEnd = actorsTopPos < 0;
-    this.timers.walking += 1;
-    this.timers.walking === 40 ?
-      this.timers.walking = 0 :
-      this.timers.walking = this.timers.walking;
-    self.imageSwap({
-      type: 'walking',
-      bounds: [
-        { lowerBound: 0, upperBound: 7 },
-        { lowerBound: 8, upperBound: 15 },
-        { lowerBound: 16, upperBound: 23 },
-        { lowerBound: 24, upperBound: 31 },
-        { lowerBound: 32, upperBound: 39 },
-      ],
-    });
     if ((sublevel.player.pos.y >= this.pos.y) &&  (sublevel.player.pos.y <= this.pos.y + 2))  {
       if ((sublevel.player.pos.x > this.pos.x - 200) || (sublevel.player.pos.x < this.pos.x + 200)) {
         let playersDirection;
@@ -108,26 +148,13 @@ class Zombie {
           turnAround = false;
         }
         if (turnAround) {
-          self.speed = this.speed.times(-1);
+          this.speed = this.speed.times(-1);
           this.direction === 'right' ? this.direction = 'left' : this.direction = 'right';
         }
       }
     }
-    if (xAxisObstacle) {
-      self.speed = this.speed.times(-1);
-      this.direction === 'right' ? this.direction = 'left' : this.direction = 'right';
-      // this.unstick.x(this, xAxisObstacle, actorsLeftPos);
-    }
-    this.pos = newPos;
   }
 
-  moveY(step, sublevel) {
-    this.speed.y = 20;
-    const motion = new Vector(0, this.speed.y * step);
-    const newPos = this.pos.plus(motion);
-    const obstacle = sublevel.obstacleAt(newPos, this.size, 'y');
-    if (!obstacle) { this.pos = newPos; }
-  }
 }
 
 export default Zombie

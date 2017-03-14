@@ -14,10 +14,8 @@ const init = () => {
     displayIntroScreen();
     waitToStart();
   } else {
-    // this.img = document.createElement("img");
-    // this.img.src = '...';
-    // const el = document.body;
-    // el.appendChild(this.img)
+    const mobileWrap = document.querySelector('.mobile-wrap');
+    mobileWrap.style.display = 'flex';
   }
 };
 

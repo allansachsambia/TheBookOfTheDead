@@ -34,6 +34,7 @@ class Sublevel {
     this.status = status;
     this.status.mapNumber = mapNumber;
     this.status.levelNumber = 1;
+
   }
 
   animate(step) {
@@ -56,7 +57,7 @@ class Sublevel {
     return this.status.condition !== null;
   }
 
-  obstacleAt(pos, size, axis, actorType) {
+  obstacleAt(pos, size, axis, actorCategory) {
     const actor = {
       x: {
         left: Math.floor(pos.x),
@@ -82,7 +83,7 @@ class Sublevel {
       let xDirection;
       let yDirection;
 
-      if (actorType === 'player') {
+      if (actorCategory === 'player') {
         for (let x = (actor.x.left + 3); x < (actor.x.right - 3); x += 1) {
           if (this.typeMap[y]) {
             const type = this.typeMap[y][x];
@@ -139,28 +140,20 @@ class Sublevel {
   }
 
   actorAt(actor) {
-    if (actor.type === 'player') {
-      for (let i = 0; i < this.actors.length; i += 1) {
-        const otherActor = this.actors[i];
-        if (otherActor !== actor &&
-          actor.pos.x + (actor.size.x - 3) > otherActor.pos.x &&
-          actor.pos.x < otherActor.pos.x + (otherActor.size.x - 3) &&
-          actor.pos.y + actor.size.y > otherActor.pos.y &&
-          actor.pos.y < otherActor.pos.y + otherActor.size.y
-        ) { return otherActor; }
+    for (let i = 0; i < this.actors.length; i += 1) {
+      const otherActor = this.actors[i];
+      const xBuffer = actor.buffer.x + otherActor.buffer.x;
+      const actorsOverlap = (
+        actor.coords.right - xBuffer > otherActor.coords.left
+        && actor.coords.left < otherActor.coords.right - xBuffer
+        && actor.coords.bottom > otherActor.coords.top
+        && actor.coords.top < otherActor.coords.bottom
+      );
+      if (otherActor !== actor && actorsOverlap) {
+        return otherActor;
       }
     }
-    if (actor.type !== 'player') {
-      for (let i = 0; i < this.actors.length; i += 1) {
-        const otherActor = this.actors[i];
-        if (otherActor !== actor &&
-          actor.pos.x + actor.size.x > otherActor.pos.x &&
-          actor.pos.x < otherActor.pos.x + otherActor.size.x &&
-          actor.pos.y + actor.size.y > otherActor.pos.y &&
-          actor.pos.y < otherActor.pos.y + otherActor.size.y
-        ) { return otherActor; }
-      }
-    }
+    return null;
   }
 
   playerHit(obstacle) {
@@ -239,7 +232,7 @@ class Sublevel {
   }
 
   playerTouched(obstacle) {
-    switch (obstacle.actorType) {
+    switch (obstacle.actorCategory) {
       case 'enemy':
         this.playerTouchedEnemy(obstacle);
         break;
@@ -250,55 +243,43 @@ class Sublevel {
     }
   }
 
-  daggerTouchedActor(obstacle, actor) {
-    const hit = (increment, deathRattle) => {
+  daggerTouchedActor(actor, daggerActor) {
+    const hit = (increment) => {
       audio.play('kill-shot');
-      if (obstacle.lifeMeter > 0) {
-        obstacle.lifeMeter -= 1;
-        obstacle.damaged = true;
-        setTimeout(() => { obstacle.damaged = false; }, 100);
+      if (actor.lifeMeter > 0) {
+        actor.lifeMeter -= 1;
+        actor.damaged = true;
+        setTimeout(() => { actor.damaged = false; }, 100);
       } else {
-        this.actors = this.actors.filter(other => other !== obstacle);
+        this.actors = this.actors.filter(other => other !== actor);
       }
-      this.player.daggers = this.player.daggers.filter(dagger => dagger !== actor);
+      this.player.daggers = this.player.daggers.filter(dagger => dagger !== daggerActor);
       this.status.score += increment;
     };
-    switch (obstacle.type) {
+    switch (actor.type) {
       case ('zombie'):
         hit(400);
-        break;
-      case ('skeleton'):
-        hit(100);
-        break;
-      case ('ghost'):
-        hit(100, 'ghost-death');
         break;
       default:
     }
   }
 
-  swordTouchedActor(obstacle, actor) {
-    const hit = (increment, deathRattle) => {
+  swordTouchedActor(actor) {
+    const hit = (increment) => {
       audio.play('kill-shot');
-      if (obstacle.lifeMeter > 0) {
-        obstacle.lifeMeter -= 1;
-        obstacle.damaged = true;
-        setTimeout(() => { obstacle.damaged = false; }, 100);
+      if (actor.lifeMeter > 0) {
+        actor.lifeMeter -= 1;
+        actor.damaged = true;
+        setTimeout(() => { actor.damaged = false; }, 100);
       } else {
-        this.actors = this.actors.filter(other => other !== obstacle);
+        this.actors = this.actors.filter(other => other !== actor);
       }
-      this.player.swords = this.player.swords.filter(sword => sword !== actor);
       this.status.score += increment;
     };
-    switch (obstacle.type) {
+
+    switch (actor.type) {
       case ('zombie'):
         hit(400);
-        break;
-      case ('skeleton'):
-        hit(100);
-        break;
-      case ('ghost'):
-        hit(100, 'ghost-death');
         break;
       default:
     }
