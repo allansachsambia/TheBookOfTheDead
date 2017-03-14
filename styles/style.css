@@ -32,7 +32,6 @@ body {
 
 .mobile-wrap {
   color: white;
-  display: none;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -46,10 +45,9 @@ body {
   max-width: 900px;
 }
 
-.mobile img {
+.mobile .mobile-splash img {
   width: 100%;
 }
-
 
 /* Intro Screen =============================================================
    ========================================================================== */
