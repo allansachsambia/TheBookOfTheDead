@@ -25,6 +25,7 @@ class Spider {
     };
   }
   act(step, sublevel) {
+    this.resetCoords();
     const newPos = this.pos.plus(this.speed.times(step));
     if (!sublevel.obstacleAt(newPos, this.size)) {
       this.pos = newPos;
@@ -33,6 +34,14 @@ class Spider {
     } else {
       this.speed = this.speed.times(-1);
     }
+  }
+  resetCoords() {
+    this.coords = {
+      left: this.pos.x,
+      right: this.pos.x + this.size.x,
+      top: this.pos.y,
+      bottom: this.pos.y + this.size.y,
+    };
   }
 }
 

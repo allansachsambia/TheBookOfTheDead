@@ -143,13 +143,21 @@ class Sublevel {
     for (let i = 0; i < this.actors.length; i += 1) {
       const otherActor = this.actors[i];
       const xBuffer = actor.buffer.x + otherActor.buffer.x;
+
       const actorsOverlap = (
         actor.coords.right - xBuffer > otherActor.coords.left
         && actor.coords.left < otherActor.coords.right - xBuffer
         && actor.coords.bottom > otherActor.coords.top
         && actor.coords.top < otherActor.coords.bottom
       );
+
+      const yOverlap = (
+        actor.coords.bottom > otherActor.coords.top
+        && actor.coords.top < otherActor.coords.bottom
+      )
+
       if (otherActor !== actor && actorsOverlap) {
+        console.log(otherActor);
         return otherActor;
       }
     }
