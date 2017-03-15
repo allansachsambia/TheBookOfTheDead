@@ -2,10 +2,9 @@ import Vector from '../vector';
 import { settings } from '../globals';
 
 /**
- * Invisible markers that represent a player passing a particular level.
+ * An invisible marker that represent a player passing a particular level.
  */
 class Flag {
-
   constructor(pos) {
     this.type = 'flag';
     this.actorCategory = 'item';
@@ -20,7 +19,6 @@ class Flag {
       bottom: this.pos.y + this.size.y,
     };
   }
-
 }
 
 export default Flag;

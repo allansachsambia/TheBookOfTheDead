@@ -52,6 +52,7 @@ export const clearLoseScreen = () => {
 };
 
 export const restartOnLose = () => {
+  console.log('????haaaaaah?');
   const handler = (e) => {
     const returnKey = 13;
     if (e.keyCode === returnKey) {
@@ -70,8 +71,9 @@ export const displayLoseScreen = () => {
   const loseScreen = helpers.el('div', 'lose-screen');
   body.appendChild(loseScreenWrap);
   loseScreenWrap.appendChild(loseScreen);
-  helpers.play('lost');
+  audio.play('lost');
   restartOnLose();
+  console.log('????huh?');
 };
 
 /*

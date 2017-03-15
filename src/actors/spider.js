@@ -35,10 +35,8 @@ class Spider {
 
   act(step, sublevel) {
     this.setAction(sublevel)
-    this.spriteUpperBound = 4;
     this.resetCoords();
     this.setTimer();
-    this.imageSwap('moving', this.spriteUpperBound);
     this.move(step, sublevel);
   }
 
@@ -57,7 +55,7 @@ class Spider {
     }
   }
 
-  /* ==== SETTINGS AND CONDITIONS ===========================================
+  /* ==== SETTINGS ==========================================================
      ======================================================================== */
 
   setAction(sublevel) {
@@ -81,6 +79,8 @@ class Spider {
      ======================================================================== */
 
   move(step, sublevel) {
+    this.spriteUpperBound = 4;
+    this.imageSwap('moving', this.spriteUpperBound);
     const newPos = this.pos.plus(this.speed.times(step));
     if (!sublevel.obstacleAt(newPos, this.size)) {
       this.pos = newPos;

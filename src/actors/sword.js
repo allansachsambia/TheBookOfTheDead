@@ -3,7 +3,7 @@ import audio from '../audio';
 import keys from '../keys';
 
 /**
- * Sword that the player can throw at enemies.
+ * A melee weapon.
  */
 class Sword {
   constructor(pos) {
@@ -24,14 +24,24 @@ class Sword {
     };
   }
 
+  /* ==== ACT ===============================================================
+     ======================================================================== */
+
   act(step, sublevel) {
-    this.pos = this.pos.plus(new Vector(-0.9, 2));
+    this.resetPos();
     this.adjustSwordPosition(sublevel);
     this.resetCoords();
     this.handleActorStrike(sublevel);
   }
 
-  adjustSwordPosition(sublevel){
+  /* ==== SETTINGS ==========================================================
+     ======================================================================== */
+
+  resetPos() {
+    this.pos = this.pos.plus(new Vector(-0.9, 2));
+  }
+
+  adjustSwordPosition(sublevel) {
     switch (sublevel.player.direction) {
       case 'right':
         this.pos.x = this.pos.x + 4;
@@ -43,11 +53,6 @@ class Sword {
     }
   }
 
-  handleActorStrike(sublevel) {
-    const otherActor = sublevel.actorAt(this);
-    if (otherActor) { this.swordTouchedActor(otherActor, sublevel); }
-  }
-
   resetCoords() {
     this.coords = {
       left: this.pos.x,
@@ -55,6 +60,14 @@ class Sword {
       top: this.pos.y,
       bottom: this.pos.y + this.size.y,
     };
+  }
+
+  /* ==== INTERACTIONS =========================================================
+     ======================================================================== */
+
+  handleActorStrike(sublevel) {
+    const otherActor = sublevel.actorAt(this);
+    if (otherActor) { this.swordTouchedActor(otherActor, sublevel); }
   }
 
   swordTouchedActor(actor, sublevel) {

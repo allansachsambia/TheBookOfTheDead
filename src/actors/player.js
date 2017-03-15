@@ -6,6 +6,9 @@ import { settings, scale, actorChars, obstacleChars } from '../globals';
 import helpers from '../helpers';
 import audio from '../audio';
 
+/**
+ * The main player.
+ */
 class Player {
 
   constructor(pos) {
@@ -63,7 +66,6 @@ class Player {
     this.moveSwords(step, sublevel);
     this.setSize();
     this.setActionSubtype();
-    // this.walkingSounds(step, sublevel);
 
   }
 
@@ -84,7 +86,7 @@ class Player {
 
   setSize() { this.size = new Vector(8, 5); }
 
-  /* ==== SETTINGS AND CONDITIONS ===========================================
+  /* ==== SETTINGS ==========================================================
      ======================================================================== */
 
   setAction(sublevel) {
@@ -144,6 +146,14 @@ class Player {
     this.motion = new Vector(0, this.speed.y * step);
   }
 
+  setDirection() {
+    if (keys.left) { this.direction = 'left'; }
+    if (keys.right) { this.direction = 'right'; }
+  }
+
+  /* ==== INTERACTIONS =========================================================
+     ======================================================================== */
+
   handleYObstacles(step, sublevel) {
     const oldPos = this.pos;
     const actorAt = sublevel.actorAt(this);
@@ -196,17 +206,8 @@ class Player {
     }
   }
 
-  setDirection() {
-    if (keys.left) { this.direction = 'left'; }
-    if (keys.right) { this.direction = 'right'; }
-  }
-
   /* ==== BEHAVIORS =========================================================
      ======================================================================== */
-
-  walkingSounds(step, sublevel) {
-    audio.handleWalkingOnSounds(sublevel.obstacleAt(this.pos, this.size, 'y'));
-  }
 
   stand() {
     if (this.actionType === 'standing') {
@@ -326,6 +327,10 @@ class Player {
       }
     }
   }
+
+  /* ==== WEAPON BEHAVIORS ==================================================
+     ======================================================================== */
+
 
   removeDagger(sublevel, daggerToBeRemoved) {
     sublevel.player.daggers = sublevel.player.daggers.filter(dagger => dagger !== daggerToBeRemoved);

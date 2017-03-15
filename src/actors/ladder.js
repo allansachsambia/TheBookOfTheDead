@@ -19,7 +19,6 @@ class Ladder {
       bottom: this.pos.y + this.size.y,
     };
   }
-
 }
 
-export default Ladder
+export default Ladder;

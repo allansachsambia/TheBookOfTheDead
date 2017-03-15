@@ -2,10 +2,9 @@ import Vector from '../vector';
 import { settings } from '../globals';
 
 /**
- * The doors that separate one map to the next.
+ * Portal to transition between sublevels.
  */
 class Door {
-
   constructor(pos) {
     this.type = 'door';
     this.actorCategory = 'item';
@@ -20,7 +19,6 @@ class Door {
       bottom: this.pos.y + this.size.y,
     };
   }
-
 }
 
 export default Door;

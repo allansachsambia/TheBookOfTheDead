@@ -3,7 +3,7 @@ import audio from '../audio';
 import keys from '../keys';
 
 /**
- * Dagger that the player can throw at enemies.
+ * A long range weapon.
  */
 class Dagger {
   constructor(pos) {
@@ -24,16 +24,29 @@ class Dagger {
     };
   }
 
+  /* ==== ACT ===============================================================
+     ======================================================================== */
+
   act(step, sublevel) {
-    if (this.throwDirection === null) {
+    this.setThrowDirection();
+    this.daggerTouchedActor(this);
+    this.setDirection();
+  }
+
+  /* ==== SETTINGS ==========================================================
+     ======================================================================== */
+
+  setThrowDirection() {
+    if (!this.throwDirection) {
       if (sublevel.player.direction === 'right') {
         this.throwDirection = 'right';
       } else {
         this.throwDirection = 'left';
       }
     }
-    const otherActor = sublevel.actorAt(this);
-    if (otherActor) { this.daggerTouchedActor(otherActor, this); }
+  }
+
+  setDirection() {
     if (this.throwDirection === 'right') {
       this.direction = 'right';
       const newPos = this.pos.plus(new Vector(0.9, 0));
@@ -45,24 +58,30 @@ class Dagger {
     }
   }
 
-  daggerTouchedActor(actor, sublevel) {
-    const hit = (increment) => {
-      audio.play('kill-shot');
-      if (actor.lifeMeter > 0) {
-        actor.lifeMeter -= 1;
-        actor.damaged = true;
-        setTimeout(() => { actor.damaged = false; }, 100);
-      } else {
-        sublevel.actors = sublevel.actors.filter(other => other !== actor);
+  /* ==== INTERACTIONS =========================================================
+     ======================================================================== */
+
+  daggerTouchedActor(sublevel) {
+    const actor = sublevel.actorAt(this);
+    if (otherActor) {
+      const hit = (increment) => {
+        audio.play('kill-shot');
+        if (actor.lifeMeter > 0) {
+          actor.lifeMeter -= 1;
+          actor.damaged = true;
+          setTimeout(() => { actor.damaged = false; }, 100);
+        } else {
+          sublevel.actors = sublevel.actors.filter(other => other !== actor);
+        }
+        sublevel.player.daggers = sublevel.player.daggers.filter(dagger => dagger !== this);
+        sublevel.status.score += increment;
+      };
+      switch (actor.type) {
+        case ('zombie'):
+          hit(400);
+          break;
+        default:
       }
-      sublevel.player.daggers = sublevel.player.daggers.filter(dagger => dagger !== this);
-      sublevel.status.score += increment;
-    };
-    switch (actor.type) {
-      case ('zombie'):
-        hit(400);
-        break;
-      default:
     }
   }
 
