@@ -73,7 +73,6 @@ export const displayLoseScreen = () => {
   loseScreenWrap.appendChild(loseScreen);
   audio.play('lost');
   restartOnLose();
-  console.log('????huh?');
 };
 
 /*
