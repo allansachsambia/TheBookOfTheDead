@@ -3,7 +3,7 @@ import helpers from './helpers';
 import keys from './keys';
 
 /**
- * Contains almost all logic pertaining to any and all audio in the app.
+ * Contains almost all logic pertaining to audio in the app.
  */
 const audio = {
 
@@ -11,7 +11,7 @@ const audio = {
     music: ['night-time', 'level01', 'intro-music'],
     effects: {
       lost: ['lost'],
-      touch: ['hurt', 'flag', 'pizza', 'kill-shot'],
+      touch: ['hurt', 'flag', 'pizza', 'soda', 'kill-shot'],
       items: ['dagger', 'sword'],
       walkingOn: ['grass', 'water', 'wood'],
     },

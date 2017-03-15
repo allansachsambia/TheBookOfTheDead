@@ -33,9 +33,7 @@ class Dagger {
       }
     }
     const otherActor = sublevel.actorAt(this);
-    if (otherActor) {
-      sublevel.daggerTouchedActor(otherActor, this);
-    }
+    if (otherActor) { this.daggerTouchedActor(otherActor, this); }
     if (this.throwDirection === 'right') {
       this.direction = 'right';
       const newPos = this.pos.plus(new Vector(0.9, 0));
@@ -44,6 +42,27 @@ class Dagger {
       this.direction = 'left';
       const newPos = this.pos.plus(new Vector(-0.9, 0));
       this.pos = newPos;
+    }
+  }
+
+  daggerTouchedActor(actor, sublevel) {
+    const hit = (increment) => {
+      audio.play('kill-shot');
+      if (actor.lifeMeter > 0) {
+        actor.lifeMeter -= 1;
+        actor.damaged = true;
+        setTimeout(() => { actor.damaged = false; }, 100);
+      } else {
+        sublevel.actors = sublevel.actors.filter(other => other !== actor);
+      }
+      sublevel.player.daggers = sublevel.player.daggers.filter(dagger => dagger !== this);
+      sublevel.status.score += increment;
+    };
+    switch (actor.type) {
+      case ('zombie'):
+        hit(400);
+        break;
+      default:
     }
   }
 

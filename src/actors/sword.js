@@ -10,7 +10,7 @@ class Sword {
     this.type = 'sword';
     this.category = 'item';
     this.pos = pos;
-    this.size = new Vector(4, 1);
+    this.size = new Vector(5, 1);
     this.innerSize = new Vector(1, 1);
     this.buffer = new Vector(0, 0);
     this.direction = null;
@@ -37,7 +37,7 @@ class Sword {
         this.pos.x = this.pos.x + 4;
         break;
       case 'left':
-        this.pos.x = this.pos.x + 2;
+        this.pos.x = this.pos.x;
         break;
       default:
     }
@@ -45,7 +45,7 @@ class Sword {
 
   handleActorStrike(sublevel) {
     const otherActor = sublevel.actorAt(this);
-    if (otherActor) { sublevel.swordTouchedActor(otherActor, this); }
+    if (otherActor) { this.swordTouchedActor(otherActor, sublevel); }
   }
 
   resetCoords() {
@@ -55,6 +55,28 @@ class Sword {
       top: this.pos.y,
       bottom: this.pos.y + this.size.y,
     };
+  }
+
+  swordTouchedActor(actor, sublevel) {
+    if (actor.damaged === false) {
+      const hit = (increment) => {
+        if (actor.lifeMeter > 0) {
+          audio.play('kill-shot');
+          actor.lifeMeter -= 1;
+          actor.damaged = true;
+          setTimeout(() => { actor.damaged = false; }, 150);
+        } else {
+          sublevel.actors = sublevel.actors.filter(other => other !== actor);
+        }
+        sublevel.status.score += increment;
+      };
+      switch (actor.type) {
+        case ('zombie'):
+          hit(400);
+          break;
+        default:
+      }
+    }
   }
 
 }

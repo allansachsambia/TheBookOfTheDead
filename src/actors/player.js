@@ -13,7 +13,7 @@ class Player {
     this.actorCategory = 'ally';
     this.size = new Vector(0, 0); // evaluates to (8, 5)
     this.innerSize = new Vector(1, 3);
-    this.buffer = new Vector(3, 0);
+    this.buffer = new Vector(3, 2);
     this.motion = new Vector(0, 0);
     this.obstacle = new Vector(0, 0);
     this.lifeMeter = 10;
@@ -176,16 +176,24 @@ class Player {
   handleXObstacles(step, sublevel) {
     this.newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
     this.obstacle.x = sublevel.obstacleAt(this.newPos, this.size, 'x', this.type);
-    if (this.obstacle.x) {
-      sublevel.playerTouched(this.obstacle.x);
-    } else {
+    if (!this.obstacle.x) {
       this.pos = this.newPos;
     }
   }
 
   actorCollision(sublevel) {
-    const actorAt = sublevel.actorAt(this);
-    if (actorAt) { sublevel.playerTouched(actorAt); }
+    const actor = sublevel.actorAt(this);
+    if (actor) {
+      switch (actor.actorCategory) {
+        case 'enemy':
+          sublevel.playerTouchedEnemy(actor);
+          break;
+        case 'item':
+          sublevel.playerTouchedItem(actor);
+          break;
+        default:
+      }
+    }
   }
 
   setDirection() {
@@ -354,7 +362,7 @@ class Player {
   }
 
   moveSwords(step, sublevel) {
-    if (keys.spacebar && this.swordDrawn === false) {
+    if (keys.spacebar && this.swordDrawn === false && this.actionType !== 'climbing') {
       if (this.swordDrawn === false) { this.swordDrawn = true; }
       audio.play('sword');
       this.swords.push(new Sword(this.pos));

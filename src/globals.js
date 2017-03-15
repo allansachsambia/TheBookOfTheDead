@@ -2,6 +2,7 @@ import Player from './actors/player';
 import Flag from './actors/flag';
 import Door from './actors/door';
 import Pizza from './actors/pizza';
+import Soda from './actors/soda';
 import Ladder from './actors/ladder';
 import Spider from './actors/spider';
 import Zombie from './actors/zombie';
@@ -26,6 +27,7 @@ export const actorChars = {
   L: Ladder,
   '^': Door,
   p: Pizza,
+  s: Soda,
   '*': Spider,
   '#': Spider,
   '%': Zombie,

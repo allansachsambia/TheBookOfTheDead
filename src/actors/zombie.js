@@ -14,7 +14,7 @@ class Zombie {
     this.buffer = new Vector(3, 0);
     this.motion = new Vector(0, 0);
     this.obstacle = new Vector(0, 0);
-    this.lifeMeter = 0;
+    this.lifeMeter = 1;
     this.pos = pos.plus(new Vector(0, -0.5));
     this.newPos = null;
     this.coords = {
@@ -31,7 +31,6 @@ class Zombie {
     this.spriteNumber = null;
     this.spriteUpperBound = null;
     this.timer = Math.floor(Math.random() * 3) + 1;
-    // Zombie specific
     this.variants = 2;
     this.variant = null;
     this.unstick = new Unstick();
@@ -52,7 +51,7 @@ class Zombie {
     this.setSize();
   }
 
-  /* ==== HELPERS ==============================================================
+  /* ==== HELPERS ===========================================================
      ======================================================================== */
 
   imageSwap(type, upperBound) {

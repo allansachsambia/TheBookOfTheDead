@@ -135,11 +135,9 @@ body {
 
 .wallpaper { background: #111; }
 .mansion { background-color: #1d1d1d; }
-
-.tree-small { background-image: url('./../assets/level-01/tree-small.png'); }
-.tree { background-image: url('./../assets/level-01/tree.png'); }
-.tree-large { background-image: url('./../assets/level-01/tree-large.png'); }
-
+.tree-small { background-image: url('./../assets/level-01/tree-small.svg'); }
+.tree { background-image: url('./../assets/level-01/tree.svg'); }
+.tree-large { background-image: url('./../assets/level-01/tree-large.svg'); }
 .tombstone { background-image: url('./../assets/level-01/tombstone.svg'); }
 .tombstone-cross { background-image: url('./../assets/level-01/tombstone-cross.svg'); }
 .soil { background-color: black; }
@@ -283,13 +281,21 @@ body {
 /* Actors Layer: Spider =====================================================
    ========================================================================== */
 
-.spider  { background-image: url('./../assets/actors/spider.png'); }
+.spider  { background-image: url('./../assets/actors/spider.svg'); }
+
+/* Moving */
+.spider-moving-001 { background-position: -0px 0px; }
+.spider-moving-002 { background-position: -0px -80px; }
+.spider-moving-003 { background-position: -0px -160px; }
+.spider-moving-004 { background-position: -0px -240px; }
 
 /* Actors Layer: Items ======================================================
    ========================================================================== */
 
 .pizza { background-image: url('./../assets/actors/pizza.svg'); }
+.soda { background-image: url('./../assets/actors/soda.svg'); }
 .ladder { background-image: url('./../assets/actors/ladder.svg'); }
+/*.flag { border: 1px solid red; }*/
 
 /* Daggers Layer ============================================================
    ========================================================================== */

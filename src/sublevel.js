@@ -143,21 +143,18 @@ class Sublevel {
     for (let i = 0; i < this.actors.length; i += 1) {
       const otherActor = this.actors[i];
       const xBuffer = actor.buffer.x + otherActor.buffer.x;
-
+      const yBuffer = actor.buffer.y + otherActor.buffer.y;
       const actorsOverlap = (
         actor.coords.right - xBuffer > otherActor.coords.left
         && actor.coords.left < otherActor.coords.right - xBuffer
         && actor.coords.bottom > otherActor.coords.top
-        && actor.coords.top < otherActor.coords.bottom
+        && actor.coords.top + yBuffer < otherActor.coords.bottom
       );
-
       const yOverlap = (
         actor.coords.bottom > otherActor.coords.top
         && actor.coords.top < otherActor.coords.bottom
       )
-
       if (otherActor !== actor && actorsOverlap) {
-        console.log(otherActor);
         return otherActor;
       }
     }
@@ -188,10 +185,10 @@ class Sublevel {
     }
   }
 
-  playerTouchedEnemy(obstacle) {
+  playerTouchedEnemy(enemy) {
     const self = this;
     const playerStillAlive = (this.player.lifeMeter > 0);
-    if (obstacle.type === 'ghost') {
+    if (enemy.type === 'ghost') {
       const enemyIsVisible = !(obstacle.opacity === '0.0');
       if ((playerStillAlive) && (enemyIsVisible)) {
         self.playerHit();
@@ -210,20 +207,20 @@ class Sublevel {
     }
   }
 
-  playerTouchedItem(obstacle) {
+  playerTouchedItem(item) {
     let self;
-    const type = obstacle.type;
+    const type = item.type;
     switch (type) {
       case 'flag': {
         audio.play('flag');
-        this.actors = this.actors.filter(other => other !== obstacle);
+        this.actors = this.actors.filter(other => other !== item);
         const flagCollected = !this.actors.some(actor => actor.type === 'flag');
         if (flagCollected) { this.status.condition = 'won'; }
         break;
       }
       case 'door': {
         if (keys.up) {
-          this.actors = this.actors.filter(other => other !== obstacle);
+          this.actors = this.actors.filter(other => other !== item);
           const openedDoor = !this.actors.some(actor => actor.type === 'door');
           if (openedDoor) { this.status.condition = 'won'; }
         }
@@ -231,7 +228,13 @@ class Sublevel {
       }
       case 'pizza': {
         audio.play('pizza');
-        this.actors = this.actors.filter(other => other !== obstacle);
+        this.actors = this.actors.filter(other => other !== item);
+        if (this.player.lifeMeter < 10) { this.player.lifeMeter += 2; }
+        break;
+      }
+      case 'soda': {
+        audio.play('soda');
+        this.actors = this.actors.filter(other => other !== item);
         if (this.player.lifeMeter < 10) { this.player.lifeMeter += 1; }
         break;
       }
@@ -239,59 +242,6 @@ class Sublevel {
     }
   }
 
-  playerTouched(obstacle) {
-    switch (obstacle.actorCategory) {
-      case 'enemy':
-        this.playerTouchedEnemy(obstacle);
-        break;
-      case 'item':
-        this.playerTouchedItem(obstacle);
-        break;
-      default:
-    }
-  }
-
-  daggerTouchedActor(actor, daggerActor) {
-    const hit = (increment) => {
-      audio.play('kill-shot');
-      if (actor.lifeMeter > 0) {
-        actor.lifeMeter -= 1;
-        actor.damaged = true;
-        setTimeout(() => { actor.damaged = false; }, 100);
-      } else {
-        this.actors = this.actors.filter(other => other !== actor);
-      }
-      this.player.daggers = this.player.daggers.filter(dagger => dagger !== daggerActor);
-      this.status.score += increment;
-    };
-    switch (actor.type) {
-      case ('zombie'):
-        hit(400);
-        break;
-      default:
-    }
-  }
-
-  swordTouchedActor(actor) {
-    const hit = (increment) => {
-      audio.play('kill-shot');
-      if (actor.lifeMeter > 0) {
-        actor.lifeMeter -= 1;
-        actor.damaged = true;
-        setTimeout(() => { actor.damaged = false; }, 100);
-      } else {
-        this.actors = this.actors.filter(other => other !== actor);
-      }
-      this.status.score += increment;
-    };
-
-    switch (actor.type) {
-      case ('zombie'):
-        hit(400);
-        break;
-      default:
-    }
-  }
 }
 
 export default Sublevel

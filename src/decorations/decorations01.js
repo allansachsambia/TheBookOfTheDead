@@ -132,7 +132,7 @@ export function decorationsBackground01(levelWidth, levelHeight) {
     },
     { name: 'spider-thread',
       size: { x: .05, y: 26 },
-      status: [{pos: {x: 373.65, y: 0}}]
+      status: [{pos: {x: 374.25, y: 0}}]
     },
   ];
 }
