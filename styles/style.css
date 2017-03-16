@@ -159,20 +159,11 @@ body {
 /* Actors Layer: Player =====================================================
    ========================================================================== */
 
-/* Universal */
 .actor { position: absolute }
-.player {
-  background-image: url('./../assets/actors/player.svg');
-  /*border: 1px solid yellow;*/
-}
 
-.zombie {
-  /*border: 1px solid white;*/
-}
+.player { background-image: url('./../assets/actors/player.svg'); }
 
-.sword {
-  /*border: 1px solid pink;*/
-}
+.actor.damaged { filter: saturate(100); }
 
 /* Standing */
 .player-standing-001 { background-position: -720px 0px; }

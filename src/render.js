@@ -73,6 +73,7 @@ class Render {
           el.className = `actor ${actor.type} ${actor.type}-${actor.actionType}-${actor.actionSubtype}-${actor.spriteNumber}`;
         }
         if (actor.direction === 'left') { el.classList.add('x-flip'); }
+        if (actor.damaged) { el.classList.add('damaged'); }
       }
 
       if (actor.type === 'zombie') {
@@ -83,13 +84,6 @@ class Render {
       if (actor.type === 'spider') {
         el.className = `actor ${actor.type} ${actor.type}-${actor.actionType}-${actor.spriteNumber}`;
       }
-
-      //   damageFilters = ['invert(100%)', 'saturate(100)'];
-      // if (damageFilters && actor.damaged) {
-      //   damageFilters.forEach((damageFilter) => {
-      //     style.WebkitFilter = damageFilter;
-      //   });
-      // }
     });
     return wrap;
   }
