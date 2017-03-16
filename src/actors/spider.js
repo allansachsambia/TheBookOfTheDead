@@ -82,7 +82,7 @@ class Spider {
     this.spriteUpperBound = 4;
     this.imageSwap('moving', this.spriteUpperBound);
     const newPos = this.pos.plus(this.speed.times(step));
-    if (!sublevel.obstacleAt(newPos, this.size)) {
+    if (!sublevel.obstacleAt(newPos, this.size, this.buffer)) {
       this.pos = newPos;
     } else if (this.repeatPos) {
       this.pos = this.repeatPos;

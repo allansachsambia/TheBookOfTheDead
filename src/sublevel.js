@@ -50,83 +50,29 @@ class Sublevel {
     }
   }
 
-  obstacleAt(pos, size, axis, actorCategory) {
-    const actor = {
-      x: {
-        left: Math.floor(pos.x),
-        right: Math.ceil(pos.x + size.x),
-      },
-      y: {
-        top: Math.floor(pos.y),
-        bottom: Math.ceil(pos.y + size.y),
-      },
-      offScreen: {
-        left: Math.floor(pos.x + 3) < 0,
-        right: Math.ceil((pos.x + size.x) - 3) > this.width,
-        top: Math.floor(pos.y) < 0,
-        bottom: Math.ceil(pos.y + size.y) > this.height,
-      },
+  obstacleAt(newPos, size, buffer) {
+    const offScreen = {
+      left: Math.floor(newPos.x + 3) < 0,
+      right: Math.ceil((newPos.x + size.x) - 3) > this.width,
+      top: Math.floor(newPos.y) < 0,
+      bottom: Math.ceil(newPos.y + size.y) > this.height,
     };
-    if (actor.offScreen.left || actor.offScreen.top || actor.offScreen.right) {
-      return 'wall';
-    } else if (actor.offScreen.bottom) {
-      return 'fallen';
-    }
-    for (let y = actor.y.top; y < actor.y.bottom; y += 1) {
-      let xDirection;
-      let yDirection;
+    const coordsOffScreen = offScreen.left || offScreen.top || offScreen.right;
+    if (coordsOffScreen) { return 'wall'; }
+    const actorHasFallen = Math.ceil(newPos.y + size.y) > this.height
+    if (actorHasFallen) { return 'fallen'; }
 
-      if (actorCategory === 'player') {
-        for (let x = (actor.x.left + 3); x < (actor.x.right - 3); x += 1) {
-          if (this.typeMap[y]) {
-            const type = this.typeMap[y][x];
-            if (type) {
-              if (axis) {
-                if (axis === 'x') {
-                  xDirection = actor.x.left < x ? 'right' : 'left';
-                  yDirection = null;
-                }
-                if (axis === 'y') {
-                  xDirection = null;
-                  yDirection = actor.y.top < y ? 'bottom' : 'top';
-                }
-              }
-              return {
-                type,
-                pos: { x, y },
-                direction: {
-                  x: xDirection,
-                  y: yDirection,
-                },
-              };
-            }
-          }
-        }
-      } else {
-        for (let x = actor.x.left; x < actor.x.right; x += 1) {
-          if (this.typeMap[y]) {
-            const type = this.typeMap[y][x];
-            if (type) {
-              if (axis) {
-                if (axis === 'x') {
-                  xDirection = actor.x.left < x ? 'right' : 'left';
-                  yDirection = null;
-                }
-                if (axis === 'y') {
-                  xDirection = null;
-                  yDirection = actor.y.top < y ? 'bottom' : 'top';
-                }
-              }
-              return {
-                type,
-                pos: { x, y },
-                direction: {
-                  x: xDirection,
-                  y: yDirection,
-                },
-              };
-            }
-          }
+    const newCoords = {
+      left: Math.floor(newPos.x) + buffer.x,
+      right: Math.ceil(newPos.x + size.x)  - buffer.x,
+      top: Math.floor(newPos.y),
+      bottom: Math.ceil(newPos.y + size.y),
+    }
+    for (let y = newCoords.top; y < newCoords.bottom; y += 1) {
+      for (let x = newCoords.left; x < newCoords.right; x += 1) {
+        if (this.typeMap[y] && this.typeMap[y][x]) {
+          const type = this.typeMap[y][x];
+          return { type, pos: { x, y } };
         }
       }
     }

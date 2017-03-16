@@ -157,13 +157,16 @@ class Player {
     const oldPos = this.pos;
     const actorAt = sublevel.actorAt(this);
     this.newPos = this.pos.plus(this.motion);
-    this.obstacle.y = sublevel.obstacleAt(this.newPos, this.size, 'y', this.type);
+    this.obstacle.y = sublevel.obstacleAt(this.newPos, this.size, this.buffer);
     if (this.obstacle.y) {
       if ((this.speed.y > 0) && (!keys.up)) {
         this.speed.y = 0;
       }
+      console.log(this.obstacle.y.type);
       if (this.obstacle.x && (keys.right || keys.left)) {
-        this.pos.y = this.pos.y - 1;
+        if (this.obstacle.y.type === 'grassyhill') {
+          this.pos.y = this.pos.y - 1;
+        }
       }
     } else if (this.actionType !== 'climbing') {
       this.pos = this.newPos;
@@ -182,12 +185,12 @@ class Player {
         this.pos = oldPos;
       }
     }
-    audio.handleWalkingOnSounds(sublevel.obstacleAt(this.newPos, this.size, 'y'));
+    audio.handleWalkingOnSounds(sublevel.obstacleAt(this.newPos, this.size, this.buffer));
   }
 
   handleXObstacles(step, sublevel) {
     this.newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
-    this.obstacle.x = sublevel.obstacleAt(this.newPos, this.size, 'x', this.type);
+    this.obstacle.x = sublevel.obstacleAt(this.newPos, this.size, this.buffer);
     if (!this.obstacle.x) {
       this.pos = this.newPos;
     }
@@ -400,7 +403,7 @@ class Player {
     }
     if (!keys.spacebar) { this.daggerLoaded = true; }
     sublevel.player.daggers.forEach((daggerCheck) => {
-      const obstacle = sublevel.obstacleAt(daggerCheck.pos, daggerCheck.size);
+      const obstacle = sublevel.obstacleAt(daggerCheck.pos, daggerCheck.size, this.buffer);
       if (obstacle) {
         if (obstacle.type === 'wall') { this.removeDagger(sublevel, daggerCheck); }
       }

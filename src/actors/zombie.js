@@ -100,13 +100,13 @@ class Zombie {
 
   handleYObstacles(step, sublevel) {
     const newPos = this.pos.plus(this.motion);
-    const obstacle = sublevel.obstacleAt(newPos, this.size, 'y');
+    const obstacle = sublevel.obstacleAt(newPos, this.size, this.buffer);
     if (!obstacle) { this.pos = newPos; }
   }
 
   handleXObstacles(step, sublevel) {
     this.newPos = this.pos.plus(new Vector(this.speed.x * step, 0));
-    this.obstacle.x = sublevel.obstacleAt(this.newPos, this.size, 'x');
+    this.obstacle.x = sublevel.obstacleAt(this.newPos, this.size, this.buffer);
 
     if (this.obstacle.x) {
       this.speed = this.speed.times(-1);
