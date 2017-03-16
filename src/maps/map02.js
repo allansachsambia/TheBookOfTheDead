@@ -144,7 +144,7 @@ export const map02 = [
   '                   %                                                                                 x',
   '                                                     %                  #                            x',
   '                                       #      %                                                      x',
-  '                                                                                      p              x',
+  '                                                                                      P              x',
   '                                                                                                     x',
   '                                       #                        #       #                            x',
   '                                                                                                     x',

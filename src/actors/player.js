@@ -162,6 +162,9 @@ class Player {
       if ((this.speed.y > 0) && (!keys.up)) {
         this.speed.y = 0;
       }
+      if (this.obstacle.x && (keys.right || keys.left)) {
+        this.pos.y = this.pos.y - 1;
+      }
     } else if (this.actionType !== 'climbing') {
       this.pos = this.newPos;
     }

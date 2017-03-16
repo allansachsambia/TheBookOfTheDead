@@ -13,7 +13,7 @@ const audio = {
       lost: ['win', 'lose'],
       touch: ['hurt', 'pizza', 'soda', 'kill-shot'],
       items: ['dagger', 'sword'],
-      walkingOn: ['grass', 'water', 'wood'],
+      walkingOn: ['grass', 'grassyhill', 'water', 'wood'],
     },
   },
 

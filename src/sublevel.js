@@ -32,9 +32,6 @@ class Sublevel {
     }
     this.player = this.actors.filter(actor => actor.type === 'player')[0];
     this.status = status;
-    // this.status.mapNumber = mapNumber;
-    // this.status.levelNumber = 1;
-    // this.status.sublevelNumber = this.mapNumber + 1;
   }
 
   animate(step) {

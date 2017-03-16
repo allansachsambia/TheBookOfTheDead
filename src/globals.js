@@ -26,8 +26,8 @@ export const actorChars = {
   F: Flag,
   L: Ladder,
   '^': Door,
-  p: Pizza,
-  s: Soda,
+  P: Pizza,
+  S: Soda,
   '*': Spider,
   '#': Spider,
   '%': Zombie,
@@ -40,5 +40,6 @@ export const obstacleChars = {
   '&': 'pseudo-wall',
   '!': 'lava',
   '/': 'grass',
+  h: 'grassyhill',
   w: 'wood',
 };
