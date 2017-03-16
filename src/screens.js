@@ -21,7 +21,7 @@ export const displayIntroScreen = () => {
         pressEnter.style.opacity = '0';
     }
   }, 600);
-  audio.playIntroMusic();
+  // audio.playIntroMusic();
 };
 
 export const clearIntroScreen = () => {

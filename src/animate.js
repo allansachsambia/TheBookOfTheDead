@@ -4,6 +4,7 @@ import Render from './render';
 import maps from './maps';
 import { displayWinLoseScreen } from './screens';
 import audio from './audio';
+import { levelInfo } from './globals';
 
 const status = new Status();
 
@@ -23,6 +24,11 @@ const totalStatusReset = () => {
   status.time = 10000;
   status.condition = null;
 };
+/*
+  I need to create a record of the current LEVEL (not sublevel) before it has,
+  iterated, this will allow me to test if the player has passed the level or
+  the sublevel.
+*/
 
 export const animate = (mapNumber = 0) => {
   const sublevel = new Sublevel(maps[mapNumber], mapNumber, status);
@@ -44,13 +50,13 @@ export const animate = (mapNumber = 0) => {
       const step = delta / 1000;
       sublevel.animate(step);
       render.drawAnimatedLayers();
-      if (sublevel.isFinished()) {
+      if (sublevel.status.condition !== null) {
         render.clearGame();
         if (sublevel.status.condition === 'lost') {
           audio.pauseMusic(mapNumber);
           totalStatusReset();
           displayWinLoseScreen('lose');
-        } else if (mapNumber < maps.length - 1) {
+        } else if (sublevel.status.condition === 'won sublevel') {
           resetStatus();
           animate(mapNumber + 1);
         } else if (sublevel.status.condition === 'won') {

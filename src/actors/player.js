@@ -191,15 +191,66 @@ class Player {
     }
   }
 
+  touchedEnemy(enemy, sublevel) {
+    if (this.lifeMeter > 0) {
+      if (!this.damaged) {
+        audio.play('hurt');
+        this.lifeMeter -= 1;
+        this.damaged = true;
+        setTimeout(() => {
+          this.damaged = false;
+          this.damageTimer = 0;
+        }, 600);
+      }
+    } else {
+      sublevel.status.condition = 'lost';
+    }
+  }
+
+  touchedItem(item, sublevel) {
+    const removeItem = () => {
+      sublevel.actors = sublevel.actors.filter(other => other !== item);
+    };
+    const addHealth = (amount) => {
+      this.lifeMeter = ((amount + this.lifeMeter) > 10) ? 10 : this.lifeMeter + amount;
+    };
+    const type = item.type;
+    switch (type) {
+      case 'flag': {
+        sublevel.status.condition = 'won';
+        break;
+      }
+      case 'door': {
+        if (keys.up) {
+          sublevel.status.condition = 'won sublevel';
+        }
+        break;
+      }
+      case 'pizza': {
+        audio.play(type);
+        removeItem();
+        addHealth(2);
+        break;
+      }
+      case 'soda': {
+        audio.play(type);
+        removeItem();
+        addHealth(1);
+        break;
+      }
+      default:
+    }
+  }
+
   actorCollision(sublevel) {
     const actor = sublevel.actorAt(this);
     if (actor) {
       switch (actor.actorCategory) {
         case 'enemy':
-          sublevel.playerTouchedEnemy(actor);
+          this.touchedEnemy(actor, sublevel);
           break;
         case 'item':
-          sublevel.playerTouchedItem(actor);
+          this.touchedItem(actor, sublevel);
           break;
         default:
       }

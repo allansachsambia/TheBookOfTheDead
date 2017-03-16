@@ -34,6 +34,7 @@ class Sublevel {
     this.status = status;
     this.status.mapNumber = mapNumber;
     this.status.levelNumber = 1;
+    this.status.sublevelNumber = this.mapNumber + 1;
 
   }
 
@@ -51,10 +52,6 @@ class Sublevel {
     if (this.status.time === 0) {
       this.status.condition = 'lost';
     }
-  }
-
-  isFinished() {
-    return this.status.condition !== null;
   }
 
   obstacleAt(pos, size, axis, actorCategory) {
@@ -159,86 +156,6 @@ class Sublevel {
       }
     }
     return null;
-  }
-
-  playerHit(obstacle) {
-    const player = this.player;
-    if (!player.damaged) {
-      audio.play('hurt');
-      player.lifeMeter -= 1;
-      player.damaged = true;
-      setTimeout(() => {
-        player.damaged = false;
-        player.damageTimer = 0;
-      }, 600);
-    }
-  }
-
-  damageEffects(obstacle) {
-    const self = this;
-    self.player.damageTimer += 1;
-    if (self.player.damageTimer === 10) { self.player.damageTimer = 1; }
-    if (self.player.damageTimer > 0 && self.player.damageTimer < 9) {
-      self.player.damageFilter = 'lowOpacity';
-    } else if (self.player.damageTimer > 8 && self.player.damageTimer < 10) {
-      self.player.damageFilter = 'highOpacity';
-    }
-  }
-
-  playerTouchedEnemy(enemy) {
-    const self = this;
-    const playerStillAlive = (this.player.lifeMeter > 0);
-    if (enemy.type === 'ghost') {
-      const enemyIsVisible = !(obstacle.opacity === '0.0');
-      if ((playerStillAlive) && (enemyIsVisible)) {
-        self.playerHit();
-        self.damageEffects();
-      }
-      if (!(playerStillAlive) && !(enemyIsVisible)) {
-        self.status.condition = 'lost';
-      }
-    }
-    if (playerStillAlive) {
-      self.playerHit();
-      self.damageEffects();
-    }
-    if (!playerStillAlive) {
-      self.status.condition = 'lost';
-    }
-  }
-
-  playerTouchedItem(item) {
-    let self;
-    const type = item.type;
-    switch (type) {
-      case 'flag': {
-        this.actors = this.actors.filter(other => other !== item);
-        const flagCollected = !this.actors.some(actor => actor.type === 'flag');
-        if (flagCollected) { this.status.condition = 'won'; }
-        break;
-      }
-      case 'door': {
-        if (keys.up) {
-          this.actors = this.actors.filter(other => other !== item);
-          const openedDoor = !this.actors.some(actor => actor.type === 'door');
-          if (openedDoor) { this.status.condition = 'won'; }
-        }
-        break;
-      }
-      case 'pizza': {
-        audio.play('pizza');
-        this.actors = this.actors.filter(other => other !== item);
-        if (this.player.lifeMeter < 10) { this.player.lifeMeter += 2; }
-        break;
-      }
-      case 'soda': {
-        audio.play('soda');
-        this.actors = this.actors.filter(other => other !== item);
-        if (this.player.lifeMeter < 10) { this.player.lifeMeter += 1; }
-        break;
-      }
-      default:
-    }
   }
 
 }
