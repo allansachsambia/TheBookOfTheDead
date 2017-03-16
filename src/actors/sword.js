@@ -73,12 +73,15 @@ class Sword {
   swordTouchedActor(actor, sublevel) {
     if (actor.damaged === false) {
       const hit = (increment) => {
+
         if (actor.lifeMeter > 0) {
           audio.play('kill-shot');
           actor.lifeMeter -= 1;
           actor.damaged = true;
           setTimeout(() => { actor.damaged = false; }, 150);
-        } else {
+        }
+
+        if (actor.lifeMeter === 0) {
           sublevel.actors = sublevel.actors.filter(other => other !== actor);
         }
         sublevel.status.score += increment;
