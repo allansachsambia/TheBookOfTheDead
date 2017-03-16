@@ -8,31 +8,9 @@ import { levelInfo } from './globals';
 
 const status = new Status();
 
-const resetStatus = () => {
-  status.mapNumber += 1;
-  status.condition = null;
-  status.time = 10000;
-  status.lifeMeter = 10;
-};
-
-const totalStatusReset = () => {
-  status.lifeMeter = 10;
-  status.name = 'Wanda'.toUpperCase();
-  status.score = 0;
-  status.mapNumber = 0;
-  status.levelNumber = 0;
-  status.time = 10000;
-  status.condition = null;
-};
-/*
-  I need to create a record of the current LEVEL (not sublevel) before it has,
-  iterated, this will allow me to test if the player has passed the level or
-  the sublevel.
-*/
-
 export const animate = (mapNumber = 0) => {
   const sublevel = new Sublevel(maps[mapNumber], mapNumber, status);
-  // audio.playMusic(mapNumber);
+
   const render = new Render(sublevel, status);
   let prevTimeStamp = null;
   const forever = (timeStamp) => {
@@ -54,14 +32,17 @@ export const animate = (mapNumber = 0) => {
         render.clearGame();
         if (sublevel.status.condition === 'lost') {
           audio.pauseMusic(mapNumber);
-          totalStatusReset();
+          status.totalReset();
           displayWinLoseScreen('lose');
         } else if (sublevel.status.condition === 'won sublevel') {
-          resetStatus();
+          status.sublevelReset();
+          animate(mapNumber + 1);
+        } else if (sublevel.status.condition === 'won level') {
+          status.levelReset();
           animate(mapNumber + 1);
         } else if (sublevel.status.condition === 'won') {
+          status.totalReset();
           audio.pauseMusic(mapNumber);
-          totalStatusReset();
           displayWinLoseScreen('win');
         }
         stop = true;

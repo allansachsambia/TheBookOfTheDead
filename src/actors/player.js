@@ -14,12 +14,11 @@ class Player {
   constructor(pos) {
     this.type = 'player';
     this.actorCategory = 'ally';
-    this.size = new Vector(0, 0); // evaluates to (8, 5)
+    this.size = new Vector(0, 0);
     this.innerSize = new Vector(1, 3);
     this.buffer = new Vector(3, 2);
     this.motion = new Vector(0, 0);
     this.obstacle = new Vector(0, 0);
-    this.lifeMeter = 10;
     this.pos = pos.plus(new Vector(0, -0.5));
     this.newPos = null;
     this.coords = {
@@ -192,10 +191,10 @@ class Player {
   }
 
   touchedEnemy(enemy, sublevel) {
-    if (this.lifeMeter > 0) {
+    if (sublevel.status.lifeMeter > 0) {
       if (!this.damaged) {
         audio.play('hurt');
-        this.lifeMeter -= 1;
+        sublevel.status.lifeMeter -= 1;
         this.damaged = true;
         setTimeout(() => {
           this.damaged = false;
@@ -212,7 +211,8 @@ class Player {
       sublevel.actors = sublevel.actors.filter(other => other !== item);
     };
     const addHealth = (amount) => {
-      this.lifeMeter = ((amount + this.lifeMeter) > 10) ? 10 : this.lifeMeter + amount;
+      const status = sublevel.status;
+      status.lifeMeter = ((amount + status.lifeMeter) > 10) ? 10 : status.lifeMeter + amount;
     };
     const type = item.type;
     switch (type) {

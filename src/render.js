@@ -191,33 +191,35 @@ class Render {
   }
 
   drawStatus() {
-    const self = this;
     const wrap = helpers.el('div', 'status');
     const statusElem = wrap.appendChild(helpers.el('div', 'status-life-meter'));
-    for (let i = 0; i < this.level.player.lifeMeter; i += 1) {
+
+    for (let i = 0; i < this.status.lifeMeter; i += 1) {
       statusElem.appendChild(helpers.el('div', 'status-life-meter-partition'));
     }
-    if (this.level.player.lifeMeter < 10) {
-      const emptyElem = 10 - this.level.player.lifeMeter;
+
+    if (this.status.lifeMeter < 10) {
+      const emptyElem = 10 - this.status.lifeMeter;
       for (let i = 0; i < emptyElem; i += 1) {
         statusElem.appendChild(helpers.el('div', 'status-life-meter-partition-empty'));
       }
     }
+
     const scoreElem = wrap.appendChild(helpers.el('div', 'status-score'));
     const scoreTitle = scoreElem.appendChild(helpers.el('div', 'status-score-title'));
     const scoreScore = scoreElem.appendChild(helpers.el('div', 'status-score-score'));
-    scoreTitle.innerHTML = self.status.name;
-    scoreScore.innerHTML = self.status.score;
+    scoreTitle.innerHTML = this.status.name;
+    scoreScore.innerHTML = this.status.score;
     const levelElem = wrap.appendChild(helpers.el('div', 'status-level'));
     const levelTitle = levelElem.appendChild(helpers.el('div', 'status-level-title'));
     const levelLevel = levelElem.appendChild(helpers.el('div', 'status-level-level'));
     levelTitle.innerHTML = 'Level'.toUpperCase();
-    levelLevel.innerHTML = `${self.level.status.levelNumber} - ${maps.length}`;
+    levelLevel.innerHTML = `${this.level.status.levelNumber} - ${this.level.status.sublevelNumber}`;
     const timerElem = wrap.appendChild(helpers.el('div', 'status-timer'));
     const timerTitle = timerElem.appendChild(helpers.el('div', 'status-timer-title'));
     const timerTimer = timerElem.appendChild(helpers.el('div', 'status-timer-timer'));
     timerTitle.innerHTML = 'Time'.toUpperCase();
-    const time = self.status.time.toString();
+    const time = this.status.time.toString();
     const shortTime = time.slice(0, time.length - 2);
     timerTimer.innerHTML = shortTime;
     return wrap;
