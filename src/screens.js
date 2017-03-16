@@ -21,7 +21,7 @@ export const displayIntroScreen = () => {
         pressEnter.style.opacity = '0';
     }
   }, 600);
-  // audio.playIntroMusic();
+  audio.playIntroMusic();
 };
 
 export const clearIntroScreen = () => {
@@ -43,66 +43,31 @@ export const waitToStart = () => {
 };
 
 /*
- * Lose Screen
+ * Display Win Lose Screen
  */
 
-export const clearLoseScreen = () => {
-  const loseScreenWrap = document.querySelector('.lose-screen-wrap');
-  document.body.removeChild(loseScreenWrap);
+export const displayWinLoseScreen = (status) => {
+  const body = document.body;
+  const screenWrap = helpers.el('div', `${status}-screen-wrap`);
+  const screen = helpers.el('div', `${status}-screen`);
+  body.appendChild(screenWrap).appendChild(screen);
+  audio.play(status);
+  clearAndRestart(status);
 };
 
-export const restartOnLose = () => {
-  console.log('????haaaaaah?');
+/*
+ * Clear and Restart
+ */
+
+export const clearAndRestart = (status) => {
   const handler = (e) => {
     const returnKey = 13;
     if (e.keyCode === returnKey) {
-      clearLoseScreen();
+      document.body.removeChild(document.querySelector(`.${status}-screen-wrap`));
       window.removeEventListener('keydown', handler);
       displayIntroScreen();
       waitToStart();
     }
   };
   window.addEventListener('keydown', handler);
-};
-
-export const displayLoseScreen = () => {
-  const body = document.body;
-  const loseScreenWrap = helpers.el('div', 'lose-screen-wrap');
-  const loseScreen = helpers.el('div', 'lose-screen');
-  body.appendChild(loseScreenWrap);
-  loseScreenWrap.appendChild(loseScreen);
-  audio.play('lost');
-  restartOnLose();
-};
-
-/*
- * Win Screen
- */
-
-export const clearWinScreen = () => {
-  const winScreenWrap = document.querySelector('.win-screen-wrap');
-  document.body.removeChild(winScreenWrap);
-};
-
-export const restartOnWin = () => {
-  function handler(e) {
-    const returnKey = 13;
-    if (e.keyCode === returnKey) {
-      clearWinScreen();
-      window.removeEventListener('keydown', handler);
-      displayIntroScreen();
-      waitToStart();
-    }
-  }
-  window.addEventListener('keydown', handler);
-};
-
-export const displayWinScreen = () => {
-  const body = document.body;
-  const winScreenWrap = helpers.el('div', 'win-screen-wrap');
-  const winScreen = helpers.el('div', 'win-screen');
-  const pressEnter = helpers.el('div', 'press-enter');
-  body.appendChild(winScreenWrap).appendChild(winScreen);
-  body.appendChild(winScreenWrap).appendChild(pressEnter);
-  restartOnWin();
 };

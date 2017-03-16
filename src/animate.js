@@ -2,7 +2,7 @@ import Sublevel from './sublevel';
 import Status from './status';
 import Render from './render';
 import maps from './maps';
-import { displayWinScreen, displayLoseScreen } from './screens';
+import { displayWinLoseScreen } from './screens';
 import audio from './audio';
 
 const status = new Status();
@@ -49,14 +49,14 @@ export const animate = (mapNumber = 0) => {
         if (sublevel.status.condition === 'lost') {
           audio.pauseMusic(mapNumber);
           totalStatusReset();
-          displayLoseScreen();
+          displayWinLoseScreen('lose');
         } else if (mapNumber < maps.length - 1) {
           resetStatus();
           animate(mapNumber + 1);
         } else if (sublevel.status.condition === 'won') {
           audio.pauseMusic(mapNumber);
           totalStatusReset();
-          displayWinScreen();
+          displayWinLoseScreen('win');
         }
         stop = true;
       } else {

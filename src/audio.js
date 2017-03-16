@@ -10,8 +10,8 @@ const audio = {
   sounds: {
     music: ['night-time', 'level01', 'intro-music'],
     effects: {
-      lost: ['lost'],
-      touch: ['hurt', 'flag', 'pizza', 'soda', 'kill-shot'],
+      lost: ['win', 'lose'],
+      touch: ['hurt', 'pizza', 'soda', 'kill-shot'],
       items: ['dagger', 'sword'],
       walkingOn: ['grass', 'water', 'wood'],
     },

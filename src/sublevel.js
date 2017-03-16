@@ -212,7 +212,6 @@ class Sublevel {
     const type = item.type;
     switch (type) {
       case 'flag': {
-        audio.play('flag');
         this.actors = this.actors.filter(other => other !== item);
         const flagCollected = !this.actors.some(actor => actor.type === 'flag');
         if (flagCollected) { this.status.condition = 'won'; }
