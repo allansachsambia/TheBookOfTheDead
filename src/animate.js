@@ -10,7 +10,7 @@ const status = new Status();
 
 export const animate = (mapNumber = 0) => {
   const sublevel = new Sublevel(maps[mapNumber], mapNumber, status);
-
+  audio.playMusic(mapNumber);
   const render = new Render(sublevel, status);
   let prevTimeStamp = null;
   const forever = (timeStamp) => {
@@ -39,6 +39,7 @@ export const animate = (mapNumber = 0) => {
           animate(mapNumber + 1);
         } else if (sublevel.status.condition === 'won level') {
           status.levelReset();
+          audio.pauseMusic(mapNumber);
           animate(mapNumber + 1);
         } else if (sublevel.status.condition === 'won') {
           status.totalReset();

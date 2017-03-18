@@ -63,9 +63,9 @@ class Player {
     this.climb(step, sublevel);
     // this.moveDaggers(step, sublevel);
     this.moveSwords(step, sublevel);
-    this.setSize();
+    this.setSize(8,5);
     this.setActionSubtype();
-
+    console.log(this.actionType);
   }
 
   /* ==== HELPERS ==============================================================
@@ -162,7 +162,6 @@ class Player {
       if ((this.speed.y > 0) && (!keys.up)) {
         this.speed.y = 0;
       }
-      console.log(this.obstacle.y.type);
       if (this.obstacle.x && (keys.right || keys.left)) {
         if (this.obstacle.y.type === 'grassyhill') {
           this.pos.y = this.pos.y - 1;
@@ -354,6 +353,24 @@ class Player {
       }
 
       if (this.obstacle.y && this.speed.y > 0) { this.speed.y = -settings.jumpSpeed; }
+      this.speed.x = 0;
+      if (keys.left) { this.speed.x -= settings.speed; }
+      if (keys.right) { this.speed.x += settings.speed; }
+
+      if (keys.left || keys.right) {
+        if (!this.actionSubtype) {
+          this.spriteUpperBound = 6;
+          if (this.spriteNumber >= this.spriteUpperBound) { this.spriteNumber = helpers.pad(1, 3); }
+          this.imageSwap('running', this.spriteUpperBound);
+        }
+        if (this.actionSubtype === 'sword') {
+          this.spriteUpperBound = 4;
+          if (this.spriteNumber >= this.spriteUpperBound) { this.spriteNumber = helpers.pad(1, 3); }
+          this.imageSwap('running', this.spriteUpperBound);
+        }
+      } else {
+        
+      }
     }
   }
 
