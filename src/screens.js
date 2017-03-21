@@ -2,10 +2,6 @@ import { animate } from './animate';
 import audio from './audio';
 import helpers from './helpers';
 
-/*
- * Intro Screen
- */
-
 export const displayIntroScreen = () => {
   const introScreenWrap = helpers.el('div', 'intro-screen-wrap');
   const introScreen = helpers.el('div', 'intro-screen');
@@ -42,23 +38,6 @@ export const waitToStart = () => {
   window.addEventListener('keydown', handler);
 };
 
-/*
- * Display Win Lose Screen
- */
-
-export const displayWinLoseScreen = (status) => {
-  const body = document.body;
-  const screenWrap = helpers.el('div', `${status}-screen-wrap`);
-  const screen = helpers.el('div', `${status}-screen`);
-  body.appendChild(screenWrap).appendChild(screen);
-  audio.play(status);
-  clearAndRestart(status);
-};
-
-/*
- * Clear and Restart
- */
-
 export const clearAndRestart = (status) => {
   const handler = (e) => {
     const returnKey = 13;
@@ -70,4 +49,13 @@ export const clearAndRestart = (status) => {
     }
   };
   window.addEventListener('keydown', handler);
+};
+
+export const displayWinLoseScreen = (status) => {
+  const body = document.body;
+  const screenWrap = helpers.el('div', `${status}-screen-wrap`);
+  const screen = helpers.el('div', `${status}-screen`);
+  body.appendChild(screenWrap).appendChild(screen);
+  audio.play(status);
+  clearAndRestart(status);
 };

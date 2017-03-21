@@ -2,9 +2,6 @@ import _ from 'lodash';
 import helpers from './helpers';
 import keys from './keys';
 
-/**
- * Contains almost all logic pertaining to audio in the app.
- */
 const audio = {
 
   sounds: {
@@ -17,10 +14,6 @@ const audio = {
     },
   },
 
-  /**
-   * An audio preloader that creates and appends nested audio elements as
-   * children of an audio wrapper element which is itself appended to the DOM.
-   */
   preloadAudioElements() {
     document.body.appendChild(helpers.el('div', 'audio-wrap'));
     const createAudioElements = (arr) => {
@@ -39,10 +32,6 @@ const audio = {
     createAudioElements(effects);
   },
 
-  /**
-   * A helper that plays audio elements appended to the DOM, with an option for
-   * looping.
-   */
   play(name, loop) {
     const el = document.querySelector(`.${name}`);
     el.autoplay = true;
@@ -51,31 +40,19 @@ const audio = {
     return el;
   },
 
-  /**
-   * A helper that pauses audio elements appended to the DOM.
-   */
   pause(name) {
     const el = document.querySelector(`.${name}`);
     el.pause();
   },
 
-  /**
-   * Specifically plays the intro music.
-   */
   playIntroMusic() {
     this.play('intro-music', 'loop');
   },
 
-  /**
-   * Specifically pauses the intro music.
-   */
   pauseIntroMusic() {
     this.pause('intro-music', 'loop');
   },
 
-  /**
-   * Switchboard for playing background music.
-   */
   playMusic(mapNumber) {
     switch (mapNumber) {
       case 0: /* First level */
@@ -85,9 +62,6 @@ const audio = {
     }
   },
 
-  /**
-   * Switchboard for pausing background music.
-   */
   pauseMusic(mapNumber) {
     switch (mapNumber) {
       case 0: /* First level */

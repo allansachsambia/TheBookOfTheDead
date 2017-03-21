@@ -17,7 +17,7 @@ class Unstick {
       if (actor.unstick.stuckCheck.check01 === null) {
         actor.unstick.stuckCheck.check01 = actor.pos.x;
       } else if (actor.unstick.stuckCheck.check02 === null) {
-          actor.unstick.stuckCheck.check02 = actor.pos.x;
+        actor.unstick.stuckCheck.check02 = actor.pos.x;
       } else if (actor.unstick.stuckCheck.check03 === null) {
         actor.unstick.stuckCheck.check03 = actor.pos.x;
       } else if (actor.unstick.stuckCheck.check04 === null) {
@@ -42,10 +42,10 @@ class Unstick {
       }
     }
     if (allPositionsFilled()) {
-      var lowCheck = Math.ceil(actor.unstick.stuckCheck.check01);
-      var highCheck = Math.ceil(actor.unstick.stuckCheck.check05);
-      var highestCheck = Math.ceil(actor.unstick.stuckCheck.check06);
-      if ( (lowCheck === highCheck) || (lowCheck === highestCheck) ) {
+      const lowCheck = Math.ceil(actor.unstick.stuckCheck.check01);
+      const highCheck = Math.ceil(actor.unstick.stuckCheck.check05);
+      const highestCheck = Math.ceil(actor.unstick.stuckCheck.check06);
+      if (lowCheck === highCheck || lowCheck === highestCheck) {
         actor.unstick.stuck = true;
       } else {
         actor.unstick.stuck = false;

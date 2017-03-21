@@ -61,11 +61,9 @@ class Player {
     this.crawl();
     this.jump();
     this.climb(step, sublevel);
-    // this.moveDaggers(step, sublevel);
     this.moveSwords(step, sublevel);
     this.setSize(8,5);
     this.setActionSubtype();
-    console.log(this.actionType);
   }
 
   /* ==== HELPERS ==============================================================
@@ -369,7 +367,7 @@ class Player {
           this.imageSwap('running', this.spriteUpperBound);
         }
       } else {
-        
+
       }
     }
   }
