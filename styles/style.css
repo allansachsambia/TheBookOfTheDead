@@ -151,7 +151,7 @@ body {
 .lava  { background: red  }
 .water  { background-color: black }
 .web { background-image: url('./../assets/level-01/spider-web.svg') }
-.level0 .wall  { background-color: black }
+.level0 .wall, .level0 .grassyhill  { background-color: black }
 .level1 .wall, .wood  { background-color: #2d2d2d }
 .grass  { background-color: black }
 .pseudo-wall  { background-color: black }
