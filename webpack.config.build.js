@@ -21,10 +21,10 @@ module.exports = {
   },
   output: {
     filename: "bundle.js",
-    publicPath: "/public"
+    publicPath: "dist"
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "public"),
+    contentBase: path.resolve(__dirname, "dist"),
     historyApiFallback: true,
     disableHostCheck: true,
     inline: true,
