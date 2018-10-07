@@ -1,31 +1,37 @@
-var webpack = require('webpack');
-var path = require('path');
+var webpack = require("webpack");
+var path = require("path");
+
+// console.log(path);
 
 module.exports = {
-  entry: './src/index',
+  entry: {
+    app: "./index.js"
+  },
   module: {
-    loaders: [
-      { test: /\.(jpe?g|png|gif|svg)$/i, loader:'url'},
-      { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
-      { test: /\.css$/, loaders: [ 'style-loader', 'css-loader?importLoaders=1', 'postcss-loader' ] }
+    rules: [
+      { test: /\.(jpe?g|png|gif|svg)$/i, loader: "url-loader" },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        loader: "babel-loader"
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "postcss-loader"]
+      }
     ]
   },
-  resolve: { extensions: ['', '.js', '.jsx'] },
   output: {
-    path: path.join(__dirname, '/dist'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    filename: "bundle.js",
+    publicPath: "/dist"
   },
   devServer: {
+    contentBase: path.resolve(__dirname, "dist"),
+    historyApiFallback: true,
+    disableHostCheck: true,
     inline: true,
-    contentBase: './dist',
     hot: true
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': JSON.stringify('production') } }),
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
-  ]
+  context: path.resolve(__dirname, "src"),
+  mode: "production"
 };

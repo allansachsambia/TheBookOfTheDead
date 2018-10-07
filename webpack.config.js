@@ -1,36 +1,35 @@
-const webpack = require('webpack');
-const path = require('path');
-const WebpackNotifierPlugin = require('webpack-notifier');
+const webpack = require("webpack");
+var path = require("path");
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
-    './src/index',
-  ],
-  module: {
-    loaders: [
-      { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'url' },
-      { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
-      { test: /\.css$/, loaders: ['style-loader', 'css-loader?importLoaders=1', 'postcss-loader'] },
-    ],
+  entry: {
+    app: "./index.js"
   },
-  resolve: { extensions: ['', '.js', '.jsx'] },
+  module: {
+    rules: [
+      { test: /\.(jpe?g|png|gif|svg)$/i, loader: "url-loader" },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        loader: "babel-loader"
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "postcss-loader"]
+      }
+    ]
+  },
   output: {
-    path: path.join(__dirname, '/dist'),
-    publicPath: '/',
-    filename: 'bundle.js',
+    filename: "bundle.js",
+    publicPath: "/"
   },
   devServer: {
+    contentBase: path.resolve(__dirname, "dist"),
     historyApiFallback: true,
-    contentBase: './dist',
-    hot: true,
+    disableHostCheck: true,
+    port: 8000,
+    host: "0.0.0.0"
   },
-  plugins: [
-    new WebpackNotifierPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('development') } }),
-  ],
+  context: path.resolve(__dirname, "src"),
+  mode: "development"
 };
