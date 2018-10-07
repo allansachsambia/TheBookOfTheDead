@@ -1,8 +1,6 @@
 var webpack = require("webpack");
 var path = require("path");
 
-// console.log(path);
-
 module.exports = {
   entry: {
     app: "./index.js"
@@ -23,10 +21,10 @@ module.exports = {
   },
   output: {
     filename: "bundle.js",
-    publicPath: "/dist"
+    publicPath: "/public"
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "dist"),
+    contentBase: path.resolve(__dirname, "public"),
     historyApiFallback: true,
     disableHostCheck: true,
     inline: true,

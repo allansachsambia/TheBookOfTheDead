@@ -3,17 +3,17 @@
   "version": "0.0.1",
   "description": "A demo for a side scroller video game",
   "author": "Allan Sachs-Ambia",
-  "license": "MIT",
+  "license": "ISC",
   "main": "server.js",
   "repository": "",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
     "start": "npm run clean && npm run start:dev",
-    "clean": "rimraf dist/bundle.js",
+    "clean": "rimraf public/bundle.js",
     "start:dev": "webpack-dev-server --mode development",
     "start:prod": "NODE_ENV=production node server.js",
-    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js"
+    "build": "NODE_ENV=production webpack -p --config webpack.config.build.js"
   },
   "devDependencies": {
     "ajv": "^6.5.2",
@@ -64,6 +64,7 @@
     "lodash": "^4.17.11",
     "redux": "^3.0.4",
     "style-loader": "^0.21.0",
+    "uglify-js": "^3.4.9",
     "url-loader": "^1.1.1"
   }
 }

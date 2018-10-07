@@ -24,7 +24,7 @@ module.exports = {
     publicPath: "/"
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "dist"),
+    contentBase: path.resolve(__dirname, "public"),
     historyApiFallback: true,
     disableHostCheck: true,
     port: 8000,
