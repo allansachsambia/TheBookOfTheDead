@@ -3,8 +3,12 @@ class Vector {
     this.x = x;
     this.y = y;
   }
-  plus(step) { return new Vector(this.x + step.x, this.y + step.y); }
-  times(factor) { return new Vector(this.x * factor, this.y * factor); }
+  plus(step) {
+    return new Vector(this.x + step.x, this.y + step.y);
+  }
+  times(factor) {
+    return new Vector(this.x * factor, this.y * factor);
+  }
 }
 
 export default Vector;

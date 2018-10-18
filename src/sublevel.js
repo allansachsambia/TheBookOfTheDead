@@ -1,42 +1,33 @@
-import Vector from './vector';
-import { settings, actorChars, obstacleChars } from './globals';
-import helpers from './helpers';
-import audio from './audio';
-import keys from './keys';
+import Vector from "./vector";
+import { settings, actorChars, obstacleChars } from "./globals";
+import audio from "./audio";
+import keys from "./keys";
 
 class Sublevel {
-
   constructor(map, mapNumber, status) {
     this.mapNumber = mapNumber;
     this.map = map;
     this.width = map[0].length;
     this.height = map.length;
-    this.typeMap = [];
     this.actors = [];
-    for (let y = 0; y < this.height; y += 1) {
-      const line = map[y];
-      const gridLine = [];
-      for (let x = 0; x < this.width; x += 1) {
-        const character = line[x];
-        const Actor = actorChars[character];
-        let type = null;
+
+    this.typeMap = map.map((row, y) => {
+      return row.split("").map((char, x) => {
+        const Actor = actorChars[char];
         if (Actor) {
-          this.actors.push(new Actor(new Vector(x, y), character));
+          this.actors.push(new Actor(new Vector(x, y), char));
         }
-        Object.keys(obstacleChars).forEach((key) => {
-          if (character === key) { type = obstacleChars[key]; }
-        });
-        gridLine.push(type);
-      }
-      this.typeMap.push(gridLine);
-    }
-    this.player = this.actors.filter(actor => actor.type === 'player')[0];
+        return obstacleChars[char] ? obstacleChars[char] : null;
+      });
+    });
+
+    this.player = this.actors.filter(actor => actor.type === "player")[0];
     this.status = status;
   }
 
   animate(step) {
     this.statusTimer();
-    this.actors.forEach((actor) => {
+    this.actors.forEach(actor => {
       if (actor.act) {
         actor.act(step, this);
       }
@@ -46,28 +37,32 @@ class Sublevel {
   statusTimer() {
     this.status.time = this.status.time - 1;
     if (this.status.time === 0) {
-      this.status.condition = 'lost';
+      this.status.condition = "lost";
     }
   }
 
   obstacleAt(newPos, size, buffer) {
     const offScreen = {
       left: Math.floor(newPos.x + 3) < 0,
-      right: Math.ceil((newPos.x + size.x) - 3) > this.width,
+      right: Math.ceil(newPos.x + size.x - 3) > this.width,
       top: Math.floor(newPos.y) < 0,
-      bottom: Math.ceil(newPos.y + size.y) > this.height,
+      bottom: Math.ceil(newPos.y + size.y) > this.height
     };
     const coordsOffScreen = offScreen.left || offScreen.top || offScreen.right;
-    if (coordsOffScreen) { return 'wall'; }
-    const actorHasFallen = Math.ceil(newPos.y + size.y) > this.height
-    if (actorHasFallen) { return 'fallen'; }
+    if (coordsOffScreen) {
+      return "wall";
+    }
+    const actorHasFallen = Math.ceil(newPos.y + size.y) > this.height;
+    if (actorHasFallen) {
+      return "fallen";
+    }
 
     const newCoords = {
       left: Math.floor(newPos.x) + buffer.x,
-      right: Math.ceil(newPos.x + size.x)  - buffer.x,
+      right: Math.ceil(newPos.x + size.x) - buffer.x,
       top: Math.floor(newPos.y),
-      bottom: Math.ceil(newPos.y + size.y),
-    }
+      bottom: Math.ceil(newPos.y + size.y)
+    };
     for (let y = newCoords.top; y < newCoords.bottom; y += 1) {
       for (let x = newCoords.left; x < newCoords.right; x += 1) {
         if (this.typeMap[y] && this.typeMap[y][x]) {
@@ -83,23 +78,20 @@ class Sublevel {
       const otherActor = this.actors[i];
       const xBuffer = actor.buffer.x + otherActor.buffer.x;
       const yBuffer = actor.buffer.y + otherActor.buffer.y;
-      const actorsOverlap = (
-        actor.coords.right - xBuffer > otherActor.coords.left
-        && actor.coords.left < otherActor.coords.right - xBuffer
-        && actor.coords.bottom > otherActor.coords.top
-        && actor.coords.top + yBuffer < otherActor.coords.bottom
-      );
-      const yOverlap = (
-        actor.coords.bottom > otherActor.coords.top
-        && actor.coords.top < otherActor.coords.bottom
-      )
+      const actorsOverlap =
+        actor.coords.right - xBuffer > otherActor.coords.left &&
+        actor.coords.left < otherActor.coords.right - xBuffer &&
+        actor.coords.bottom > otherActor.coords.top &&
+        actor.coords.top + yBuffer < otherActor.coords.bottom;
+      const yOverlap =
+        actor.coords.bottom > otherActor.coords.top &&
+        actor.coords.top < otherActor.coords.bottom;
       if (otherActor !== actor && actorsOverlap) {
         return otherActor;
       }
     }
     return null;
   }
-
 }
 
-export default Sublevel
+export default Sublevel;

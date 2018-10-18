@@ -1,11 +1,7 @@
-import Vector from './vector';
-import { settings, actorChars, obstacleChars } from './globals';
-import keys from './keys';
-
 class Status {
   constructor() {
     this.lifeMeter = 10;
-    this.name = 'Uta'.toUpperCase();
+    this.name = "Star".toUpperCase();
     this.score = 0;
     this.mapNumber = 0;
     this.levelNumber = 1;
@@ -17,7 +13,7 @@ class Status {
   sublevelReset() {
     this.mapNumber = this.mapNumber;
     this.sublevelNumber += 1;
-    this.levelNumber = (this.levelNumber === 0) ? 1 : this.levelNumber;
+    this.levelNumber = this.levelNumber === 0 ? 1 : this.levelNumber;
     this.condition = null;
   }
 

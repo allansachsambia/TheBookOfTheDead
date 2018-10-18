@@ -1,28 +1,27 @@
-import _ from 'lodash';
-import helpers from './helpers';
-import keys from './keys';
+import _ from "lodash";
+import helpers from "./helpers";
+import keys from "./keys";
 
 const audio = {
-
   sounds: {
-    music: ['night-time', 'level01', 'intro-music'],
+    music: ["night-time", "level01", "intro-music"],
     effects: {
-      lost: ['win', 'lose'],
-      touch: ['hurt', 'pizza', 'soda', 'kill-shot'],
-      items: ['dagger', 'sword'],
-      walkingOn: ['grass', 'grassyhill', 'water', 'wood'],
-    },
+      lost: ["win", "lose"],
+      touch: ["hurt", "pizza", "soda", "kill-shot"],
+      items: ["dagger", "sword"],
+      walkingOn: ["grass", "grassyhill", "water", "wood"]
+    }
   },
 
   preloadAudioElements() {
-    document.body.appendChild(helpers.el('div', 'audio-wrap'));
-    const createAudioElements = (arr) => {
-      arr.forEach((id) => {
-        const el = helpers.el('audio', `${id}`);
-        document.querySelector('.audio-wrap').appendChild(el);
-        const audioSource = document.createElement('source');
+    document.body.appendChild(helpers.el("div", "audio-wrap"));
+    const createAudioElements = arr => {
+      arr.forEach(id => {
+        const el = helpers.el("audio", `${id}`);
+        document.querySelector(".audio-wrap").appendChild(el);
+        const audioSource = document.createElement("source");
         audioSource.src = `./audio/${id}.mp3`;
-        audioSource.type = 'audio/mpeg';
+        audioSource.type = "audio/mpeg";
         el.appendChild(audioSource);
       });
     };
@@ -46,17 +45,17 @@ const audio = {
   },
 
   playIntroMusic() {
-    this.play('intro-music', 'loop');
+    this.play("intro-music", "loop");
   },
 
   pauseIntroMusic() {
-    this.pause('intro-music', 'loop');
+    this.pause("intro-music", "loop");
   },
 
   playMusic(mapNumber) {
     switch (mapNumber) {
-      case 0: /* First level */
-        this.play('level01', 'loop');
+      case 0:
+        this.play("level01", "loop");
         break;
       default:
     }
@@ -64,11 +63,11 @@ const audio = {
 
   pauseMusic(mapNumber) {
     switch (mapNumber) {
-      case 0: /* First level */
-        this.pause('level01', 'loop');
+      case 0:
+        this.pause("level01", "loop");
         break;
-      case 1: /* First level */
-        this.pause('level01', 'loop');
+      case 1:
+        this.pause("level01", "loop");
         break;
       default:
     }
@@ -87,8 +86,8 @@ const audio = {
         audioEl.play();
       }
     };
-    const resetAndPauseWalkingSound = (sound) => {
-      this.pause(sound, 'loop');
+    const resetAndPauseWalkingSound = sound => {
+      this.pause(sound, "loop");
       this.walkingSoundsStore = [];
     };
     if (obstacle && (keys.right || keys.left)) {
@@ -103,11 +102,11 @@ const audio = {
         }
       }
     } else {
-      this.sounds.effects.walkingOn.forEach((sound) => {
+      this.sounds.effects.walkingOn.forEach(sound => {
         resetAndPauseWalkingSound(sound);
       });
     }
-  },
+  }
 };
 
 export default audio;
